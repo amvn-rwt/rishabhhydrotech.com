@@ -1,0 +1,18 @@
+import type { Product } from "@/lib/types/product.types";
+
+type ProductCardProps = {
+  product: Product;
+};
+
+export function ProductCard({ product }: ProductCardProps) {
+  return (
+    <article className="border border-border bg-white">
+      <div className="aspect-square border-b border-border bg-brand-muted" aria-hidden="true" />
+      <div className="px-3 py-3">
+        <h3 className="text-sm font-semibold leading-snug text-neutral-dark">
+          {product.name}
+        </h3>
+      </div>
+    </article>
+  );
+}
