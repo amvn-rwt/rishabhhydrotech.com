@@ -22,7 +22,7 @@ export function CatalogueHeader({
     <header className="border-b border-border bg-white">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <nav aria-label="Breadcrumb" className="mb-4">
-          <ol className="flex flex-wrap items-center gap-2 text-sm text-neutral-mid">
+          <ol className="type-body-sm flex flex-wrap items-center gap-2 text-neutral-mid">
             {breadcrumbs.map((crumb, index) => {
               const isLast = index === breadcrumbs.length - 1;
 
@@ -49,14 +49,14 @@ export function CatalogueHeader({
 
         <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h1 className="text-2xl font-bold tracking-tight text-neutral-dark sm:text-3xl">
+            <h1 className="type-h1 text-neutral-dark">
               {title}
             </h1>
-            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-neutral-mid sm:text-base">
+            <p className="type-lead mt-2 max-w-3xl text-neutral-mid">
               {description}
             </p>
           </div>
-          <p className="text-sm text-neutral-mid">
+          <p className="type-body-sm text-neutral-mid">
             {productCount} {productCount === 1 ? "product" : "products"}
           </p>
         </div>

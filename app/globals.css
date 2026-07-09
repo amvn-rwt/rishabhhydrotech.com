@@ -18,6 +18,111 @@
   --space-10: 2.5rem; /* 40px */
   --space-12: 3rem; /* 48px */
   --space-16: 4rem; /* 64px */
+
+  /* Typography — primitive size scale */
+  --font-size-xs: 0.75rem; /* 12px */
+  --font-size-sm: 0.875rem; /* 14px */
+  --font-size-base: 1rem; /* 16px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --font-size-5xl: 3rem; /* 48px */
+
+  /* Typography — primitive weights */
+  --weight-normal: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  /* Typography — primitive line heights */
+  --line-tight: 1.2;
+  --line-snug: 1.375;
+  --line-normal: 1.5;
+  --line-relaxed: 1.625;
+
+  /* Typography — primitive letter spacing */
+  --letter-tight: -0.025em;
+  --letter-normal: 0em;
+  --letter-wide: 0.025em;
+  --letter-wider: 0.05em;
+
+  /* Typography — layout */
+  --max-width-prose: 72ch;
+
+  /* Typography — semantic compositions (mobile-first; sm+ overrides below) */
+  --type-display-size: var(--font-size-4xl);
+  --type-display-weight: var(--weight-extrabold);
+  --type-display-leading: var(--line-tight);
+  --type-display-tracking: var(--letter-tight);
+
+  --type-h1-size: var(--font-size-4xl);
+  --type-h1-weight: var(--weight-bold);
+  --type-h1-leading: var(--line-tight);
+  --type-h1-tracking: var(--letter-tight);
+
+  --type-h2-size: var(--font-size-3xl);
+  --type-h2-weight: var(--weight-semibold);
+  --type-h2-leading: var(--line-tight);
+  --type-h2-tracking: var(--letter-tight);
+
+  --type-h3-size: var(--font-size-xl);
+  --type-h3-weight: var(--weight-semibold);
+  --type-h3-leading: var(--line-snug);
+  --type-h3-tracking: var(--letter-normal);
+
+  --type-h4-size: var(--font-size-sm);
+  --type-h4-weight: var(--weight-semibold);
+  --type-h4-leading: var(--line-snug);
+  --type-h4-tracking: var(--letter-normal);
+
+  --type-overline-size: var(--font-size-xs);
+  --type-overline-weight: var(--weight-semibold);
+  --type-overline-leading: var(--line-normal);
+  --type-overline-tracking: var(--letter-wide);
+
+  --type-body-size: var(--font-size-base);
+  --type-body-weight: var(--weight-normal);
+  --type-body-leading: var(--line-normal);
+  --type-body-tracking: var(--letter-normal);
+
+  --type-body-sm-size: var(--font-size-sm);
+  --type-body-sm-weight: var(--weight-normal);
+  --type-body-sm-leading: var(--line-normal);
+  --type-body-sm-tracking: var(--letter-normal);
+
+  --type-lead-size: var(--font-size-sm);
+  --type-lead-weight: var(--weight-normal);
+  --type-lead-leading: var(--line-relaxed);
+  --type-lead-tracking: var(--letter-normal);
+
+  --type-caption-size: var(--font-size-xs);
+  --type-caption-weight: var(--weight-normal);
+  --type-caption-leading: var(--line-normal);
+  --type-caption-tracking: var(--letter-normal);
+
+  --type-button-size: var(--font-size-sm);
+  --type-button-weight: var(--weight-semibold);
+  --type-button-leading: var(--line-snug);
+  --type-button-tracking: var(--letter-normal);
+
+  --type-spec-size: var(--font-size-sm);
+  --type-spec-weight: var(--weight-normal);
+  --type-spec-leading: var(--line-normal);
+  --type-spec-tracking: var(--letter-normal);
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --type-display-size: var(--font-size-5xl);
+    --type-h1-size: var(--font-size-5xl);
+    --type-h2-size: var(--font-size-4xl);
+    --type-h3-size: var(--font-size-2xl);
+    --type-lead-size: var(--font-size-base);
+    --type-button-size: var(--font-size-base);
+  }
 }
 
 @theme inline {
@@ -35,6 +140,7 @@
   --color-border: #d1d5db;
   --color-white: #ffffff;
   --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
   --radius-none: 0;
 
   /* Tailwind spacing tokens (p-*, m-*, gap-*, space-y-*, etc.). */
@@ -50,17 +156,152 @@
   --spacing-10: var(--space-10);
   --spacing-12: var(--space-12);
   --spacing-16: var(--space-16);
+
+  /* Typography — Tailwind text size tokens (text-* utilities). */
+  --text-xs: var(--font-size-xs);
+  --text-xs--line-height: var(--line-normal);
+  --text-sm: var(--font-size-sm);
+  --text-sm--line-height: var(--line-normal);
+  --text-base: var(--font-size-base);
+  --text-base--line-height: var(--line-normal);
+  --text-lg: var(--font-size-lg);
+  --text-lg--line-height: var(--line-relaxed);
+  --text-xl: var(--font-size-xl);
+  --text-xl--line-height: var(--line-snug);
+  --text-2xl: var(--font-size-2xl);
+  --text-2xl--line-height: var(--line-tight);
+  --text-3xl: var(--font-size-3xl);
+  --text-3xl--line-height: var(--line-tight);
+  --text-4xl: var(--font-size-4xl);
+  --text-4xl--line-height: var(--line-tight);
+  --text-5xl: var(--font-size-5xl);
+  --text-5xl--line-height: var(--line-tight);
+
+  /* Typography — Tailwind font weight tokens (font-* utilities). */
+  --font-weight-normal: var(--weight-normal);
+  --font-weight-medium: var(--weight-medium);
+  --font-weight-semibold: var(--weight-semibold);
+  --font-weight-bold: var(--weight-bold);
+  --font-weight-extrabold: var(--weight-extrabold);
+
+  /* Typography — Tailwind tracking tokens (tracking-* utilities). */
+  --tracking-tight: var(--letter-tight);
+  --tracking-normal: var(--letter-normal);
+  --tracking-wide: var(--letter-wide);
+  --tracking-wider: var(--letter-wider);
+
+  /* Typography — Tailwind leading tokens (leading-* utilities). */
+  --leading-tight: var(--line-tight);
+  --leading-snug: var(--line-snug);
+  --leading-normal: var(--line-normal);
+  --leading-relaxed: var(--line-relaxed);
+
+  /* Typography — prose width (max-w-prose utility). */
+  --max-width-prose: var(--max-width-prose);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
-  line-height: 1.5;
+  font-size: var(--type-body-size);
+  font-weight: var(--type-body-weight);
+  line-height: var(--type-body-leading);
+  letter-spacing: var(--type-body-tracking);
 }
 
 *,
 *::before,
 *::after {
   border-radius: 0;
+}
+
+/* Semantic typography utilities — compose tokens into ready-to-use styles. */
+@layer components {
+  .type-display {
+    font-size: var(--type-display-size);
+    font-weight: var(--type-display-weight);
+    line-height: var(--type-display-leading);
+    letter-spacing: var(--type-display-tracking);
+  }
+
+  .type-h1 {
+    font-size: var(--type-h1-size);
+    font-weight: var(--type-h1-weight);
+    line-height: var(--type-h1-leading);
+    letter-spacing: var(--type-h1-tracking);
+  }
+
+  .type-h2 {
+    font-size: var(--type-h2-size);
+    font-weight: var(--type-h2-weight);
+    line-height: var(--type-h2-leading);
+    letter-spacing: var(--type-h2-tracking);
+  }
+
+  .type-h3 {
+    font-size: var(--type-h3-size);
+    font-weight: var(--type-h3-weight);
+    line-height: var(--type-h3-leading);
+    letter-spacing: var(--type-h3-tracking);
+  }
+
+  .type-h4 {
+    font-size: var(--type-h4-size);
+    font-weight: var(--type-h4-weight);
+    line-height: var(--type-h4-leading);
+    letter-spacing: var(--type-h4-tracking);
+  }
+
+  .type-overline {
+    font-size: var(--type-overline-size);
+    font-weight: var(--type-overline-weight);
+    line-height: var(--type-overline-leading);
+    letter-spacing: var(--type-overline-tracking);
+    text-transform: uppercase;
+  }
+
+  .type-body {
+    font-size: var(--type-body-size);
+    font-weight: var(--type-body-weight);
+    line-height: var(--type-body-leading);
+    letter-spacing: var(--type-body-tracking);
+  }
+
+  .type-body-sm {
+    font-size: var(--type-body-sm-size);
+    font-weight: var(--type-body-sm-weight);
+    line-height: var(--type-body-sm-leading);
+    letter-spacing: var(--type-body-sm-tracking);
+  }
+
+  .type-lead {
+    font-size: var(--type-lead-size);
+    font-weight: var(--type-lead-weight);
+    line-height: var(--type-lead-leading);
+    letter-spacing: var(--type-lead-tracking);
+  }
+
+  .type-caption {
+    font-size: var(--type-caption-size);
+    font-weight: var(--type-caption-weight);
+    line-height: var(--type-caption-leading);
+    letter-spacing: var(--type-caption-tracking);
+  }
+
+  .type-button {
+    font-size: var(--type-button-size);
+    font-weight: var(--type-button-weight);
+    line-height: var(--type-button-leading);
+    letter-spacing: var(--type-button-tracking);
+  }
+
+  .type-spec {
+    font-family: var(--font-mono);
+    font-size: var(--type-spec-size);
+    font-weight: var(--type-spec-weight);
+    line-height: var(--type-spec-leading);
+    letter-spacing: var(--type-spec-tracking);
+    font-variant-numeric: tabular-nums;
+  }
 }
