@@ -10,7 +10,7 @@
 
 | Area                          | Status                                                                 |
 | ----------------------------- | ---------------------------------------------------------------------- |
-| Design tokens & fonts         | 🔶 Partial — colors + Inter + favicon in place; full type scale pending |
+| Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Inter/JetBrains Mono |
 | Global layout (header/footer) | ⬜ Not started                                                         |
 | Homepage                      | ⬜ Placeholder only                                                    |
 | Product catalogue             | 🔶 Shell + sample data; filters not wired; taxonomy incomplete         |
@@ -82,13 +82,13 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 ### B.1 Brand & design system
 
 - [x] Brand color tokens in `app/globals.css` (`--color-brand`, `--color-accent`, etc.)
-- [x] Inter font via `next/font` in root layout
+- [x] Inter font via `next/font` in root layout (weights 400–800)
 - [x] Base spacing tokens in `globals.css`
 - [x] Favicon — `app/favicon.ico` generated from `public/logo.png`
 - [x] Apple touch icon — `app/icon.png` (Next.js file-based metadata)
 - [x] Site icons — file-based metadata in `app/` (`favicon.ico` + `icon.png`)
-- [ ] Full typography scale utilities (H1–H3, body, caption, button) documented in CSS/Tailwind
-- [ ] JetBrains Mono or tabular nums for spec tables (optional)
+- [x] Full typography scale in `app/globals.css` — primitive tokens, semantic `--type-*` compositions, Tailwind `@theme` mappings, and `type-*` utility classes (display, H1–H4, body, lead, caption, button, spec)
+- [x] JetBrains Mono via `next/font` + `type-spec` utility (tabular nums for spec tables)
 - [ ] Shared UI primitives in `components/ui/`:
   - [ ] `Button` (primary accent, secondary outline, ghost)
   - [ ] `Card`
