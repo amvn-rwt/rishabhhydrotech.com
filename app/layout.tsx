@@ -14,6 +14,10 @@ export const metadata: Metadata = {
   },
   description:
     "Hydraulic & Pneumatic Solutions — Pumps, Valves, Hoses & More.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
