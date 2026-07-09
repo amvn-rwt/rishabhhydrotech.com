@@ -10,7 +10,7 @@
 
 | Area                          | Status                                                                 |
 | ----------------------------- | ---------------------------------------------------------------------- |
-| Design tokens & fonts         | 🔶 Partial — colors + Inter in place; favicon, full type scale pending |
+| Design tokens & fonts         | 🔶 Partial — colors + Inter + favicon in place; full type scale pending |
 | Global layout (header/footer) | ⬜ Not started                                                         |
 | Homepage                      | ⬜ Placeholder only                                                    |
 | Product catalogue             | 🔶 Shell + sample data; filters not wired; taxonomy incomplete         |
@@ -84,9 +84,9 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 - [x] Brand color tokens in `app/globals.css` (`--color-brand`, `--color-accent`, etc.)
 - [x] Inter font via `next/font` in root layout
 - [x] Base spacing tokens in `globals.css`
-- [ ] Favicon — square crop of logo "R" mark
-- [ ] Apple touch icon
-- [ ] `metadata` icons in root layout
+- [x] Favicon — `app/favicon.ico` generated from `public/logo.png`
+- [x] Apple touch icon — `app/icon.png` (Next.js file-based metadata)
+- [x] Site icons — file-based metadata in `app/` (`favicon.ico` + `icon.png`)
 - [ ] Full typography scale utilities (H1–H3, body, caption, button) documented in CSS/Tailwind
 - [ ] JetBrains Mono or tabular nums for spec tables (optional)
 - [ ] Shared UI primitives in `components/ui/`:
@@ -397,7 +397,7 @@ Use this when picking up work; reorder as client deliverables arrive.
 
 1. ⬜ Header + Footer + root layout integration (Phase 0)
 2. ⬜ UI primitives (`Button`, `Input`, etc.) (Phase 0)
-3. ⬜ Favicon + site metadata icons (Phase 0)
+3. ✅ Favicon + site metadata icons (Phase 0)
 4. ⬜ Full hydraulic taxonomy in `lib/data/` (Phase 0)
 5. ⬜ Wire catalogue filters to URL + product list (Phase 2)
 6. ⬜ Hydraulic division landing — category card grid (Phase 2)
@@ -425,7 +425,9 @@ lib/
   types/        ✅ product.types.ts
 app/
   page.tsx      🔶 placeholder homepage
-  layout.tsx    🔶 root layout, no header/footer yet
+  layout.tsx    🔶 root layout + favicon; no header/footer yet
+  favicon.ico   ✅
+  icon.png      ✅
   products/     🔶 catalogue routes
   inquiry/      ⬜
   contact/      ⬜
@@ -435,7 +437,6 @@ app/
   api/inquiry/  ⬜
 public/
   logo.png      ✅
-  favicon.ico   ⬜
 ```
 
 ---
