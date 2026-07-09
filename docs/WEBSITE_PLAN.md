@@ -827,6 +827,8 @@ Related categories
 
 ## 17. Next Steps
 
+> **Task tracker:** See [WEBSITE_TODO.md](./WEBSITE_TODO.md) for the full actionable checklist (phases, components, routes, client deliverables, and current build status).
+
 1. **Review this document** with client — fill `[DECIDE]` and `[NEED FROM CLIENT]` items
 2. **Collect logo + contact details + hero images**
 3. **Confirm pneumatic product list** — review draft in §6.3, send client's actual makes/types/sizes
