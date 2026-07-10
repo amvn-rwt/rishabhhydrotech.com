@@ -14,6 +14,7 @@ export const primaryNav: NavItem[] = [
     label: "Products",
     href: "/products",
     children: [
+      { label: "All Products", href: "/products" },
       { label: "Hydraulic Products", href: "/products/hydraulic" },
       { label: "Pneumatic Products", href: "/products/pneumatic" },
     ],
@@ -22,17 +23,6 @@ export const primaryNav: NavItem[] = [
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
-
-/** Catalogue CTA dropdown in the header. */
-export const catalogueNav: NavItem = {
-  label: "Products Catalogue",
-  href: "/products",
-  children: [
-    { label: "All Products", href: "/products" },
-    { label: "Hydraulic Products", href: "/products/hydraulic" },
-    { label: "Pneumatic Products", href: "/products/pneumatic" },
-  ],
-};
 
 export const ctaNav: NavLink = {
   label: "Get Best Price",

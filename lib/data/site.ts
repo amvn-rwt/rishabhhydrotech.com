@@ -3,12 +3,12 @@
  * Phone / WhatsApp / email / address are empty until the client delivers them (see WEBSITE_TODO §A.2).
  */
 export const siteConfig = {
-  name: "Rishabh Hydro Tech",
+  name: "Rishabh Hydro Tech Engineers",
   shortName: "Rishabh",
-  tagline: "Hydraulic & Pneumatic Solutions",
+  tagline: "Hydraulic & Pneumatic Solutions — Pumps, Valves, Hoses & More",
   logo: {
     src: "/logo.png",
-    alt: "Rishabh Hydro Tech logo",
+    alt: "Rishabh Hydro Tech Engineers logo",
     width: 40,
     height: 40,
   },

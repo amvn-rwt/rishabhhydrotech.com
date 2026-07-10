@@ -29,10 +29,10 @@ export function Header() {
               />
             </span>
             <span className="min-w-0">
-              <span className="block truncate text-sm font-bold leading-tight tracking-tight sm:text-base">
+              <span className="block text-sm font-bold leading-tight tracking-tight sm:text-base">
                 {siteConfig.name}
               </span>
-              <span className="hidden truncate text-xs text-white/75 sm:block">
+              <span className="hidden text-xs text-white/75 sm:block">
                 {siteConfig.tagline}
               </span>
             </span>

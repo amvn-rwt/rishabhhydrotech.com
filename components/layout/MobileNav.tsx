@@ -21,7 +21,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import {
-  catalogueNav,
   ctaNav,
   isNavActive,
   mobileCategoryLinks,
@@ -111,23 +110,13 @@ export function MobileNav() {
             ))}
           </nav>
 
-          <div className="flex flex-col gap-2">
-            <Button
-              render={<Link href={catalogueNav.href} onClick={close} />}
-              nativeButton={false}
-              variant="outline"
-              className="w-full justify-center"
-            >
-              {catalogueNav.label}
-            </Button>
-            <Button
-              render={<Link href={ctaNav.href} onClick={close} />}
-              nativeButton={false}
-              className="w-full justify-center bg-accent text-white hover:bg-accent-hover"
-            >
-              {ctaNav.label}
-            </Button>
-          </div>
+          <Button
+            render={<Link href={ctaNav.href} onClick={close} />}
+            nativeButton={false}
+            className="w-full justify-center bg-accent text-white hover:bg-accent-hover"
+          >
+            {ctaNav.label}
+          </Button>
 
           <div className="flex flex-col gap-2">
             <p className="type-overline text-muted-foreground">Categories</p>

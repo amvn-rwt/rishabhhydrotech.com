@@ -1,4 +1,4 @@
-# Rishabh Hydro Tech — Website Planning Document
+# Rishabh Hydro Tech Engineers — Website Planning Document
 
 > **Purpose:** Single source of truth for design, content, structure, and technical decisions before incremental development begins.  
 > **Status:** Draft — decisions marked with `[DECIDE]` need client/stakeholder input.  
@@ -42,10 +42,12 @@
 
 ## 3. Brand Identity
 
-### 3.1 Company positioning (draft — refine with client)
+### 3.1 Company positioning
 
-**Working tagline options** `[DECIDE]`:
+**Tagline** ✅ client selected:
 - "Hydraulic & Pneumatic Solutions — Pumps, Valves, Hoses & More"
+
+**Other options considered:**
 - "Your Partner for Industrial Hydraulics & Pneumatics"
 - "Quality Components. Trusted Brands. Local Support."
 
@@ -75,8 +77,8 @@
 | Dark-bg version | `[DECIDE]` | Only if footer/header uses dark blue — may need flat/reversed mark |
 | SVG | `[NEED FROM CLIENT]` | Sharper at all sizes; request from designer if available |
 
-**Header pairing:** Logo alone may not read as "Rishabh Hydro Tech" — show **wordmark text beside logo** in header:
-`[R logo]  Rishabh Hydro Tech` (company name in bold sans-serif, optional tagline below in smaller gray text).
+**Header pairing:** Logo alone may not read as "Rishabh Hydro Tech Engineers" — show **wordmark text beside logo** in header:
+`[R logo]  Rishabh Hydro Tech Engineers` (company name in bold sans-serif, optional tagline below in smaller gray text).
 
 **Note:** The mark closely resembles the [R Project](https://www.r-project.org/logo/) logo (programming language). It works well as an **"R" monogram for Rishabh**, but confirm with the client that this is their intended long-term brand mark and they are comfortable with it.
 

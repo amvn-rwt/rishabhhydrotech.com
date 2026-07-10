@@ -13,7 +13,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
-  catalogueNav,
   ctaNav,
   isNavActive,
   primaryNav,
@@ -21,13 +20,7 @@ import {
 } from "@/lib/data/navigation";
 import { cn } from "@/lib/utils";
 
-function NavDropdown({
-  item,
-  triggerClassName,
-}: {
-  item: NavItem;
-  triggerClassName?: string;
-}) {
+function NavDropdown({ item }: { item: NavItem }) {
   const pathname = usePathname();
   const active =
     isNavActive(pathname, item.href) ||
@@ -38,8 +31,7 @@ function NavDropdown({
       <DropdownMenuTrigger
         className={cn(
           "inline-flex items-center gap-1 type-button text-white/90 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60",
-          active && "text-white",
-          triggerClassName
+          active && "text-white"
         )}
       >
         {item.label}
@@ -73,11 +65,6 @@ export function DesktopNav() {
       aria-label="Primary"
       className="hidden items-center gap-5 lg:flex xl:gap-6"
     >
-      <NavDropdown
-        item={catalogueNav}
-        triggerClassName="border border-white/25 bg-white/10 px-2.5 py-1.5 hover:bg-white/15"
-      />
-
       {primaryNav.map((item) =>
         item.children ? (
           <NavDropdown key={item.href} item={item} />

@@ -1,4 +1,4 @@
-# Rishabh Hydro Tech — Website Task List
+# Rishabh Hydro Tech Engineers — Website Task List
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
@@ -30,7 +30,7 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 
 ### A.1 Open decisions `[DECIDE]`
 
-- [ ] **Tagline** — pick one from options in [WEBSITE_PLAN.md §3.1](./WEBSITE_PLAN.md#31-company-positioning-draft--refine-with-client)
+- [x] **Tagline** — "Hydraulic & Pneumatic Solutions — Pumps, Valves, Hoses & More" (client selected)
 - [ ] **Primary nav labels** — exact wording for Products dropdown, Brands link (optional), CTA label
 - [ ] **Catalogue depth** — category pages only (recommended) vs individual SKU pages for v1
 - [ ] **URL depth** — category + type pages with filters vs deeper slug trees

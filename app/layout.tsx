@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Geist } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { SkipToContent } from "@/components/layout/SkipToContent";
+import { siteConfig } from "@/lib/data/site";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
-
 const inter = Inter({
-  variable: "--font-inter",
+  variable: "--font-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
@@ -22,11 +21,10 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Rishabh Hydro Tech",
-    template: "%s | Rishabh Hydro Tech",
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
-  description:
-    "Hydraulic & Pneumatic Solutions — Pumps, Valves, Hoses & More.",
+  description: siteConfig.tagline,
 };
 
 export default function RootLayout({
@@ -42,8 +40,7 @@ export default function RootLayout({
         "antialiased",
         inter.variable,
         jetbrainsMono.variable,
-        "font-sans",
-        geist.variable
+        "font-sans"
       )}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
