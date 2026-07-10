@@ -1,6 +1,6 @@
 /**
  * Site-wide company and contact config.
- * Phone / WhatsApp / email are empty until the client delivers them (see WEBSITE_TODO §A.2).
+ * Phone / WhatsApp / email / address are empty until the client delivers them (see WEBSITE_TODO §A.2).
  */
 export const siteConfig = {
   name: "Rishabh Hydro Tech",
@@ -21,12 +21,33 @@ export const siteConfig = {
     whatsapp: "" as string,
     email: "" as string,
   },
+  address: {
+    /** Display lines, e.g. ["Street", "City, State PIN"] */
+    lines: [] as readonly string[],
+    /** Optional Google Maps URL */
+    mapsUrl: "" as string,
+  },
+  /** Optional identifiers for footer display (see WEBSITE_TODO §A.3). */
+  legal: {
+    gst: "" as string,
+    msme: "" as string,
+  },
 } as const;
 
 export type SiteContact = typeof siteConfig.contact;
+export type SiteAddress = typeof siteConfig.address;
+export type SiteLegal = typeof siteConfig.legal;
 
 export function hasContactDetails(contact: SiteContact = siteConfig.contact) {
   return Boolean(contact.phone || contact.whatsapp || contact.email);
+}
+
+export function hasAddress(address: SiteAddress = siteConfig.address) {
+  return address.lines.length > 0;
+}
+
+export function hasLegalIds(legal: SiteLegal = siteConfig.legal) {
+  return Boolean(legal.gst || legal.msme);
 }
 
 export function telHref(phoneTel: string) {

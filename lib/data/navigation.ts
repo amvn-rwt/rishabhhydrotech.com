@@ -50,7 +50,7 @@ export const mobileCategoryLinks: NavLink[] = [
   { label: "Pneumatic Valves", href: "/products/pneumatic/valves" },
 ];
 
-/** Footer quick links (used when Footer ships). */
+/** Footer quick links. */
 export const footerProductLinks: NavLink[] = [
   { label: "Hydraulic Products", href: "/products/hydraulic" },
   { label: "Pneumatic Products", href: "/products/pneumatic" },

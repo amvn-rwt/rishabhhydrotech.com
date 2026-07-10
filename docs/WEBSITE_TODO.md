@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** 10 July 2026
+> **Last updated:** 10 July 2026 (Footer shell complete — Phase 0 layout)
 
 ---
 
@@ -11,7 +11,7 @@
 | Area                          | Status                                                                 |
 | ----------------------------- | ---------------------------------------------------------------------- |
 | Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Inter/JetBrains Mono + shadcn UI primitives |
-| Global layout (header/footer) | 🔶 Header shell done (TopBar, Header, MobileNav, skip link); Footer ⬜   |
+| Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
 | Homepage                      | ⬜ Placeholder only                                                    |
 | Product catalogue             | 🔶 Shell + sample data; filters not wired; taxonomy incomplete         |
 | Inquiry & contact             | ⬜ Not started                                                         |
@@ -99,16 +99,16 @@ These unblock content, copy, and several technical choices. Track in meetings; m
   - [x] `Field`, `Label`, `Checkbox`, `Separator` (forms & filters)
   - [x] `DropdownMenu` (header Products / Catalogue menus)
 
-### B.2 Global layout shell 🔶
+### B.2 Global layout shell ✅
 
 - [x] `components/layout/TopBar.tsx` — phone, WhatsApp, email strip (optional; hidden until contact details in `lib/data/site.ts`)
 - [x] `components/layout/Header.tsx` — logo + wordmark, search bar, catalogue CTA, primary nav, "Get Best Price"
 - [x] `components/layout/DesktopNav.tsx` — desktop nav + Products / Catalogue dropdowns + active route state
 - [x] `components/layout/MobileNav.tsx` — hamburger drawer, categories, contact shortcuts
 - [x] `components/layout/SkipToContent.tsx` — skip-to-content link (accessibility)
-- [x] `lib/data/site.ts` — company name, tagline, logo, contact placeholders
-- [ ] `components/layout/Footer.tsx` — address, phone, email, WhatsApp, quick links, copyright
-- [x] Wire header into `app/layout.tsx` (all pages) — footer pending
+- [x] `lib/data/site.ts` — company name, tagline, logo, contact / address / legal placeholders
+- [x] `components/layout/Footer.tsx` — address, phone, email, WhatsApp, quick links, copyright
+- [x] Wire header + footer into `app/layout.tsx` (all pages)
 - [x] Active nav state for current route
 - [x] Skip-to-content link wired to `#main-content` in root layout
 - [ ] Responsive breakpoints tested (mobile-first)
@@ -165,7 +165,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
   - [ ] 2–3 paragraphs + "Learn more" → `/about`
 - [ ] **§8 Inquiry CTA band** (`components/home/InquiryCTA.tsx`) (P0)
   - [ ] Full-width orange band, phone + WhatsApp + form link
-- [ ] **§9 Footer** — depends on Phase 0 layout (P0)
+- [x] **§9 Footer** — global footer from Phase 0 (wired in root layout)
 - [ ] Homepage-specific `metadata` (title, description, OG image)
 
 ---
@@ -271,9 +271,9 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 ### E.4 Contact shortcuts (site-wide)
 
 - [ ] `components/inquiry/WhatsAppButton.tsx` — floating button on mobile (if approved)
-- [ ] WhatsApp link in header, footer, top bar
-- [ ] Phone link in header/footer
-- [ ] "Get Best Price" buttons site-wide → `/inquiry` or modal
+- [x] WhatsApp link in TopBar, Footer, MobileNav (shows when `siteConfig.contact.whatsapp` is set)
+- [x] Phone link in TopBar, Footer, MobileNav (shows when phone is set)
+- [ ] "Get Best Price" buttons site-wide → `/inquiry` or modal (header + footer done; product pages pending)
 
 ---
 
@@ -367,7 +367,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 
 ### H.4 Content & legal
 
-- [ ] Copyright year in footer
+- [x] Copyright year in footer
 - [ ] Privacy note for inquiry form (data use) if required
 - [ ] 404 page (`app/not-found.tsx`) with links home + catalogue + contact
 - [ ] 500 / error boundary styling
@@ -402,7 +402,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 Use this when picking up work; reorder as client deliverables arrive.
 
 1. ✅ Header + TopBar + MobileNav + root layout integration (Phase 0)
-2. ⬜ Footer + wire into root layout (Phase 0)
+2. ✅ Footer + wire into root layout (Phase 0)
 3. ✅ UI primitives (`Button`, `Input`, `DropdownMenu`, etc.) (Phase 0)
 4. ✅ Favicon + site metadata icons (Phase 0)
 5. ⬜ Full hydraulic taxonomy in `lib/data/` (Phase 0)
@@ -421,7 +421,7 @@ Planned structure from [WEBSITE_PLAN.md §11.3](./WEBSITE_PLAN.md#113-component-
 
 ```
 components/
-  layout/       🔶 Header, DesktopNav, TopBar, MobileNav, SkipToContent ✅; Footer ⬜
+  layout/       ✅ Header, DesktopNav, TopBar, MobileNav, SkipToContent, Footer
   ui/           ✅ Button, Card, Badge, Input, Textarea, Select, Dialog, Sheet, Field, Label, Checkbox, Separator, DropdownMenu
   home/         ⬜ HeroSlider, CategoryCards, BrandsGrid, InquiryCTA, etc.
   products/     🔶 CatalogueLayout, FilterSidebar, ProductGrid, ProductCard (+ more)
@@ -432,7 +432,7 @@ lib/
   types/        ✅ product.types.ts
 app/
   page.tsx      🔶 placeholder homepage
-  layout.tsx    🔶 root layout + header + skip link + #main-content; footer pending
+  layout.tsx    ✅ root layout + header + footer + skip link + #main-content
   favicon.ico   ✅
   icon.png      ✅
   products/     🔶 catalogue routes
