@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono, Geist } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/layout/Header";
+import { SkipToContent } from "@/components/layout/SkipToContent";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const inter = Inter({
   variable: "--font-inter",
@@ -34,10 +36,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", inter.variable, jetbrainsMono.variable, "font-sans", geist.variable)}
+      className={cn(
+        "h-full",
+        "antialiased",
+        inter.variable,
+        jetbrainsMono.variable,
+        "font-sans",
+        geist.variable
+      )}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
-        {children}
+        <SkipToContent />
+        <Header />
+        <main id="main-content" className="flex flex-1 flex-col">
+          {children}
+        </main>
       </body>
     </html>
   );

@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** July 2026
+> **Last updated:** 10 July 2026
 
 ---
 
@@ -10,8 +10,8 @@
 
 | Area                          | Status                                                                 |
 | ----------------------------- | ---------------------------------------------------------------------- |
-| Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Inter/JetBrains Mono |
-| Global layout (header/footer) | ⬜ Not started                                                         |
+| Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Inter/JetBrains Mono + shadcn UI primitives |
+| Global layout (header/footer) | 🔶 Header shell done (TopBar, Header, MobileNav, skip link); Footer ⬜   |
 | Homepage                      | ⬜ Placeholder only                                                    |
 | Product catalogue             | 🔶 Shell + sample data; filters not wired; taxonomy incomplete         |
 | Inquiry & contact             | ⬜ Not started                                                         |
@@ -79,7 +79,7 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 
 ## B. Phase 0 — Foundation
 
-### B.1 Brand & design system
+### B.1 Brand & design system ✅
 
 - [x] Brand color tokens in `app/globals.css` (`--color-brand`, `--color-accent`, etc.)
 - [x] Inter font via `next/font` in root layout (weights 400–800)
@@ -89,22 +89,28 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 - [x] Site icons — file-based metadata in `app/` (`favicon.ico` + `icon.png`)
 - [x] Full typography scale in `app/globals.css` — primitive tokens, semantic `--type-*` compositions, Tailwind `@theme` mappings, and `type-*` utility classes (display, H1–H4, body, lead, caption, button, spec)
 - [x] JetBrains Mono via `next/font` + `type-spec` utility (tabular nums for spec tables)
-- [ ] Shared UI primitives in `components/ui/`:
-  - [ ] `Button` (primary accent, secondary outline, ghost)
-  - [ ] `Card`
-  - [ ] `Badge`
-  - [ ] `Input`, `Textarea`, `Select`
-  - [ ] `Modal` (for inquiry on product pages)
+- [x] Zero border-radius theme — `--radius: 0` in `globals.css` + global override for hardcoded radii
+- [x] Shared UI primitives in `components/ui/` (shadcn base-nova):
+  - [x] `Button` (default, outline, ghost, secondary, destructive, link)
+  - [x] `Card`
+  - [x] `Badge`
+  - [x] `Input`, `Textarea`, `Select`
+  - [x] `Dialog` (inquiry modal) + `Sheet` (mobile drawer)
+  - [x] `Field`, `Label`, `Checkbox`, `Separator` (forms & filters)
+  - [x] `DropdownMenu` (header Products / Catalogue menus)
 
-### B.2 Global layout shell
+### B.2 Global layout shell 🔶
 
-- [ ] `components/layout/TopBar.tsx` — phone, WhatsApp, email strip (optional)
-- [ ] `components/layout/Header.tsx` — logo + wordmark, nav, search bar, "Products Catalogue", "Get Best Price"
-- [ ] `components/layout/MobileNav.tsx` — hamburger drawer, categories, contact shortcuts
+- [x] `components/layout/TopBar.tsx` — phone, WhatsApp, email strip (optional; hidden until contact details in `lib/data/site.ts`)
+- [x] `components/layout/Header.tsx` — logo + wordmark, search bar, catalogue CTA, primary nav, "Get Best Price"
+- [x] `components/layout/DesktopNav.tsx` — desktop nav + Products / Catalogue dropdowns + active route state
+- [x] `components/layout/MobileNav.tsx` — hamburger drawer, categories, contact shortcuts
+- [x] `components/layout/SkipToContent.tsx` — skip-to-content link (accessibility)
+- [x] `lib/data/site.ts` — company name, tagline, logo, contact placeholders
 - [ ] `components/layout/Footer.tsx` — address, phone, email, WhatsApp, quick links, copyright
-- [ ] Wire header/footer into `app/layout.tsx` (all pages)
-- [ ] Active nav state for current route
-- [ ] Skip-to-content link (accessibility)
+- [x] Wire header into `app/layout.tsx` (all pages) — footer pending
+- [x] Active nav state for current route
+- [x] Skip-to-content link wired to `#main-content` in root layout
 - [ ] Responsive breakpoints tested (mobile-first)
 
 ### B.3 Data model & taxonomy
@@ -112,7 +118,7 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 - [x] `lib/types/product.types.ts` — Product, FilterGroup, CataloguePageConfig
 - [x] Sample products in `lib/data/products.ts` (9 hydraulic + 9 pneumatic placeholders)
 - [x] Sample filters in `lib/data/filters.ts` (subset of categories/brands/types)
-- [ ] `lib/data/navigation.ts` — primary nav, footer links, category quick links
+- [x] `lib/data/navigation.ts` — primary nav, footer links, category quick links
 - [ ] `lib/data/brands.ts` — brand metadata (name, slug, logo, divisions)
 - [ ] Full **hydraulic taxonomy** (13 categories) as structured data:
   - [ ] `pumps` — makes, types (gear / piston / vane + subtypes)
@@ -138,7 +144,7 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-homepage-sections-top-to-bottom)):
 
 - [ ] Replace placeholder `app/page.tsx` with full homepage layout
-- [ ] **§1 Header** — depends on Phase 0 layout (P0)
+- [x] **§1 Header** — global header from Phase 0 (wired in root layout)
 - [ ] **§2 Hero slider** (`components/home/HeroSlider.tsx`) (P0)
   - [ ] 3–5 slides with headline, subtext, CTA
   - [ ] Auto-rotate ~5s, dots/arrows, pause on hover
@@ -391,20 +397,21 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 
 ---
 
-## J. Suggested build order (next 10 tasks)
+## J. Suggested build order
 
 Use this when picking up work; reorder as client deliverables arrive.
 
-1. ⬜ Header + Footer + root layout integration (Phase 0)
-2. ⬜ UI primitives (`Button`, `Input`, etc.) (Phase 0)
-3. ✅ Favicon + site metadata icons (Phase 0)
-4. ⬜ Full hydraulic taxonomy in `lib/data/` (Phase 0)
-5. ⬜ Wire catalogue filters to URL + product list (Phase 2)
-6. ⬜ Hydraulic division landing — category card grid (Phase 2)
-7. ⬜ Hero slider + category cards on homepage (Phase 1)
-8. ⬜ Inquiry form + `/inquiry` page (Phase 3)
-9. ⬜ Contact page with map placeholders (Phase 3)
-10. ⬜ Search bar + `/search` with JSON index (Phase 4)
+1. ✅ Header + TopBar + MobileNav + root layout integration (Phase 0)
+2. ⬜ Footer + wire into root layout (Phase 0)
+3. ✅ UI primitives (`Button`, `Input`, `DropdownMenu`, etc.) (Phase 0)
+4. ✅ Favicon + site metadata icons (Phase 0)
+5. ⬜ Full hydraulic taxonomy in `lib/data/` (Phase 0)
+6. ⬜ Wire catalogue filters to URL + product list (Phase 2)
+7. ⬜ Hydraulic division landing — category card grid (Phase 2)
+8. ⬜ Hero slider + category cards on homepage (Phase 1)
+9. ⬜ Inquiry form + `/inquiry` page (Phase 3)
+10. ⬜ Contact page with map placeholders (Phase 3)
+11. ⬜ Search results page `/search` with JSON index (Phase 4) — header search form already posts to `/search`
 
 ---
 
@@ -414,18 +421,18 @@ Planned structure from [WEBSITE_PLAN.md §11.3](./WEBSITE_PLAN.md#113-component-
 
 ```
 components/
-  layout/       ⬜ Header, Footer, TopBar, MobileNav
-  ui/           ⬜ Button, Card, Badge, Input, Select, Modal
+  layout/       🔶 Header, DesktopNav, TopBar, MobileNav, SkipToContent ✅; Footer ⬜
+  ui/           ✅ Button, Card, Badge, Input, Textarea, Select, Dialog, Sheet, Field, Label, Checkbox, Separator, DropdownMenu
   home/         ⬜ HeroSlider, CategoryCards, BrandsGrid, InquiryCTA, etc.
   products/     🔶 CatalogueLayout, FilterSidebar, ProductGrid, ProductCard (+ more)
   inquiry/      ⬜ InquiryForm, WhatsAppButton
-  search/       ⬜ SearchBar, SearchResults
+  search/       ⬜ SearchBar, SearchResults (header search form exists; results page pending)
 lib/
-  data/         🔶 products.ts, filters.ts, catalogue.ts (+ brands, navigation, taxonomy)
+  data/         🔶 products.ts, filters.ts, catalogue.ts, navigation.ts, site.ts (+ brands, taxonomy)
   types/        ✅ product.types.ts
 app/
   page.tsx      🔶 placeholder homepage
-  layout.tsx    🔶 root layout + favicon; no header/footer yet
+  layout.tsx    🔶 root layout + header + skip link + #main-content; footer pending
   favicon.ico   ✅
   icon.png      ✅
   products/     🔶 catalogue routes
