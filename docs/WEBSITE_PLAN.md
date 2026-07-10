@@ -140,13 +140,13 @@
 
 The logo uses a **bold, heavy sans-serif "R"** — headings should feel similarly strong and industrial; body text stays clean and readable.
 
-**Recommended pairing** `[DECIDE]`:
+**Confirmed pairing** ✅:
 
 | Role | Font | Fallback | Notes |
 |------|------|----------|-------|
 | **Headings** | [Inter](https://fonts.google.com/specimen/Inter) weight 700–800 | system-ui, sans-serif | Matches logo's bold sans feel; Inter 800 for H1 |
 | **Body** | Inter | system-ui, sans-serif | Excellent readability at small sizes |
-| **Mono (specs)** | JetBrains Mono or tabular nums in Inter | monospace | For bore sizes, micron ratings, model numbers |
+| **Mono (specs)** | JetBrains Mono | monospace | For bore sizes, micron ratings, model numbers |
 
 **Type scale (Tailwind-aligned):**
 
@@ -168,12 +168,13 @@ The logo uses a **bold, heavy sans-serif "R"** — headings should feel similarl
 | Type | Guidance |
 |------|----------|
 | **Product photos** | Clean background (white or light grey), consistent aspect ratio (4:3 or 1:1) |
-| **Hero slider** | High-quality shots of pumps, cylinders, power packs, hose assemblies |
+| **Hero slider** | Product photos (client direction) — pumps, cylinders, power packs, hose assemblies |
 | **Brand logos** | Grayscale row of OEM logos (Yuken, Rexroth, Parker, etc.) builds trust |
 | **Factory/team** | Optional for About — humanizes local business |
 | **Placeholders** | Use category-appropriate stock until client provides photos `[NEED FROM CLIENT]` |
 
-`[DECIDE]` Photo shoot vs supplier catalogue images vs stock photography?
+`[DECIDE]` Photo shoot vs supplier catalogue images vs stock photography?  
+**Update (Jul 2026):** Client directed hero slider to use **product images** (not lifestyle/application shots).
 
 ---
 
@@ -590,7 +591,7 @@ Build unique copy for these high-value pages first:
 | Framework | Next.js 16 (App Router) |
 | Language | TypeScript |
 | Styling | Tailwind CSS 4 |
-| Hosting `[DECIDE]` | Vercel (default for Next.js) or client preference |
+| Hosting ✅ | Vercel (client confirmed) |
 | Domain DNS | Point to hosting when ready |
 
 ### 11.2 Data strategy
@@ -680,9 +681,9 @@ Use this as a checklist when meeting the client:
 ## 13. Development Phases (incremental build order)
 
 ### Phase 0 — Foundation
-- [ ] Finalize brand colors, fonts, logo
-- [ ] Design tokens in Tailwind (colors, typography)
-- [ ] Base layout: Header, Footer, responsive shell
+- [x] Finalize brand colors, fonts, logo
+- [x] Design tokens in Tailwind (colors, typography)
+- [x] Base layout: Header, Footer, responsive shell
 - [ ] Product data model + hydraulic taxonomy in JSON/TS
 
 ### Phase 1 — Homepage
@@ -733,7 +734,7 @@ Use this as a checklist when meeting the client:
 | 6 | Floating WhatsApp | Yes / No | Yes on mobile |
 | 7 | Hindi/regional language | English only vs bilingual | English first `[DECIDE]` |
 | 8 | Dark mode | Yes / No | No — unnecessary for B2B industrial |
-| 9 | Hosting | Vercel / other | Vercel |
+| 9 | Hosting | Vercel | Vercel ✅ |
 | 10 | Product images | Client photos / stock | Client photos where possible |
 
 ---
@@ -834,8 +835,8 @@ Related categories
 1. **Review this document** with client — fill `[DECIDE]` and `[NEED FROM CLIENT]` items
 2. **Collect logo + contact details + hero images**
 3. **Confirm pneumatic product list** — review draft in §6.3, send client's actual makes/types/sizes
-4. **Approve color palette and fonts**
-5. **Begin Phase 0** — design tokens + layout shell in codebase
+4. **Approve color palette and fonts** ✅ Inter + JetBrains Mono; brand colors in tokens
+5. **Begin Phase 0** — design tokens + layout shell in codebase (in progress / largely done)
 
 ---
 

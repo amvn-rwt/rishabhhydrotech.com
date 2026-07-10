@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** 10 July 2026 (Footer shell complete — Phase 0 layout)
+> **Last updated:** 10 July 2026 (Hero slider — product-image placeholders)
 
 ---
 
@@ -12,7 +12,7 @@
 | ----------------------------- | ---------------------------------------------------------------------- |
 | Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Inter/JetBrains Mono + shadcn UI primitives |
 | Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
-| Homepage                      | ⬜ Placeholder only                                                    |
+| Homepage                      | 🔶 Hero slider done; remaining sections todo                           |
 | Product catalogue             | 🔶 Shell + sample data; filters not wired; taxonomy incomplete         |
 | Inquiry & contact             | ⬜ Not started                                                         |
 | Search                        | ⬜ Not started                                                         |
@@ -37,13 +37,13 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 - [ ] **Form backend** — Resend + API route (recommended), Formspree, or WhatsApp-only
 - [ ] **Floating WhatsApp button** — yes on mobile (recommended) or no
 - [ ] **Search v1** — client-side JSON index (recommended) vs Fuse.js / Pagefind / Algolia
-- [ ] **Hosting** — Vercel (recommended) or client preference
+- [x] **Hosting** — Vercel (client confirmed)
 - [ ] **Product images** — client photos, supplier catalogue, or stock photography
 - [ ] **Language** — English only for v1 (recommended) vs bilingual
 - [ ] **Dark mode** — no for v1 (recommended)
 - [ ] **Analytics** — GA4, Search Console, optional Meta Pixel / call tracking
 - [ ] **Logo on dark backgrounds** — needed or not (footer/header use steel blue)
-- [ ] **Typography** — confirm Inter for headings + body (recommended in plan)
+- [x] **Typography** — Inter (headings + body) + JetBrains Mono (specs)
 
 ### A.2 Must-have client deliverables (launch blockers)
 
@@ -143,13 +143,13 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 
 Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-homepage-sections-top-to-bottom)):
 
-- [ ] Replace placeholder `app/page.tsx` with full homepage layout
+- [ ] Replace placeholder `app/page.tsx` with full homepage layout (hero wired; other sections pending)
 - [x] **§1 Header** — global header from Phase 0 (wired in root layout)
-- [ ] **§2 Hero slider** (`components/home/HeroSlider.tsx`) (P0)
-  - [ ] 3–5 slides with headline, subtext, CTA
-  - [ ] Auto-rotate ~5s, dots/arrows, pause on hover
-  - [ ] WebP images, lazy-load non-first slides
-  - [ ] Client hero images or approved placeholders
+- [x] **§2 Hero slider** (`components/home/HeroSlider.tsx`) (P0)
+  - [x] 5 slides with headline, subtext, primary + secondary CTA (`lib/data/hero.ts`)
+  - [x] Auto-rotate ~5s, dots/arrows, pause on hover/focus
+  - [x] Image-ready: set `imageSrc` per slide when product photos arrive; first slide `priority`, others lazy via opacity mount
+  - [x] Product-image placeholders until client photos (client direction: use product images for slider)
 - [ ] **§3 Quick category cards** (`components/home/CategoryCards.tsx`) (P0)
   - [ ] Hydraulic / Pneumatic primary cards
   - [ ] Top subcategory links (pumps, valves, hoses, cylinders, etc.)
@@ -374,8 +374,8 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 
 ### H.5 Deployment & launch
 
-- [ ] Production environment on Vercel (or chosen host)
-- [ ] Domain DNS → hosting (`rishabhhydrotech.com`)
+- [ ] Production environment on Vercel
+- [ ] Domain DNS → Vercel (`rishabhhydrotech.com`)
 - [ ] SSL verified
 - [ ] Production env vars (email API, analytics)
 - [ ] Smoke test all forms and links on production URL
