@@ -13,7 +13,7 @@
 | Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Inter/JetBrains Mono + shadcn UI primitives |
 | Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
 | Homepage                      | 🔶 Hero slider done; remaining sections todo                           |
-| Product catalogue             | 🔶 Shell + sample data; filters not wired; taxonomy incomplete         |
+| Product catalogue             | 🔶 Shell + taxonomy/seed data; filters not wired                       |
 | Inquiry & contact             | ⬜ Not started                                                         |
 | Search                        | ⬜ Not started                                                         |
 | About & brands                | ⬜ Not started                                                         |
@@ -113,29 +113,29 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 - [x] Skip-to-content link wired to `#main-content` in root layout
 - [ ] Responsive breakpoints tested (mobile-first)
 
-### B.3 Data model & taxonomy
+### B.3 Data model & taxonomy ✅
 
-- [x] `lib/types/product.types.ts` — Product, FilterGroup, CataloguePageConfig
+- [x] `lib/types/product.types.ts` — Product, FilterGroup, CataloguePageConfig, Brand, taxonomy types
 - [x] Sample products in `lib/data/products.ts` (hydraulic placeholders only; pneumatic deferred)
 - [x] Sample filters in `lib/data/filters.ts` (hydraulic subset; pneumatic deferred)
 - [x] `lib/data/navigation.ts` — primary nav, footer links, category quick links
-- [ ] `lib/data/brands.ts` — brand metadata (name, slug, logo, divisions)
-- [ ] Full **hydraulic taxonomy** (13 categories) as structured data:
-  - [ ] `pumps` — makes, types (gear / piston / vane + subtypes)
-  - [ ] `valves` — makes, types
-  - [ ] `hoses` — makes, types
-  - [ ] `fittings` — makes, types, sizes (metric, inches, BSW, UNF)
-  - [ ] `cylinders` — makes, types, bore/stroke ranges
-  - [ ] `power-packs` — makes, types
-  - [ ] `motors` — makes, sizes (100–3500 cc)
-  - [ ] `accumulators` — makes, types, sizes (1–50 L)
-  - [ ] `filters` — makes, types, micron sizes
-  - [ ] `seals` — types
-  - [ ] `manifolds` — types
-  - [ ] `pressure-gauges` — makes, types, dial sizes
-  - [ ] `heat-exchangers` — types
-- [ ] Category landing copy placeholders (title, intro, SEO blurb per category)
-- [ ] Expand product seed data to cover all categories (or generate from taxonomy)
+- [x] `lib/data/brands.ts` — brand metadata (name, slug, logo, divisions)
+- [x] Full **hydraulic taxonomy** (13 categories) as structured data in `lib/data/taxonomy.ts`:
+  - [x] `pumps` — makes, types (gear / piston / vane + subtypes)
+  - [x] `valves` — makes, types
+  - [x] `hoses` — makes, types
+  - [x] `fittings` — makes, types, sizes (metric, inches, BSW, UNF)
+  - [x] `cylinders` — makes, types, bore/stroke ranges
+  - [x] `power-packs` — makes, types
+  - [x] `motors` — makes, sizes (100–3500 cc)
+  - [x] `accumulators` — makes, types, sizes (1–50 L)
+  - [x] `filters` — makes, types, micron sizes
+  - [x] `seals` — types
+  - [x] `manifolds` — types
+  - [x] `pressure-gauges` — makes, types, dial sizes
+  - [x] `heat-exchangers` — types
+- [x] Category landing copy placeholders (title, intro, SEO blurb per category)
+- [x] Expand product seed data to cover all categories (generated from taxonomy)
 
 ---
 
@@ -391,7 +391,7 @@ Use this when picking up work; reorder as client deliverables arrive.
 2. ✅ Footer + wire into root layout (Phase 0)
 3. ✅ UI primitives (`Button`, `Input`, `DropdownMenu`, etc.) (Phase 0)
 4. ✅ Favicon + site metadata icons (Phase 0)
-5. ⬜ Full hydraulic taxonomy in `lib/data/` (Phase 0)
+5. ✅ Full hydraulic taxonomy in `lib/data/` (Phase 0)
 6. ⬜ Wire catalogue filters to URL + product list (Phase 2)
 7. ⬜ Hydraulic division landing — category card grid (Phase 2)
 8. ⬜ Hero slider + category cards on homepage (Phase 1)
@@ -414,7 +414,7 @@ components/
   inquiry/      ⬜ InquiryForm, WhatsAppButton
   search/       ⬜ SearchBar, SearchResults (header search form exists; results page pending)
 lib/
-  data/         🔶 products.ts, filters.ts, catalogue.ts, navigation.ts, site.ts (+ brands, taxonomy)
+  data/         ✅ products.ts, filters.ts, catalogue.ts, navigation.ts, site.ts, brands.ts, taxonomy.ts, hero.ts
   types/        ✅ product.types.ts
 app/
   page.tsx      🔶 placeholder homepage

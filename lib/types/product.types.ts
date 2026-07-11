@@ -31,3 +31,38 @@ export type CataloguePageConfig = {
   filters: FilterGroup[];
   products: Product[];
 };
+
+/** OEM / house brand metadata (WEBSITE_TODO §B.3). Logos pending client deliverables. */
+export type Brand = {
+  name: string;
+  slug: string;
+  logo: string | null;
+  divisions: ProductDivision[];
+};
+
+/** Nested type / subtype node in the hydraulic taxonomy (WEBSITE_PLAN §6.2). */
+export type TaxonomyTypeNode = {
+  label: string;
+  slug: string;
+  children?: TaxonomyTypeNode[];
+};
+
+/** Category landing copy placeholders (title, intro, SEO blurb). */
+export type CategoryLandingCopy = {
+  title: string;
+  intro: string;
+  seoBlurb: string;
+};
+
+/**
+ * One hydraulic category from the confirmed client taxonomy.
+ * `sizes` holds discrete options or range strings exactly as listed in WEBSITE_PLAN §6.2.
+ */
+export type HydraulicCategoryTaxonomy = {
+  slug: string;
+  name: string;
+  makes: string[];
+  types: TaxonomyTypeNode[];
+  sizes?: string[];
+  copy: CategoryLandingCopy;
+};
