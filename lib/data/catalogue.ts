@@ -59,7 +59,7 @@ export function buildCatalogueConfig({
       title = category.copy.title;
       description = category.copy.intro;
     } else {
-      title = `${categoryLabel} — ${divisionMeta[division].title}`;
+      title = `${categoryLabel}: ${divisionMeta[division].title}`;
       description = `Browse ${categoryLabel.toLowerCase()} in our ${division} product catalogue.`;
     }
 

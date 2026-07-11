@@ -3,7 +3,7 @@ import type {
   TaxonomyTypeNode,
 } from "@/lib/types/product.types";
 
-/** Slugify taxonomy labels for URLs (e.g. "Direction control valve" → "direction-control-valve"). */
+/** Slugify taxonomy labels for URLs (e.g."Direction control valve" → "direction-control-valve"). */
 export function toTaxonomySlug(label: string): string {
   return label
     .trim()
@@ -52,7 +52,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       intro:
         "Gear, piston, and vane pumps from leading hydraulic makes including Yuken, Vickers, Rexroth, and more.",
       seoBlurb:
-        "Browse hydraulic pumps by type — gear, piston, and vane — and by make. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic pumps by type (gear, piston, and vane) and by make.",
     },
   },
   {
@@ -74,7 +74,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       intro:
         "Direction, pressure, check, sequence, and related hydraulic valves from Yuken, Vickers, Rexroth, and other listed makes.",
       seoBlurb:
-        "Browse hydraulic valves including direction control, check, pressure reducing, relief, and related types. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic valves including direction control, check, pressure reducing, relief, and related types.",
     },
   },
   {
@@ -102,7 +102,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       intro:
         "Low, medium, and high pressure hoses plus specialty lines from Parker, Gates, and Polyhose.",
       seoBlurb:
-        "Browse hydraulic hoses by pressure rating and specialty type. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic hoses by pressure rating and specialty type.",
     },
   },
   {
@@ -124,7 +124,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       intro:
         "Elbow, straight, tee, banjo, union, bulkhead, and swivel fittings in metric, inches, BSW, and UNF sizes.",
       seoBlurb:
-        "Browse hydraulic fittings by type and thread size standard. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic fittings by type and thread size standard.",
     },
   },
   {
@@ -137,13 +137,13 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       typeNode("SS magnetic cylinder with sensor"),
       typeNode("Telescopic cylinder"),
     ],
-    sizes: ["Bore: 25–450 mm", "Stroke: 5–6000 mm"],
+    sizes: ["Bore: 25-450 mm", "Stroke: 5-6000 mm"],
     copy: {
       title: "Hydraulic Cylinders",
       intro:
-        "Single acting, double acting, telescopic, and SS magnetic cylinders — bore 25–450 mm, stroke 5–6000 mm.",
+        "Single acting, double acting, telescopic, and SS magnetic cylinders. Bore 25-450 mm, stroke 5-6000 mm.",
       seoBlurb:
-        "Browse hydraulic cylinders by type and size range. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic cylinders by type and size range.",
     },
   },
   {
@@ -160,7 +160,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       intro:
         "AC-driven industrial, DC-driven mobile, and high-pressure heavy-duty power packs from Rishabh Hydro Tech Engineers.",
       seoBlurb:
-        "Browse custom and standard hydraulic power packs by drive type. Placeholder SEO copy pending client category paragraphs.",
+        "Browse custom and standard hydraulic power packs by drive type.",
     },
   },
   {
@@ -176,13 +176,13 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       "Eagle",
     ],
     types: [],
-    sizes: ["100–3500 cc"],
+    sizes: ["100-3500 cc"],
     copy: {
       title: "Hydraulic Motors",
       intro:
-        "Hydraulic motors from Danfoss, THM Haude, Entermote, SAI, Vickers, Rexroth, and Eagle — sizes 100–3500 cc.",
+        "Hydraulic motors from Danfoss, THM Haude, Entermote, SAI, Vickers, Rexroth, and Eagle. Sizes 100-3500 cc.",
       seoBlurb:
-        "Browse hydraulic motors by make and displacement range. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic motors by make and displacement range.",
     },
   },
   {
@@ -190,13 +190,13 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
     name: "Accumulators",
     makes: ["Hydac", "EPE", "Parker", "Oliver", "Rishabh Hydro Tech"],
     types: [typeNode("Diaphragm"), typeNode("Piston"), typeNode("Bladder")],
-    sizes: ["1–50 litre"],
+    sizes: ["1-50 litre"],
     copy: {
       title: "Hydraulic Accumulators",
       intro:
-        "Diaphragm, piston, and bladder accumulators (1–50 litre) from Hydac, EPE, Parker, Oliver, and Rishabh Hydro Tech.",
+        "Diaphragm, piston, and bladder accumulators (1-50 litre) from Hydac, EPE, Parker, Oliver, and Rishabh Hydro Tech.",
       seoBlurb:
-        "Browse hydraulic accumulators and charging kits by type and size. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic accumulators and charging kits by type and size.",
     },
   },
   {
@@ -215,13 +215,13 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       typeNode("Suction"),
       typeNode("Return line"),
     ],
-    sizes: ["3–250 micron"],
+    sizes: ["3-250 micron"],
     copy: {
       title: "Hydraulic Filters",
       intro:
-        "Pressure line, suction, and return line filters (3–250 micron) from Rexroth, MP Filter, Donaldson, Hydac, and more.",
+        "Pressure line, suction, and return line filters (3-250 micron) from Rexroth, MP Filter, Donaldson, Hydac, and more.",
       seoBlurb:
-        "Browse hydraulic filters by line type and micron rating. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic filters by line type and micron rating.",
     },
   },
   {
@@ -241,7 +241,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       intro:
         "Rod seals, piston seals, guide rings, O-ring kits, mechanical seals, and oil seals for hydraulic systems.",
       seoBlurb:
-        "Browse hydraulic seals and O-rings by type. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic seals and O-rings by type.",
     },
   },
   {
@@ -258,7 +258,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       intro:
         "Hydraulic valve manifolds, custom manifolds, and control blocks for hydraulic circuits.",
       seoBlurb:
-        "Browse hydraulic manifolds and blocks by type. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic manifolds and blocks by type.",
     },
   },
   {
@@ -269,13 +269,13 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       typeNode("Analog glycerine filled"),
       typeNode("Digital pressure gauge"),
     ],
-    sizes: ["Dial: 2.5–4 inches"],
+    sizes: ["Dial: 2.5-4 inches"],
     copy: {
       title: "Pressure Gauges",
       intro:
-        "Analog glycerine-filled and digital pressure gauges from H-Guru, Micro, Wika, and Mass — dial sizes 2.5–4 inches.",
+        "Analog glycerine-filled and digital pressure gauges from H-Guru, Micro, Wika, and Mass. Dial sizes 2.5-4 inches.",
       seoBlurb:
-        "Browse hydraulic pressure gauges by type and dial size. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic pressure gauges by type and dial size.",
     },
   },
   {
@@ -291,7 +291,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       intro:
         "Air-cooled hydraulic oil coolers and water-cooled hydraulic heat exchangers.",
       seoBlurb:
-        "Browse hydraulic heat exchangers by cooling type. Placeholder SEO copy pending client category paragraphs.",
+        "Browse hydraulic heat exchangers by cooling type.",
     },
   },
 ];

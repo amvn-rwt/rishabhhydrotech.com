@@ -30,7 +30,7 @@ export function WhyChooseUs() {
             Built for industrial buyers
           </h2>
           <p className="mt-3 max-w-prose type-lead text-pretty text-muted-foreground">
-            Specs, brands, and local support — without the marketing fluff.
+            Specs, brands, and local support for plant and OEM buyers.
           </p>
         </div>
 

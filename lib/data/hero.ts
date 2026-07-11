@@ -23,9 +23,9 @@ export const heroSlides: HeroSlide[] = [
   {
     id: "pumps",
     productLabel: "Hydraulic Pumps",
-    headline: "Hydraulic Pumps — Yuken, Rexroth, Vickers",
+    headline: "Hydraulic Pumps: Yuken, Rexroth, Vickers",
     subtext:
-      "Gear, piston, and vane pumps from leading OEM brands — stocked for plant maintenance and OEM builds.",
+      "Gear, piston, and vane pumps from leading OEM brands, stocked for plant maintenance and OEM builds.",
     ctaLabel: "Browse Pumps",
     ctaHref: "/products/hydraulic/pumps",
     secondaryCtaLabel: "Get Best Price",
@@ -49,7 +49,7 @@ export const heroSlides: HeroSlide[] = [
   {
     id: "hoses",
     productLabel: "Hoses & Fittings",
-    headline: "Hoses & Fittings — Parker, Gates",
+    headline: "Hoses & Fittings: Parker, Gates",
     subtext:
       "High-pressure hoses and precision fittings for reliable hydraulic lines.",
     ctaLabel: "Browse Hoses",

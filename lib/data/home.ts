@@ -100,7 +100,7 @@ export const whyChooseUsItems = [
     id: "brands",
     title: "Trusted OEM brands",
     description:
-      "Yuken, Rexroth, Parker, Vickers, and other listed makes — matched to your machine and duty cycle.",
+      "Yuken, Rexroth, Parker, Vickers, and other listed makes matched to your machine and duty cycle.",
   },
   {
     id: "experience",
@@ -124,8 +124,8 @@ export const aboutSnippet = {
   overline: "About us",
   title: "Hydraulic solutions for industrial buyers",
   paragraphs: [
-    "Rishabh Hydro Tech Engineers supplies hydraulic components and systems for plant maintenance, procurement, and OEM applications — from pumps and valves to hoses, cylinders, and power packs.",
-    "Browse by category and make, then request a quote for the exact type and size you need. Contact details and a fuller company story will appear here once confirmed.",
+    "Rishabh Hydro Tech Engineers supplies hydraulic components and systems for plant maintenance, procurement, and OEM applications: pumps, valves, hoses, cylinders, and power packs.",
+    "Browse by category and make, then request a quote for the type and size you need.",
   ],
   ctaLabel: "Learn more",
   ctaHref: "/about",
@@ -134,7 +134,7 @@ export const aboutSnippet = {
 export const inquiryCta = {
   title: "Need a quote?",
   description:
-    "Tell us the product, make, and specs — we will get back with pricing and availability.",
+    "Tell us the product, make, and specs. We will get back with pricing and availability.",
   primaryLabel: "Get Best Price",
   primaryHref: "/inquiry",
 } as const;

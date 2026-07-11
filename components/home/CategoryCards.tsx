@@ -23,18 +23,22 @@ export function CategoryCards() {
               Hydraulic product categories
             </h2>
             <p className="mt-3 max-w-prose type-lead text-pretty text-muted-foreground">
-              Find pumps, valves, hoses, cylinders, and more by category. Pneumatic
-              products will be listed when the full taxonomy is available.
+              Find pumps, valves, hoses, cylinders, and more by category.
             </p>
           </div>
           <Button
             render={<Link href="/products/hydraulic" />}
             nativeButton={false}
             size="lg"
-            className="w-fit bg-brand px-5 text-white hover:bg-brand-dark"
+            className="h-9 w-fit gap-0 overflow-hidden bg-brand p-0 text-white hover:bg-brand-dark"
           >
-            View hydraulic catalogue
-            <ArrowRightIcon data-icon="inline-end" />
+            <span className="px-5">View hydraulic catalogue</span>
+            <span
+              className="flex size-9 shrink-0 items-center justify-center border-l border-white/20 bg-brand-dark"
+              aria-hidden
+            >
+              <ArrowRightIcon className="size-4" />
+            </span>
           </Button>
         </div>
 

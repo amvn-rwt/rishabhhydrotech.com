@@ -68,7 +68,7 @@ export function MobileNav() {
       <SheetContent side="right" className="w-full max-w-sm gap-0 p-0">
         <SheetHeader className="border-b border-border p-4">
           <SheetTitle>{siteConfig.name}</SheetTitle>
-          <SheetDescription>{siteConfig.tagline}</SheetDescription>
+          <SheetDescription>{siteConfig.shortTagline}</SheetDescription>
         </SheetHeader>
 
         <div className="flex flex-1 flex-col gap-6 overflow-y-auto p-4">

@@ -1,0 +1,38 @@
+---
+description: Keep user-visible website copy free of em dashes and AI writing tells
+alwaysApply: true
+---
+
+# Visible copy: no AI tells
+
+Applies to **user-facing** site strings: UI text, headlines, body copy, CTAs, alt text, aria labels, form placeholders, catalogue intros, and data in `lib/data/` that renders on the page.
+
+Does **not** apply to: code comments, docs (`docs/`), metadata / `<title>` / Open Graph / tab names, commit messages, or internal TODOs.
+
+## Never use in visible copy
+
+- Em dashes (`—`) or en dashes (`–`). Use a period, comma, colon, or ASCII hyphen (`-`) instead.
+- Fancy ellipsis (`…`). Use `...` only if needed, or rephrase.
+- Stock AI phrasing: "seamless", "elevate", "unlock", "leverage", "cutting-edge", "robust solution", "delve", "empower", "transform your", "in today's world", "when it comes to", "it's important to note", "without the fluff", "game-changer", etc.
+- Meta / process voice aimed at the visitor: "placeholder", "coming soon once confirmed", "will appear here when…", "pending client deliverables".
+
+## Tone
+
+- Straight, technical, B2B. Specs and brand names over marketing cadence.
+- Short sentences. Prefer facts the buyer can act on.
+- Do not invent company claims, years in business, or certifications.
+
+## Examples
+
+```text
+❌ Hydraulic Pumps — Yuken, Rexroth, Vickers
+✅ Hydraulic Pumps: Yuken, Rexroth, Vickers
+
+❌ Specs, brands, and local support — without the marketing fluff.
+✅ Specs, brands, and local support for plant and OEM buyers.
+
+❌ Contact details and a fuller story will appear here once confirmed.
+✅ Browse by category and make, then request a quote.
+```
+
+When editing existing copy, strip these patterns if you touch the string. Do not reintroduce them.

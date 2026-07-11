@@ -22,7 +22,6 @@ export function BrandsGrid() {
           </h2>
           <p className="mt-3 max-w-prose type-lead text-pretty text-muted-foreground">
             Leading hydraulic makes stocked and sourced for industrial buyers.
-            Brand logos will appear here once usage assets are confirmed.
           </p>
         </div>
 

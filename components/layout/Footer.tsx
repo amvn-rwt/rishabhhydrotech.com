@@ -56,7 +56,7 @@ export function Footer() {
                 {siteConfig.name}
               </span>
               <span className="block text-xs text-white/75">
-                {siteConfig.tagline}
+                {siteConfig.shortTagline}
               </span>
             </span>
           </Link>
@@ -181,14 +181,13 @@ export function Footer() {
             </ul>
           ) : (
             <p className="type-body-sm text-white/80">
-              Contact details coming soon.{" "}
               <Link
                 href="/contact"
                 className="underline underline-offset-2 transition-colors hover:text-white"
               >
-                Reach out here
-              </Link>
-              .
+                Contact us
+              </Link>{" "}
+              for quotes and product inquiries.
             </p>
           )}
 
@@ -206,7 +205,7 @@ export function Footer() {
           <p suppressHydrationWarning>
             © {year} {siteConfig.name}. All rights reserved.
           </p>
-          <p className="text-white/55">{siteConfig.tagline}</p>
+          <p className="text-white/55">{siteConfig.shortTagline}</p>
         </div>
       </div>
     </footer>
