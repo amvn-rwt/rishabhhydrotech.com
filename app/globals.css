@@ -56,12 +56,12 @@
 
   /* Typography — semantic compositions (mobile-first; sm+ overrides below) */
   --type-display-size: var(--font-size-4xl);
-  --type-display-weight: var(--weight-extrabold);
+  --type-display-weight: var(--weight-semibold);
   --type-display-leading: var(--line-tight);
   --type-display-tracking: var(--letter-tight);
 
   --type-h1-size: var(--font-size-4xl);
-  --type-h1-weight: var(--weight-bold);
+  --type-h1-weight: var(--weight-semibold);
   --type-h1-leading: var(--line-tight);
   --type-h1-tracking: var(--letter-tight);
 
@@ -81,7 +81,7 @@
   --type-h4-tracking: var(--letter-normal);
 
   --type-overline-size: var(--font-size-xs);
-  --type-overline-weight: var(--weight-semibold);
+  --type-overline-weight: var(--weight-medium);
   --type-overline-leading: var(--line-normal);
   --type-overline-tracking: var(--letter-wide);
 
@@ -106,7 +106,7 @@
   --type-caption-tracking: var(--letter-normal);
 
   --type-button-size: var(--font-size-sm);
-  --type-button-weight: var(--weight-semibold);
+  --type-button-weight: var(--weight-medium);
   --type-button-leading: var(--line-snug);
   --type-button-tracking: var(--letter-normal);
 

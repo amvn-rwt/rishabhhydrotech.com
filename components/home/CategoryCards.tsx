@@ -1,8 +1,34 @@
 import Link from "next/link";
-import { ArrowRightIcon } from "lucide-react";
+import {
+  ArrowRightIcon,
+  CableIcon,
+  CircleDotIcon,
+  CogIcon,
+  CylinderIcon,
+  FanIcon,
+  GitBranchIcon,
+  NutIcon,
+  ZapIcon,
+  type LucideIcon,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { getHomepageCategories } from "@/lib/data/home";
+import {
+  getHomepageCategories,
+  homepageCategorySlugs,
+} from "@/lib/data/home";
+
+const categoryIcons: Record<(typeof homepageCategorySlugs)[number], LucideIcon> =
+  {
+    pumps: CogIcon,
+    valves: GitBranchIcon,
+    hoses: CableIcon,
+    fittings: NutIcon,
+    cylinders: CylinderIcon,
+    "power-packs": ZapIcon,
+    motors: FanIcon,
+    accumulators: CircleDotIcon,
+  };
 
 export function CategoryCards() {
   const categories = getHomepageCategories();
@@ -32,7 +58,7 @@ export function CategoryCards() {
             size="lg"
             className="h-9 w-fit gap-0 overflow-hidden bg-brand p-0 text-white hover:bg-brand-dark"
           >
-            <span className="px-5">View hydraulic catalogue</span>
+            <span className="px-5">View Hydraulic Catalogue</span>
             <span
               className="flex size-9 shrink-0 items-center justify-center border-l border-white/20 bg-brand-dark"
               aria-hidden
@@ -43,27 +69,38 @@ export function CategoryCards() {
         </div>
 
         <ul className="mt-10 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((category) => (
-            <li key={category.slug} className="bg-white">
-              <Link
-                href={category.href}
-                className="group flex h-full flex-col gap-2 px-5 py-5 transition-colors hover:bg-brand-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset"
-              >
-                <span className="flex items-center justify-between gap-3">
-                  <span className="type-h3 text-neutral-dark transition-colors group-hover:text-brand-dark">
-                    {category.name}
+          {categories.map((category) => {
+            const Icon =
+              categoryIcons[
+                category.slug as (typeof homepageCategorySlugs)[number]
+              ];
+            return (
+              <li key={category.slug} className="bg-white">
+                <Link
+                  href={category.href}
+                  className="group flex h-full flex-col gap-4 px-5 py-6 transition-colors hover:bg-brand-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset"
+                >
+                  <span className="flex size-11 items-center justify-center bg-brand-muted text-brand-dark transition-colors group-hover:bg-brand group-hover:text-white">
+                    <Icon className="size-5" aria-hidden strokeWidth={1.75} />
                   </span>
-                  <ArrowRightIcon
-                    className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-brand"
-                    aria-hidden
-                  />
-                </span>
-                <span className="type-body-sm line-clamp-2 text-muted-foreground">
-                  {category.intro}
-                </span>
-              </Link>
-            </li>
-          ))}
+                  <span className="flex flex-col gap-2">
+                    <span className="flex items-center justify-between gap-3">
+                      <span className="type-h3 text-neutral-dark transition-colors group-hover:text-brand-dark">
+                        {category.name}
+                      </span>
+                      <ArrowRightIcon
+                        className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-brand"
+                        aria-hidden
+                      />
+                    </span>
+                    <span className="type-body-sm line-clamp-2 text-muted-foreground">
+                      {category.intro}
+                    </span>
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </section>

@@ -228,7 +228,7 @@ function ProductImagePlaceholder({
           active ? "translate-x-0" : "translate-x-6"
         )}
       >
-        <p className="max-w-[12ch] text-right text-[clamp(2.5rem,8vw,6.5rem)] font-extrabold leading-[0.95] tracking-tight text-white/15 select-none">
+        <p className="max-w-[12ch] text-right text-[clamp(2.5rem,8vw,6.5rem)] font-semibold leading-[0.95] tracking-tight text-white/15 select-none">
           {label}
         </p>
       </div>

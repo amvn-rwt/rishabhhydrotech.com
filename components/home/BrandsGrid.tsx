@@ -55,7 +55,7 @@ export function BrandsGrid() {
             href="/brands"
             className="type-body-sm font-semibold text-brand transition-colors hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
-            View all brands
+            View All Brands
           </Link>
         </p>
       </div>

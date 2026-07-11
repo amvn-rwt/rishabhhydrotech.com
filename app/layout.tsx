@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -7,10 +8,11 @@ import { SkipToContent } from "@/components/layout/SkipToContent";
 import { siteConfig } from "@/lib/data/site";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({
+const clashGrotesk = localFont({
+  src: "../fonts/ClashGrotesk-Variable.woff2",
   variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: "200 700",
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -38,7 +40,7 @@ export default function RootLayout({
       className={cn(
         "h-full",
         "antialiased",
-        inter.variable,
+        clashGrotesk.variable,
         jetbrainsMono.variable,
         "font-sans"
       )}

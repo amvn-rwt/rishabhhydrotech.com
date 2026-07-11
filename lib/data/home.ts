@@ -127,7 +127,7 @@ export const aboutSnippet = {
     "Rishabh Hydro Tech Engineers supplies hydraulic components and systems for plant maintenance, procurement, and OEM applications: pumps, valves, hoses, cylinders, and power packs.",
     "Browse by category and make, then request a quote for the type and size you need.",
   ],
-  ctaLabel: "Learn more",
+  ctaLabel: "Learn More",
   ctaHref: "/about",
 } as const;
 
