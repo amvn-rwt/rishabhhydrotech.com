@@ -12,7 +12,7 @@
 | ----------------------------- | ---------------------------------------------------------------------- |
 | Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Inter/JetBrains Mono + shadcn UI primitives |
 | Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
-| Homepage                      | 🔶 Hero slider done; remaining sections todo                           |
+| Homepage                      | ✅ Full layout wired (hero → categories → brands → featured → why us → about → inquiry CTA) |
 | Product catalogue             | 🔶 Shell + taxonomy/seed data; filters not wired                       |
 | Inquiry & contact             | ⬜ Not started                                                         |
 | Search                        | ⬜ Not started                                                         |
@@ -139,34 +139,34 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 
 ---
 
-## C. Phase 1 — Homepage
+## C. Phase 1 — Homepage ✅
 
 Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-homepage-sections-top-to-bottom)):
 
-- [ ] Replace placeholder `app/page.tsx` with full homepage layout (hero wired; other sections pending)
+- [x] Replace placeholder `app/page.tsx` with full homepage layout (`lib/data/home.ts` + `components/home/*`)
 - [x] **§1 Header** — global header from Phase 0 (wired in root layout)
 - [x] **§2 Hero slider** (`components/home/HeroSlider.tsx`) (P0)
   - [x] 5 slides with headline, subtext, primary + secondary CTA (`lib/data/hero.ts`)
   - [x] Auto-rotate ~5s, dots/arrows, pause on hover/focus
   - [x] Image-ready: set `imageSrc` per slide when product photos arrive; first slide `priority`, others lazy via opacity mount
   - [x] Product-image placeholders until client photos (client direction: use product images for slider)
-- [ ] **§3 Quick category cards** (`components/home/CategoryCards.tsx`) (P0)
-  - [ ] Hydraulic primary card + top subcategory links (pumps, valves, hoses, cylinders, etc.)
+- [x] **§3 Quick category cards** (`components/home/CategoryCards.tsx`) (P0)
+  - [x] Hydraulic catalogue CTA + top subcategory links (pumps, valves, hoses, cylinders, etc.)
   - [ ] Pneumatic card — only after client taxonomy (§6.3)
-- [ ] **§4 Brands we deal in** (`components/home/BrandsGrid.tsx`) (P1)
-  - [ ] Logo grid, grayscale treatment
-  - [ ] Link to `/brands` or brand pages when built
-- [ ] **§5 Featured products** (`components/home/FeaturedProducts.tsx`) (P1)
-  - [ ] Curated products from data layer
-  - [ ] "Inquiry" button per card → `/inquiry` with pre-filled category
-- [ ] **§6 Why choose us** (`components/home/WhyChooseUs.tsx`) (P1)
-  - [ ] 3–4 columns: local stock, brands, experience, custom fabrication
-- [ ] **§7 About snippet** (`components/home/AboutSnippet.tsx`) (P1)
-  - [ ] 2–3 paragraphs + "Learn more" → `/about`
-- [ ] **§8 Inquiry CTA band** (`components/home/InquiryCTA.tsx`) (P0)
-  - [ ] Full-width orange band, phone + WhatsApp + form link
+- [x] **§4 Brands we deal in** (`components/home/BrandsGrid.tsx`) (P1)
+  - [x] Logo grid, grayscale treatment (text placeholders until OEM logos arrive)
+  - [x] Link to `/brands` and `/brands/[slug]` (pages still Phase 4)
+- [x] **§5 Featured products** (`components/home/FeaturedProducts.tsx`) (P1)
+  - [x] Curated products from data layer (`lib/data/home.ts`)
+  - [x] "Inquiry" button per card → `/inquiry` with pre-filled category (`lib/inquiry.ts`)
+- [x] **§6 Why choose us** (`components/home/WhyChooseUs.tsx`) (P1)
+  - [x] 4 columns: local stock, brands, experience, custom fabrication
+- [x] **§7 About snippet** (`components/home/AboutSnippet.tsx`) (P1)
+  - [x] Placeholder paragraphs + "Learn more" → `/about` (full copy pending client §A.2)
+- [x] **§8 Inquiry CTA band** (`components/home/InquiryCTA.tsx`) (P0)
+  - [x] Full-width orange band, form link; phone + WhatsApp when contact details land
 - [x] **§9 Footer** — global footer from Phase 0 (wired in root layout)
-- [ ] Homepage-specific `metadata` (title, description, OG image)
+- [x] Homepage-specific `metadata` (title, description, OG basics; dedicated OG image still open)
 
 ---
 
@@ -394,7 +394,7 @@ Use this when picking up work; reorder as client deliverables arrive.
 5. ✅ Full hydraulic taxonomy in `lib/data/` (Phase 0)
 6. ⬜ Wire catalogue filters to URL + product list (Phase 2)
 7. ⬜ Hydraulic division landing — category card grid (Phase 2)
-8. ⬜ Hero slider + category cards on homepage (Phase 1)
+8. ✅ Hero slider + full homepage sections (Phase 1)
 9. ⬜ Inquiry form + `/inquiry` page (Phase 3)
 10. ⬜ Contact page with map placeholders (Phase 3)
 11. ⬜ Search results page `/search` with JSON index (Phase 4) — header search form already posts to `/search`
@@ -409,15 +409,16 @@ Planned structure from [WEBSITE_PLAN.md §11.3](./WEBSITE_PLAN.md#113-component-
 components/
   layout/       ✅ Header, DesktopNav, TopBar, MobileNav, SkipToContent, Footer
   ui/           ✅ Button, Card, Badge, Input, Textarea, Select, Dialog, Sheet, Field, Label, Checkbox, Separator, DropdownMenu
-  home/         ⬜ HeroSlider, CategoryCards, BrandsGrid, InquiryCTA, etc.
+  home/         ✅ HeroSlider, CategoryCards, BrandsGrid, FeaturedProducts, WhyChooseUs, AboutSnippet, InquiryCTA
   products/     🔶 CatalogueLayout, FilterSidebar, ProductGrid, ProductCard (+ more)
   inquiry/      ⬜ InquiryForm, WhatsAppButton
   search/       ⬜ SearchBar, SearchResults (header search form exists; results page pending)
 lib/
-  data/         ✅ products.ts, filters.ts, catalogue.ts, navigation.ts, site.ts, brands.ts, taxonomy.ts, hero.ts
+  data/         ✅ products.ts, filters.ts, catalogue.ts, navigation.ts, site.ts, brands.ts, taxonomy.ts, hero.ts, home.ts
   types/        ✅ product.types.ts
+  inquiry.ts    ✅ inquiryHref() for pre-filled quote links
 app/
-  page.tsx      🔶 placeholder homepage
+  page.tsx      ✅ full homepage layout + metadata
   layout.tsx    ✅ root layout + header + footer + skip link + #main-content
   favicon.ico   ✅
   icon.png      ✅
