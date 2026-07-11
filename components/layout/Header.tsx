@@ -33,7 +33,7 @@ export function Header() {
                 {siteConfig.name}
               </span>
               <span className="hidden text-xs text-white/75 sm:block">
-                {siteConfig.tagline}
+                {siteConfig.shortTagline}
               </span>
             </span>
           </Link>

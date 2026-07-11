@@ -6,6 +6,8 @@ export const siteConfig = {
   name: "Rishabh Hydro Tech Engineers",
   shortName: "Rishabh",
   tagline: "Hydraulic & Pneumatic Solutions — Pumps, Valves, Hoses & More",
+  /** Shorter line for header wordmark; full `tagline` stays for footer / SEO. */
+  shortTagline: "Hydraulic & Pneumatic Solutions",
   logo: {
     src: "/logo.png",
     alt: "Rishabh Hydro Tech Engineers logo",
