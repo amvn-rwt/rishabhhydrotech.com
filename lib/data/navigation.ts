@@ -16,7 +16,7 @@ export const primaryNav: NavItem[] = [
     children: [
       { label: "All Products", href: "/products" },
       { label: "Hydraulic Products", href: "/products/hydraulic" },
-      { label: "Pneumatic Products", href: "/products/pneumatic" },
+      // Pneumatic Products — add when client delivers taxonomy (WEBSITE_PLAN §6.3)
     ],
   },
   { label: "Brands", href: "/brands" },
@@ -36,14 +36,11 @@ export const mobileCategoryLinks: NavLink[] = [
   { label: "Hydraulic Hoses", href: "/products/hydraulic/hoses" },
   { label: "Hydraulic Cylinders", href: "/products/hydraulic/cylinders" },
   { label: "Power Packs", href: "/products/hydraulic/power-packs" },
-  { label: "Pneumatic Cylinders", href: "/products/pneumatic/cylinders" },
-  { label: "Pneumatic Valves", href: "/products/pneumatic/valves" },
 ];
 
 /** Footer quick links. */
 export const footerProductLinks: NavLink[] = [
   { label: "Hydraulic Products", href: "/products/hydraulic" },
-  { label: "Pneumatic Products", href: "/products/pneumatic" },
   { label: "Full Catalogue", href: "/products" },
 ];
 

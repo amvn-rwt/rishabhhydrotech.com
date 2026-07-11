@@ -1,4 +1,8 @@
-export type ProductDivision = "hydraulic" | "pneumatic";
+/**
+ * Catalogue divisions. v1 ships hydraulic only.
+ * Add `"pneumatic"` when the client delivers the pneumatic taxonomy (WEBSITE_PLAN §6.3).
+ */
+export type ProductDivision = "hydraulic";
 
 export type FilterOption = {
   label: string;

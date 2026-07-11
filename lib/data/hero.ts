@@ -51,7 +51,7 @@ export const heroSlides: HeroSlide[] = [
     productLabel: "Hoses & Fittings",
     headline: "Hoses & Fittings — Parker, Gates",
     subtext:
-      "High-pressure hoses and precision fittings for reliable hydraulic and pneumatic lines.",
+      "High-pressure hoses and precision fittings for reliable hydraulic lines.",
     ctaLabel: "Browse Hoses",
     ctaHref: "/products/hydraulic/hoses",
     secondaryCtaLabel: "Get Best Price",
@@ -72,17 +72,5 @@ export const heroSlides: HeroSlide[] = [
     imageSrc: "/hero/cylinders.png",
     imageAlt: "Double-acting hydraulic cylinder",
   },
-  {
-    id: "pneumatic",
-    productLabel: "Pneumatic Solutions",
-    headline: "Pneumatic Cylinders, Valves & FRL",
-    subtext:
-      "Festo, SMC, Janatics and more — cylinders, solenoid valves, tubing, and air preparation.",
-    ctaLabel: "Browse Pneumatic",
-    ctaHref: "/products/pneumatic",
-    secondaryCtaLabel: "Get Best Price",
-    secondaryCtaHref: "/inquiry",
-    imageSrc: "/hero/pneumatic.png",
-    imageAlt: "Pneumatic cylinders, valves, and FRL units",
-  },
 ];
+

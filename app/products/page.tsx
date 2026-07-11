@@ -5,7 +5,7 @@ import { buildCatalogueConfig } from "@/lib/data/catalogue";
 export const metadata: Metadata = {
   title: "Product Catalogue",
   description:
-    "Browse hydraulic and pneumatic products — pumps, valves, hoses, cylinders, and more.",
+    "Browse hydraulic products — pumps, valves, hoses, cylinders, and more.",
 };
 
 export default function ProductsPage() {

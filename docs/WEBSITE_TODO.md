@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** 10 July 2026 (Hero slider — product-image placeholders)
+> **Last updated:** 11 July 2026 (Pneumatic catalogue deferred — removed draft taxonomy & routes)
 
 ---
 
@@ -56,11 +56,11 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 - [ ] Preferred inquiry email recipient
 - [ ] Company description for About page
 - [ ] 5–10 hero slider images (pumps, cylinders, power packs, hoses, etc.)
-- [ ] **Pneumatic product list** — confirm or replace draft taxonomy in [WEBSITE_PLAN.md §6.3](./WEBSITE_PLAN.md#63-pneumatic-products--full-taxonomy)
+- [ ] **Pneumatic product list** — client will provide later; not a v1 blocker ([WEBSITE_PLAN.md §6.3](./WEBSITE_PLAN.md#63-pneumatic-products--deferred))
 
 ### A.3 Should-have client deliverables
 
-- [ ] OEM brand logos (Yuken, Rexroth, Parker, Vickers, Festo, SMC, etc.) or usage permission
+- [ ] OEM brand logos (Yuken, Rexroth, Parker, Vickers, etc.) or usage permission
 - [ ] Product photos per major hydraulic category
 - [ ] 1–2 SEO paragraphs per hydraulic category (pumps, valves, hoses, cylinders, power packs first)
 - [ ] Business hours
@@ -116,8 +116,8 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 ### B.3 Data model & taxonomy
 
 - [x] `lib/types/product.types.ts` — Product, FilterGroup, CataloguePageConfig
-- [x] Sample products in `lib/data/products.ts` (9 hydraulic + 9 pneumatic placeholders)
-- [x] Sample filters in `lib/data/filters.ts` (subset of categories/brands/types)
+- [x] Sample products in `lib/data/products.ts` (hydraulic placeholders only; pneumatic deferred)
+- [x] Sample filters in `lib/data/filters.ts` (hydraulic subset; pneumatic deferred)
 - [x] `lib/data/navigation.ts` — primary nav, footer links, category quick links
 - [ ] `lib/data/brands.ts` — brand metadata (name, slug, logo, divisions)
 - [ ] Full **hydraulic taxonomy** (13 categories) as structured data:
@@ -151,8 +151,8 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
   - [x] Image-ready: set `imageSrc` per slide when product photos arrive; first slide `priority`, others lazy via opacity mount
   - [x] Product-image placeholders until client photos (client direction: use product images for slider)
 - [ ] **§3 Quick category cards** (`components/home/CategoryCards.tsx`) (P0)
-  - [ ] Hydraulic / Pneumatic primary cards
-  - [ ] Top subcategory links (pumps, valves, hoses, cylinders, etc.)
+  - [ ] Hydraulic primary card + top subcategory links (pumps, valves, hoses, cylinders, etc.)
+  - [ ] Pneumatic card — only after client taxonomy (§6.3)
 - [ ] **§4 Brands we deal in** (`components/home/BrandsGrid.tsx`) (P1)
   - [ ] Logo grid, grayscale treatment
   - [ ] Link to `/brands` or brand pages when built
@@ -179,8 +179,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 | `/products`                     | 🔶     | Filter products by URL params; category hub UI         |
 | `/products/hydraulic`           | 🔶     | Category grid for all 13 hydraulic categories          |
 | `/products/hydraulic/[...slug]` | 🔶     | Filter products by slug; type-level pages; unique copy |
-| `/products/pneumatic`           | 🔶     | Category grid; blocked on confirmed taxonomy           |
-| `/products/pneumatic/[...slug]` | 🔶     | Same as hydraulic; use client-confirmed data           |
+| `/products/pneumatic`           | 🔒     | Deferred — add when client delivers taxonomy (§6.3)    |
 
 ### D.2 Catalogue components (existing — extend)
 
@@ -217,23 +216,9 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 - [ ] `/products/hydraulic/heat-exchangers`
 - [ ] Type-level pages where taxonomy has subtypes (e.g. `pumps/piston-pump`, `pumps/gear-pump/internal-gear-pump`)
 
-### D.4 Pneumatic category pages (13 draft — confirm with client)
+### D.4 Pneumatic catalogue — deferred
 
-- [ ] Replace draft taxonomy with client-confirmed data
-- [ ] `/products/pneumatic/cylinders`
-- [ ] `/products/pneumatic/valves`
-- [ ] `/products/pneumatic/frl-units`
-- [ ] `/products/pneumatic/tubing`
-- [ ] `/products/pneumatic/fittings`
-- [ ] `/products/pneumatic/air-blowers`
-- [ ] `/products/pneumatic/vacuum`
-- [ ] `/products/pneumatic/grippers`
-- [ ] `/products/pneumatic/pumps`
-- [ ] `/products/pneumatic/silencers`
-- [ ] `/products/pneumatic/pressure-gauges`
-- [ ] `/products/pneumatic/seals`
-- [ ] `/products/pneumatic/accessories`
-- [ ] Type-level subpages per confirmed taxonomy
+Client will provide the full pneumatic taxonomy later. Do not invent categories or pages. When received: document in [WEBSITE_PLAN.md §6.3](./WEBSITE_PLAN.md#63-pneumatic-products--deferred), then add routes, nav, filters, and seed data.
 
 ---
 
@@ -295,7 +280,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 - [ ] `app/brands/[slug]/page.tsx` — e.g. `/brands/rexroth`
 - [ ] Brand hero, logo, divisions served, linked categories/products
 - [ ] Inquiry CTA per brand page
-- [ ] Priority brands: Rexroth, Yuken, Parker, Vickers, Festo, SMC
+- [ ] Priority brands: Rexroth, Yuken, Parker, Vickers (pneumatic brands when taxonomy arrives)
 
 ---
 
@@ -394,6 +379,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 - [ ] Blog / application notes for long-tail SEO
 - [ ] Customer testimonials section on homepage
 - [ ] Live chat integration
+- [ ] **Pneumatic catalogue** — after client delivers taxonomy (plan §6.3)
 
 ---
 

@@ -1,5 +1,6 @@
 import type { FilterGroup, ProductDivision } from "@/lib/types/product.types";
 
+/** Hydraulic filters only. Pneumatic filters deferred until client taxonomy (WEBSITE_PLAN §6.3). */
 const hydraulicFilters: FilterGroup[] = [
   {
     id: "category",
@@ -35,53 +36,8 @@ const hydraulicFilters: FilterGroup[] = [
   },
 ];
 
-const pneumaticFilters: FilterGroup[] = [
-  {
-    id: "category",
-    label: "Category",
-    options: [
-      { label: "Cylinders", value: "cylinders" },
-      { label: "Valves", value: "valves" },
-      { label: "FRL units", value: "frl-units" },
-      { label: "Tubing & hoses", value: "tubing" },
-      { label: "Fittings", value: "fittings" },
-    ],
-  },
-  {
-    id: "brand",
-    label: "Brand",
-    options: [
-      { label: "Festo", value: "festo" },
-      { label: "SMC", value: "smc" },
-      { label: "Airtac", value: "airtac" },
-      { label: "Janatics", value: "janatics" },
-    ],
-  },
-  {
-    id: "type",
-    label: "Type",
-    options: [
-      { label: "Compact cylinder", value: "compact-cylinder" },
-      { label: "Solenoid valve", value: "solenoid-valve" },
-      { label: "Filter regulator", value: "filter-regulator" },
-    ],
-  },
-];
-
-const allFilters: FilterGroup[] = [
-  {
-    id: "division",
-    label: "Division",
-    options: [
-      { label: "Hydraulic", value: "hydraulic" },
-      { label: "Pneumatic", value: "pneumatic" },
-    ],
-  },
-  ...hydraulicFilters,
-];
-
 export function getFiltersForDivision(division?: ProductDivision): FilterGroup[] {
   if (division === "hydraulic") return hydraulicFilters;
-  if (division === "pneumatic") return pneumaticFilters;
-  return allFilters;
+  // Hub / unknown: hydraulic only until pneumatic taxonomy arrives
+  return hydraulicFilters;
 }

@@ -16,11 +16,6 @@ const divisionMeta: Record<
     description:
       "Browse pumps, valves, hoses, cylinders, and power packs from leading hydraulic brands.",
   },
-  pneumatic: {
-    title: "Pneumatic Products",
-    description:
-      "Browse cylinders, valves, FRL units, tubing, and fittings for industrial pneumatic systems.",
-  },
 };
 
 export function buildCatalogueConfig({
@@ -37,7 +32,7 @@ export function buildCatalogueConfig({
 
   let title = "Product Catalogue";
   let description =
-    "Browse our full range of hydraulic and pneumatic equipment. Use filters to narrow by category, brand, or type.";
+    "Browse our hydraulic product range. Use filters to narrow by category, brand, or type.";
 
   if (division) {
     breadcrumbs.push({

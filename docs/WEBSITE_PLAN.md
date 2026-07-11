@@ -186,9 +186,8 @@ The logo uses a **bold, heavy sans-serif "R"** — headings should feel similarl
 /                           Homepage
 /products                   All products (catalogue hub)
 /products/hydraulic         Hydraulic category landing
-/products/hydraulic/[...]   Hydraulic subcategory pages (see §5)
-/products/pneumatic         Pneumatic category landing          ← content TBD from client
-/products/pneumatic/[...]   Pneumatic subcategory pages         ← content TBD from client
+/products/hydraulic/[...]   Hydraulic subcategory pages (see §6.2)
+/products/pneumatic         Deferred — add when client delivers taxonomy (see §6.3)
 /brands                     All brands A–Z (optional hub)
 /brands/[slug]              Brand-specific landing (e.g. /brands/rexroth)
 /about                      About the company
@@ -214,7 +213,7 @@ The logo uses a **bold, heavy sans-serif "R"** — headings should feel similarl
 1. Home
 2. Products ▾
    - Hydraulic Products
-   - Pneumatic Products
+   - Pneumatic Products *(deferred — hide until client taxonomy arrives; see §6.3)*
 3. Brands `[optional]`
 4. About
 5. Contact
@@ -236,7 +235,7 @@ Build in this order during development:
 |---|---------|---------|----------|
 | 1 | **Header** | Logo, search, catalogue button, nav | P0 |
 | 2 | **Hero image slider** | 3–5 slides: flagship products/applications + overlay CTA | P0 |
-| 3 | **Quick category cards** | Hydraulic / Pneumatic + top subcategories (pumps, valves, hoses…) | P0 |
+| 3 | **Quick category cards** | Hydraulic + top subcategories (pumps, valves, hoses…); Pneumatic card later (§6.3) | P0 |
 | 4 | **Brands we deal in** | Logo grid of OEM brands | P1 |
 | 5 | **Featured products** | Curated items with "Inquiry" button | P1 |
 | 6 | **Why choose us** | Local stock, brands, experience, custom power packs/cylinders | P1 |
@@ -261,15 +260,10 @@ Build in this order during development:
 /products/hydraulic/{category}
 /products/hydraulic/{category}/{type}
 /products/hydraulic/{category}/{type}/{subtype}   ← where applicable
-
-/products/pneumatic/{category}
-/products/pneumatic/{category}/{type}
-/products/pneumatic/{category}/{type}/{subtype}   ← where applicable
 ```
 
-Examples:
+Example:
 - `/products/hydraulic/pumps/piston-pump/variable-displacement-piston-pump`
-- `/products/pneumatic/cylinders/compact-cylinder`
 
 `[DECIDE]` How deep should URLs go vs flat pages with filters? Recommendation: **category + type pages** with filters for make/size (better SEO, less page sprawl).
 
@@ -358,109 +352,19 @@ Examples:
 |-------|-------|
 | **Types** | Air cooled hydraulic oil cooler, Water cooled hydraulic heat exchanger |
 
-### 6.3 Pneumatic products — full taxonomy
+### 6.3 Pneumatic products — deferred
 
-**Status: `[DRAFT — CONFIRM WITH CLIENT]`**
+**Status: `[FUTURE — CLIENT WILL PROVIDE]`**
 
-The client's requirements mention **Hydraulic products / Pneumatic products** as catalogue options, but only the hydraulic line was itemized in detail. The taxonomy below is a **draft structure** typical for Indian hydraulics & pneumatics dealers — same format as §6.2. **Replace, add, or remove categories/makes once the client provides their actual pneumatic range.**
+The business tagline and positioning include pneumatics, but **no pneumatic catalogue taxonomy has been delivered yet**. Do **not** invent categories, makes, or types.
 
-#### Cylinders
-| Level | Items |
-|-------|-------|
-| **Makes** | SMC, Festo, Parker, Janatics, CKD, Airtac, Camozzi `[confirm]` |
-| **Types** | Round line cylinder, Compact cylinder, Rodless cylinder, Guided cylinder, Tandem cylinder, ISO cylinder |
-| ↳ Round line | Single acting, Double acting |
-| ↳ Compact | Single acting, Double acting |
-| ↳ Rodless | Band type, Magnetically coupled |
-| ↳ Guided | Twin rod, Slide bearing |
-| **Bore sizes** | 6–320 mm `[confirm]` |
-| **Stroke lengths** | 5–2000 mm `[confirm]` |
+When the client sends the pneumatic list (same format as §6.2: makes, types, sizes per category):
 
-#### Valves
-| Level | Items |
-|-------|-------|
-| **Makes** | SMC, Festo, Parker, Janatics, Norgren, CKD, Airtac `[confirm]` |
-| **Types** | Solenoid valve, Directional control valve, Flow control valve, Check valve / non-return valve, Quick exhaust valve, Shuttle valve, Hand valve, Foot valve |
-| ↳ Solenoid | 2-way, 3-way, 5/2-way, 5/3-way |
-| ↳ Directional | Manual, Mechanical, Pilot operated, Direct acting |
-| ↳ Flow control | Needle type, One-way flow control |
+1. Document it here as the confirmed §6.3 taxonomy
+2. Add `/products/pneumatic` routes, nav links, filters, and seed data
+3. Add a Pneumatic category card / hero slide only after that data is locked
 
-#### FRL units (air preparation)
-| Level | Items |
-|-------|-------|
-| **Makes** | SMC, Festo, Parker, Janatics, Norgren `[confirm]` |
-| **Types** | Filter, Regulator, Lubricator, FRL combination unit, Filter-regulator (FR unit) |
-| ↳ Filter | Standard, Coalescing, Active carbon |
-| ↳ Regulator | Precision, Booster, Locking type |
-| ↳ Lubricator | Oil fog, Micro fog |
-| **Port sizes** | 1/8", 1/4", 3/8", 1/2", 3/4", 1" `[confirm]` |
-
-#### Tubing & hoses
-| Level | Items |
-|-------|-------|
-| **Makes** | SMC, Festo, Parker, Polyhose `[confirm]` |
-| **Types** | PU tube, Nylon tube, PE tube, PTFE tube, Spiral tube (recoil), Anti-spark tube, Silicone tube |
-| **Sizes** | Metric (4–16 mm OD), Inch `[confirm]` |
-| **Colors** | Blue, black, red, yellow, transparent `[if relevant]` |
-
-#### Fittings
-| Level | Items |
-|-------|-------|
-| **Makes** | SMC, Festo, Parker, Janatics, Legris, Camozzi `[confirm]` |
-| **Types** | Push-in fitting, Compression fitting, Barbed fitting, Quick connect, Bulkhead, Elbow, Tee, Y-connector, Union, Reducer |
-| ↳ Push-in | Straight, Elbow, Tee, Banjo |
-| **Thread types** | Metric, NPT, BSP, UNF `[confirm]` |
-| **Tube sizes** | 4, 6, 8, 10, 12, 14, 16 mm `[confirm]` |
-
-#### Air blowers & air guns
-| Level | Items |
-|-------|-------|
-| **Types** | Air gun, Air blower nozzle, Safety air gun |
-
-#### Vacuum equipment
-| Level | Items |
-|-------|-------|
-| **Makes** | SMC, Festo, Piab `[confirm]` |
-| **Types** | Vacuum generator (ejector), Vacuum cup / suction pad, Vacuum filter, Vacuum valve |
-| ↳ Vacuum cup | Flat, Bellows, Oval, Foam pad |
-| ↳ Vacuum generator | Single stage, Multi stage |
-
-#### Grippers & rotary actuators
-| Level | Items |
-|-------|-------|
-| **Makes** | SMC, Festo, Schunk, Parker `[confirm]` |
-| **Types** | Parallel gripper, Angular gripper, 3-finger gripper, Rotary actuator, Rack & pinion rotary |
-| ↳ Parallel gripper | 2-finger, 3-finger |
-| ↳ Angular gripper | 180°, 90° |
-
-#### Pneumatic pumps & boosters
-| Level | Items |
-|-------|-------|
-| **Types** | Diaphragm pump, Piston pump, Air booster |
-
-#### Silencers & exhaust cleaners
-| Level | Items |
-|-------|-------|
-| **Types** | Plastic silencer, Sintered metal silencer, Exhaust cleaner / oil mist separator |
-
-#### Pressure gauges & sensors
-| Level | Items |
-|-------|-------|
-| **Makes** | SMC, Festo, Wika, Mass `[confirm]` |
-| **Types** | Analog pressure gauge, Digital pressure switch, Pressure sensor / transmitter |
-| **Ranges** | 0–1 MPa, 0–10 bar `[confirm]` |
-
-#### Seals & spare kits
-| Level | Items |
-|-------|-------|
-| **Types** | Cylinder repair kit, Valve seal kit, O-ring kit, Piston seal, Rod seal |
-
-#### Pneumatic accessories
-| Level | Items |
-|-------|-------|
-| **Types** | Silencer, Flow meter, Pressure switch, Shuttle valve, Speed controller, Check valve, Quick coupling, Manifold block |
-
-**Client action required:** Send pneumatic product list in the same format as hydraulics (makes, types, sizes per category) so this draft can be replaced with confirmed data.
+Until then: no pneumatic product pages, no draft categories in code, no Festo/SMC/etc. placeholders framed as catalogue fact.
 
 ### 6.4 Product page template (each category/type)
 
@@ -659,8 +563,8 @@ Use this as a checklist when meeting the client:
 - [ ] Phone, WhatsApp, email, full address
 - [ ] Company description (About)
 - [ ] 5–10 product photos for hero slider
-- [ ] Confirmation of pneumatic product list
 - [ ] Preferred inquiry email recipient
+- [ ] Pneumatic product list (same format as §6.2) — **post-v1 / when client ready**; see §6.3
 
 ### Should have
 - [ ] OEM brand logos (or permission to use)
@@ -687,15 +591,15 @@ Use this as a checklist when meeting the client:
 - [ ] Product data model + hydraulic taxonomy in JSON/TS
 
 ### Phase 1 — Homepage
-- [ ] Hero image slider
-- [ ] Category cards (Hydraulic / Pneumatic)
+- [ ] Hero image slider (hydraulic product slides only for v1)
+- [ ] Category cards (Hydraulic + top subcategories; Pneumatic later — §6.3)
 - [ ] Inquiry CTA band
 - [ ] Footer with contact placeholders
 
 ### Phase 2 — Catalogue shell
 - [ ] /products hub page
 - [ ] /products/hydraulic landing
-- [ ] Category pages for all 12 hydraulic categories
+- [ ] Category pages for all 13 hydraulic categories
 - [ ] Breadcrumbs, filters (make, type), inquiry CTA on each
 
 ### Phase 3 — Inquiry & contact
@@ -713,12 +617,14 @@ Use this as a checklist when meeting the client:
 - [ ] SEO copy for top categories
 - [ ] Schema markup, sitemap
 
-### Phase 6 — Pneumatic catalogue + polish
-- [ ] Replace draft pneumatic taxonomy (§6.3) with client-confirmed data
-- [ ] /products/pneumatic landing + category pages
+### Phase 6 — Polish & launch
 - [ ] Performance audit, accessibility pass
 - [ ] Analytics, Search Console
 - [ ] Launch
+
+### Post-launch — Pneumatic catalogue
+- [ ] Receive client pneumatic taxonomy; document in §6.3
+- [ ] `/products/pneumatic` landing + category pages, nav, filters
 
 ---
 
@@ -728,7 +634,7 @@ Use this as a checklist when meeting the client:
 |---|----------|---------|----------------|
 | 1 | Brand colors | Logo-derived palette (§3.3) | ✅ Steel blue + gray from logo; orange for CTAs |
 | 2 | Catalogue depth | Category pages vs individual SKUs | Category pages first |
-| 3 | Pneumatic products | Draft taxonomy in §6.3 | Confirm makes/types with client |
+| 3 | Pneumatic products | Defer until client list | No draft taxonomy; see §6.3 |
 | 4 | Form backend | Resend / Formspree / WhatsApp | Resend + WhatsApp parallel |
 | 5 | CMS | Static files vs headless CMS | Static files for v1 |
 | 6 | Floating WhatsApp | Yes / No | Yes on mobile |
@@ -755,8 +661,8 @@ Use this as a checklist when meeting the client:
 ├─────────────────────────────────────────────┤
 │  HERO SLIDER (full width, 3-5 slides)       │
 ├─────────────────────────────────────────────┤
-│  CATEGORY CARDS: [Hydraulic] [Pneumatic]    │
-│  + subcategory icons grid                   │
+│  CATEGORY CARDS: [Hydraulic] + subcats      │
+│  (Pneumatic card later — §6.3)              │
 ├─────────────────────────────────────────────┤
 │  BRANDS LOGO GRID                           │
 ├─────────────────────────────────────────────┤
@@ -808,23 +714,9 @@ Related categories
 | 12 | Pressure gauges | `pressure-gauges` |
 | 13 | Heat exchangers | `heat-exchangers` |
 
-### Pneumatic (draft — confirm with client)
+### Pneumatic
 
-| # | Category | Slug |
-|---|----------|------|
-| 1 | Cylinders | `cylinders` |
-| 2 | Valves | `valves` |
-| 3 | FRL units | `frl-units` |
-| 4 | Tubing & hoses | `tubing` |
-| 5 | Fittings | `fittings` |
-| 6 | Air blowers & guns | `air-blowers` |
-| 7 | Vacuum equipment | `vacuum` |
-| 8 | Grippers & rotary actuators | `grippers` |
-| 9 | Pneumatic pumps & boosters | `pumps` |
-| 10 | Silencers & exhaust cleaners | `silencers` |
-| 11 | Pressure gauges & sensors | `pressure-gauges` |
-| 12 | Seals & spare kits | `seals` |
-| 13 | Pneumatic accessories | `accessories` |
+Deferred until the client provides the full taxonomy. See §6.3 — do not invent a category list.
 
 ---
 
@@ -834,7 +726,7 @@ Related categories
 
 1. **Review this document** with client — fill `[DECIDE]` and `[NEED FROM CLIENT]` items
 2. **Collect logo + contact details + hero images**
-3. **Confirm pneumatic product list** — review draft in §6.3, send client's actual makes/types/sizes
+3. **Pneumatic product list** — when client is ready (not a v1 blocker); document in §6.3 before building
 4. **Approve color palette and fonts** ✅ Inter + JetBrains Mono; brand colors in tokens
 5. **Begin Phase 0** — design tokens + layout shell in codebase (in progress / largely done)
 
