@@ -89,6 +89,17 @@ export function hasSelectedCatalogueFilters(
   return CATALOGUE_FILTER_IDS.some((id) => (selected[id]?.length ?? 0) > 0);
 }
 
+/** Total selected option values across all filter groups. */
+export function countSelectedCatalogueFilters(
+  selected: CatalogueSelectedFilters,
+): number {
+  let count = 0;
+  for (const id of CATALOGUE_FILTER_IDS) {
+    count += selected[id]?.length ?? 0;
+  }
+  return count;
+}
+
 type PathScope = {
   category?: string;
   /** Type/subtype slugs from the URL path (after category). */

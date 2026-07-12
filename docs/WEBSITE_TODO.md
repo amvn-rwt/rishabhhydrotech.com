@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** 12 July 2026 (Catalogue filters wired to URL + product list)
+> **Last updated:** 12 July 2026 (Mobile filter drawer + chip bar)
 
 ---
 
@@ -13,7 +13,7 @@
 | Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Clash Grotesk / General Sans / JetBrains Mono + shadcn UI primitives |
 | Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
 | Homepage                      | ✅ Full layout wired (hero → categories → brands → featured → why us → about → inquiry CTA) |
-| Product catalogue             | 🔶 Filters wired to URL; category hub / landings still open            |
+| Product catalogue             | 🔶 URL filters + mobile drawer; category hub / landings still open     |
 | Inquiry & contact             | ⬜ Not started                                                         |
 | Search                        | ⬜ Not started                                                         |
 | About & brands                | ⬜ Not started                                                         |
@@ -188,7 +188,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 - [x] `FilterSidebar.tsx` — URL-driven checkboxes (read/write query params)
 - [x] `ProductGrid.tsx` + `ProductCard.tsx` — basic card with image placeholder
 - [x] **Wire filters** — server filters from path + `?category=&brand=&type=`; sidebar updates URL
-- [ ] Mobile filter drawer / chip bar alternative to sidebar
+- [x] Mobile filter drawer / chip bar alternative to sidebar
 - [ ] `ProductCard` — brand badge, category, link to inquiry with pre-fill
 - [ ] Category landing view — show subcategory/type cards when at category level (not only product grid)
 - [ ] Brands strip on category pages (logos for makes in category)
@@ -410,7 +410,7 @@ components/
   layout/       ✅ Header, DesktopNav, TopBar, MobileNav, SkipToContent, Footer
   ui/           ✅ Button, Card, Badge, Input, Textarea, Select, Dialog, Sheet, Field, Label, Checkbox, Separator, DropdownMenu
   home/         ✅ HeroSlider, CategoryCards, BrandsGrid, FeaturedProducts, WhyChooseUs, AboutSnippet, InquiryCTA
-  products/     🔶 CatalogueLayout, FilterSidebar, ProductGrid, ProductCard (+ more)
+  products/     🔶 CatalogueLayout, FilterSidebar, FilterPanel, MobileFilterDrawer, ProductGrid, ProductCard (+ more)
   inquiry/      ⬜ InquiryForm, WhatsAppButton
   search/       ⬜ SearchBar, SearchResults (header search form exists; results page pending)
 lib/

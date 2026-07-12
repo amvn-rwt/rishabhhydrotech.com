@@ -10,8 +10,7 @@ import {
   type CatalogueFilterId,
   type CatalogueSelectedFilters,
 } from "@/lib/data/filter-params";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { FilterPanel } from "./FilterPanel";
 
 type FilterSidebarProps = {
   filters: FilterGroup[];
@@ -49,8 +48,8 @@ export function FilterSidebar({
   if (filters.length === 0) return null;
 
   return (
-    <aside className="w-full shrink-0 overflow-hidden border border-border bg-white lg:w-64">
-      <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
+    <aside className="hidden w-full shrink-0 border border-border bg-white lg:sticky lg:top-20 lg:block lg:w-64 lg:max-h-[calc(100dvh-5.5rem)] lg:self-start lg:overflow-y-auto">
+      <div className="sticky top-0 z-10 flex items-center justify-between gap-2 border-b border-border bg-white px-4 py-3">
         <h2 className="type-h4 text-neutral-dark">Filters</h2>
         <button
           type="button"
@@ -68,42 +67,12 @@ export function FilterSidebar({
         </button>
       </div>
 
-      <div className="divide-y divide-border">
-        {filters.map((group) => {
-          const groupId = group.id as CatalogueFilterId;
-          const selected = new Set(optimisticSelected[groupId] ?? []);
-
-          return (
-            <section key={group.id} className="px-4 py-4">
-              <h3 className="type-overline mb-3 text-neutral-mid">
-                {group.label}
-              </h3>
-              <ul className="space-y-2">
-                {group.options.map((option) => {
-                  const checked = selected.has(option.value);
-                  const checkboxId = `filter-${group.id}-${option.value}`;
-
-                  return (
-                    <li key={option.value}>
-                      <Label
-                        htmlFor={checkboxId}
-                        className="type-body-sm flex cursor-pointer items-center gap-2 font-normal text-neutral-dark"
-                      >
-                        <Checkbox
-                          id={checkboxId}
-                          checked={checked}
-                          onCheckedChange={() => onToggle(groupId, option.value)}
-                        />
-                        <span>{option.label}</span>
-                      </Label>
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
-          );
-        })}
-      </div>
+      <FilterPanel
+        filters={filters}
+        selectedFilters={optimisticSelected}
+        onToggle={onToggle}
+        idPrefix="filter-desktop"
+      />
     </aside>
   );
 }
