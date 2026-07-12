@@ -1,17 +1,22 @@
 import type {
+  Brand,
+  CatalogueInquiryCta,
   CatalogueLanding,
   CatalogueLandingCard,
   CataloguePageConfig,
+  CatalogueRelatedLink,
   Product,
   ProductDivision,
   TaxonomyTypeNode,
 } from "@/lib/types/product.types";
+import { getBrandByName, getBrandsForDivision } from "@/lib/data/brands";
 import {
   filterProducts,
   resolveCatalogueFilters,
   type CatalogueSearchParams,
 } from "@/lib/data/filter-params";
 import { getFiltersForDivision } from "@/lib/data/filters";
+import { inquiryHref } from "@/lib/inquiry";
 import { formatCategoryLabel, getProductsForDivision } from "@/lib/data/products";
 import {
   findTaxonomyTypeNode,
@@ -36,6 +41,8 @@ const divisionMeta: Record<
       "Browse pumps, valves, hoses, cylinders, power packs, and the full hydraulic range from leading brands.",
   },
 };
+
+const RELATED_CATEGORY_LIMIT = 8;
 
 function countProductsForType(
   products: Product[],
@@ -138,6 +145,75 @@ function buildCatalogueLanding({
   };
 }
 
+function brandsFromMakeNames(makes: string[]): Brand[] {
+  return makes.flatMap((name) => {
+    const brand = getBrandByName(name);
+    return brand ? [brand] : [];
+  });
+}
+
+function buildCatalogueBrands({
+  division,
+  categorySlug,
+}: {
+  division?: ProductDivision;
+  categorySlug?: string;
+}): Brand[] | undefined {
+  if (categorySlug) {
+    const category = getHydraulicCategory(categorySlug);
+    if (!category?.makes.length) return undefined;
+    const brands = brandsFromMakeNames(category.makes);
+    return brands.length > 0 ? brands : undefined;
+  }
+
+  const brands = getBrandsForDivision(division ?? "hydraulic");
+  return brands.length > 0 ? brands : undefined;
+}
+
+function buildCatalogueInquiryCta({
+  division,
+  categorySlug,
+  titleLabel,
+}: {
+  division?: ProductDivision;
+  categorySlug?: string;
+  titleLabel: string;
+}): CatalogueInquiryCta {
+  const label = categorySlug ? titleLabel : division ? divisionMeta[division].title : "Products";
+
+  return {
+    title: `Get Best Price for ${label}`,
+    description:
+      "Share the make, type, and specs you need. We will reply with pricing and availability.",
+    primaryLabel: "Get Best Price",
+    href: inquiryHref({
+      ...(division ? { division } : {}),
+      ...(categorySlug ? { category: categorySlug } : {}),
+    }),
+  };
+}
+
+function buildRelatedCategories({
+  division,
+  categorySlug,
+}: {
+  division?: ProductDivision;
+  categorySlug?: string;
+}): CatalogueRelatedLink[] | undefined {
+  if (!categorySlug) return undefined;
+
+  const resolvedDivision = division ?? "hydraulic";
+  const related = hydraulicTaxonomy
+    .filter((category) => category.slug !== categorySlug)
+    .slice(0, RELATED_CATEGORY_LIMIT)
+    .map((category) => ({
+      label: category.name,
+      href: `/products/${resolvedDivision}/${category.slug}`,
+    }));
+
+  return related.length > 0 ? related : undefined;
+}
+
 export function buildCatalogueConfig({
   division,
   slug,
@@ -156,6 +232,7 @@ export function buildCatalogueConfig({
     "Browse our hydraulic product range. Use filters to narrow by category, brand, or type.";
 
   const pathScope: { category?: string; typeSlugs?: string[] } = {};
+  let seoBody: string[] | undefined;
 
   if (division) {
     breadcrumbs.push({
@@ -182,6 +259,10 @@ export function buildCatalogueConfig({
     if (category) {
       title = category.copy.title;
       description = category.copy.intro;
+      // SEO body on category landings; type pages keep the category intro only.
+      if (slug.length === 1) {
+        seoBody = category.copy.seoBody;
+      }
     } else {
       title = `${categoryLabel}: ${divisionMeta[division].title}`;
       description = `Browse ${categoryLabel.toLowerCase()} in our ${division} product catalogue.`;
@@ -209,6 +290,14 @@ export function buildCatalogueConfig({
 
   const products = filterProducts(allProducts, productsFilter);
   const landing = buildCatalogueLanding({ division, slug, products });
+  const categorySlug = pathScope.category;
+  const brands = buildCatalogueBrands({ division, categorySlug });
+  const relatedCategories = buildRelatedCategories({ division, categorySlug });
+  const inquiryCta = buildCatalogueInquiryCta({
+    division,
+    categorySlug,
+    titleLabel: title,
+  });
 
   return {
     title,
@@ -218,6 +307,10 @@ export function buildCatalogueConfig({
     selectedFilters,
     lockedFilterIds,
     products,
+    inquiryCta,
     ...(landing ? { landing } : {}),
+    ...(brands ? { brands } : {}),
+    ...(relatedCategories ? { relatedCategories } : {}),
+    ...(seoBody ? { seoBody } : {}),
   };
 }

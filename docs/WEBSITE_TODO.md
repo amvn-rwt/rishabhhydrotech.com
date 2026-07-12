@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** 12 July 2026 (Category landing type/subcategory cards)
+> **Last updated:** 12 July 2026 (D.2 catalogue brands strip, inquiry CTA, related links, SEO body, SSG)
 
 ---
 
@@ -13,7 +13,7 @@
 | Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Clash Grotesk / General Sans / JetBrains Mono + shadcn UI primitives |
 | Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
 | Homepage                      | ✅ Full layout wired (hero → categories → brands → featured → why us → about → inquiry CTA) |
-| Product catalogue             | 🔶 Landings + filters done; brands strip / inquiry CTA / SEO copy open |
+| Product catalogue             | 🔶 Landings + filters + brands/CTA/SEO/SSG done; unique type SEO copy open |
 | Inquiry & contact             | ⬜ Not started                                                         |
 | Search                        | ⬜ Not started                                                         |
 | About & brands                | ⬜ Not started                                                         |
@@ -176,12 +176,12 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 
 | Route                           | Status | Remaining work                                         |
 | ------------------------------- | ------ | ------------------------------------------------------ |
-| `/products`                     | 🔶     | Filters + category hub cards done                      |
-| `/products/hydraulic`           | 🔶     | Filters + 13-category landing grid done                |
-| `/products/hydraulic/[...slug]` | 🔶     | Type/subtype landing cards done; unique SEO copy open  |
+| `/products`                     | 🔶     | Hub cards + filters + brands/CTA/SEO shell done        |
+| `/products/hydraulic`           | 🔶     | 13-category grid + brands/CTA done                     |
+| `/products/hydraulic/[...slug]` | 🔶     | Type cards + brands/CTA/related/SEO/SSG; type SEO open |
 | `/products/pneumatic`           | 🔒     | Deferred — add when client delivers taxonomy (§6.3)    |
 
-### D.2 Catalogue components (existing — extend)
+### D.2 Catalogue components ✅
 
 - [x] `CatalogueLayout.tsx` — header + sidebar + grid shell
 - [x] `CatalogueHeader.tsx` — breadcrumbs, title, description, count
@@ -191,30 +191,30 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 - [x] Mobile filter drawer / chip bar alternative to sidebar
 - [x] `ProductCard` — brand badge, category, link to inquiry with pre-fill
 - [x] Category landing view — show subcategory/type cards when at category level (not only product grid) (`LandingCardGrid` + `buildCatalogueLanding`)
-- [ ] Brands strip on category pages (logos for makes in category)
-- [ ] Inquiry CTA block on every catalogue page ("Get Best Price for [category]")
-- [ ] Related categories cross-links at bottom
-- [ ] SEO body copy section (150–300 words) per major category
-- [ ] `generateStaticParams` for all category/type slugs (SSG)
+- [x] Brands strip on category pages (logos for makes in category)
+- [x] Inquiry CTA block on every catalogue page ("Get Best Price for [category]")
+- [x] Related categories cross-links at bottom
+- [x] SEO body copy section (150–300 words) per major category
+- [x] `generateStaticParams` for all category/type slugs (SSG)
 - [x] Empty state when filters match no products
-- [ ] Loading / suspense boundaries if client filters added
+- [x] Loading / suspense boundaries if client filters added
 
-### D.3 Hydraulic category pages (13 total)
+### D.3 Hydraulic category pages (13 total) ✅
 
-- [ ] `/products/hydraulic/pumps`
-- [ ] `/products/hydraulic/valves`
-- [ ] `/products/hydraulic/hoses`
-- [ ] `/products/hydraulic/fittings`
-- [ ] `/products/hydraulic/cylinders`
-- [ ] `/products/hydraulic/power-packs`
-- [ ] `/products/hydraulic/motors`
-- [ ] `/products/hydraulic/accumulators`
-- [ ] `/products/hydraulic/filters`
-- [ ] `/products/hydraulic/seals`
-- [ ] `/products/hydraulic/manifolds`
-- [ ] `/products/hydraulic/pressure-gauges`
-- [ ] `/products/hydraulic/heat-exchangers`
-- [ ] Type-level pages where taxonomy has subtypes (e.g. `pumps/piston-pump`, `pumps/gear-pump/internal-gear-pump`)
+- [x] `/products/hydraulic/pumps`
+- [x] `/products/hydraulic/valves`
+- [x] `/products/hydraulic/hoses`
+- [x] `/products/hydraulic/fittings`
+- [x] `/products/hydraulic/cylinders`
+- [x] `/products/hydraulic/power-packs`
+- [x] `/products/hydraulic/motors`
+- [x] `/products/hydraulic/accumulators`
+- [x] `/products/hydraulic/filters`
+- [x] `/products/hydraulic/seals`
+- [x] `/products/hydraulic/manifolds`
+- [x] `/products/hydraulic/pressure-gauges`
+- [x] `/products/hydraulic/heat-exchangers`
+- [x] Type-level pages where taxonomy has subtypes (e.g. `pumps/piston-pump`, `pumps/gear-pump/internal-gear-pump`)
 
 ### D.4 Pneumatic catalogue — deferred
 
@@ -410,7 +410,7 @@ components/
   layout/       ✅ Header, DesktopNav, TopBar, MobileNav, SkipToContent, Footer
   ui/           ✅ Button, Card, Badge, Input, Textarea, Select, Dialog, Sheet, Field, Label, Checkbox, Separator, DropdownMenu
   home/         ✅ HeroSlider, CategoryCards, BrandsGrid, FeaturedProducts, WhyChooseUs, AboutSnippet, InquiryCTA
-  products/     🔶 CatalogueLayout, LandingCardGrid, FilterSidebar, FilterPanel, MobileFilterDrawer, ProductGrid, ProductCard (+ more)
+  products/     ✅ CatalogueLayout, LandingCardGrid, FilterSidebar, FilterPanel, MobileFilterDrawer, ProductGrid, ProductCard, CatalogueBrandsStrip, CatalogueInquiryCTA, RelatedCategories, CatalogueSeoCopy, CatalogueSkeleton
   inquiry/      ⬜ InquiryForm, WhatsAppButton
   search/       ⬜ SearchBar, SearchResults (header search form exists; results page pending)
 lib/

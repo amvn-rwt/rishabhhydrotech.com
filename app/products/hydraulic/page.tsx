@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { CatalogueLayout } from "@/components/products/CatalogueLayout";
+import { CatalogueSkeleton } from "@/components/products/CatalogueSkeleton";
 import { buildCatalogueConfig } from "@/lib/data/catalogue";
 
 export const metadata: Metadata = {
@@ -12,7 +14,7 @@ type HydraulicProductsPageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-export default async function HydraulicProductsPage({
+async function HydraulicProductsPageContent({
   searchParams,
 }: HydraulicProductsPageProps) {
   const params = await searchParams;
@@ -22,4 +24,14 @@ export default async function HydraulicProductsPage({
   });
 
   return <CatalogueLayout config={config} />;
+}
+
+export default function HydraulicProductsPage(
+  props: HydraulicProductsPageProps,
+) {
+  return (
+    <Suspense fallback={<CatalogueSkeleton />}>
+      <HydraulicProductsPageContent {...props} />
+    </Suspense>
+  );
 }

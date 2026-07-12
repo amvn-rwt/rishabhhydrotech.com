@@ -39,6 +39,20 @@ export type CatalogueLanding = {
   cards: CatalogueLandingCard[];
 };
 
+/** Link chip for related category cross-links on catalogue pages. */
+export type CatalogueRelatedLink = {
+  label: string;
+  href: string;
+};
+
+/** Inquiry CTA band props for catalogue pages. */
+export type CatalogueInquiryCta = {
+  title: string;
+  description: string;
+  primaryLabel: string;
+  href: string;
+};
+
 export type CataloguePageConfig = {
   title: string;
   description: string;
@@ -51,6 +65,14 @@ export type CataloguePageConfig = {
   products: Product[];
   /** Present when the path has child categories/types to browse. */
   landing?: CatalogueLanding;
+  /** Makes shown in the brands strip (category makes, or division brands on hubs). */
+  brands?: Brand[];
+  /** "Get Best Price for [category]" inquiry band. */
+  inquiryCta: CatalogueInquiryCta;
+  /** Sibling / peer category links at the bottom of the page. */
+  relatedCategories?: CatalogueRelatedLink[];
+  /** SEO body paragraphs (shown on category-level landings). */
+  seoBody?: string[];
 };
 
 /** OEM / house brand metadata (WEBSITE_TODO §B.3). Logos pending client deliverables. */
@@ -68,11 +90,12 @@ export type TaxonomyTypeNode = {
   children?: TaxonomyTypeNode[];
 };
 
-/** Category landing copy placeholders (title, intro, SEO blurb). */
+/** Category landing copy (title, intro, SEO body paragraphs). */
 export type CategoryLandingCopy = {
   title: string;
   intro: string;
-  seoBlurb: string;
+  /** SEO body paragraphs (target 150–300 words for major categories). */
+  seoBody: string[];
 };
 
 /**
