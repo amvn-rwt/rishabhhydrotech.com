@@ -29,6 +29,10 @@ export type CataloguePageConfig = {
   description: string;
   breadcrumbs: { label: string; href?: string }[];
   filters: FilterGroup[];
+  /** Filter values from the URL query (excludes path-locked groups). */
+  selectedFilters: Partial<Record<string, string[]>>;
+  /** Filter group ids fixed by the path (e.g. category on `/pumps`). */
+  lockedFilterIds: string[];
   products: Product[];
 };
 

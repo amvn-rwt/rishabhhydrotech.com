@@ -19,8 +19,11 @@ export function CatalogueLayout({ config }: CatalogueLayoutProps) {
 
       <div className="mx-auto w-full max-w-7xl flex-1 px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-          <FilterSidebar filters={config.filters} />
-          <section className="min-w-0 flex-1">
+          <FilterSidebar
+            filters={config.filters}
+            selectedFilters={config.selectedFilters}
+          />
+          <section className="min-w-0 flex-1" aria-live="polite">
             <ProductGrid products={config.products} />
           </section>
         </div>

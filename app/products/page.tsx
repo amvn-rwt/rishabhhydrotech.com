@@ -8,8 +8,13 @@ export const metadata: Metadata = {
     "Browse hydraulic products — pumps, valves, hoses, cylinders, and more.",
 };
 
-export default function ProductsPage() {
-  const config = buildCatalogueConfig({});
+type ProductsPageProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function ProductsPage({ searchParams }: ProductsPageProps) {
+  const params = await searchParams;
+  const config = buildCatalogueConfig({ searchParams: params });
 
   return <CatalogueLayout config={config} />;
 }

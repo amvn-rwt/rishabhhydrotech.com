@@ -5,13 +5,17 @@ import { formatCategoryLabel } from "@/lib/data/products";
 
 type HydraulicCategoryPageProps = {
   params: Promise<{ slug: string[] }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
 export async function generateMetadata({
   params,
 }: HydraulicCategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const label = slug.length > 0 ? formatCategoryLabel(slug[slug.length - 1]) : "Hydraulic Products";
+  const label =
+    slug.length > 0
+      ? formatCategoryLabel(slug[slug.length - 1])
+      : "Hydraulic Products";
 
   return {
     title: `${label} — Hydraulic Products`,
@@ -21,9 +25,14 @@ export async function generateMetadata({
 
 export default async function HydraulicCategoryPage({
   params,
+  searchParams,
 }: HydraulicCategoryPageProps) {
-  const { slug } = await params;
-  const config = buildCatalogueConfig({ division: "hydraulic", slug });
+  const [{ slug }, query] = await Promise.all([params, searchParams]);
+  const config = buildCatalogueConfig({
+    division: "hydraulic",
+    slug,
+    searchParams: query,
+  });
 
   return <CatalogueLayout config={config} />;
 }

@@ -1,4 +1,9 @@
 import type { CataloguePageConfig, ProductDivision } from "@/lib/types/product.types";
+import {
+  filterProducts,
+  resolveCatalogueFilters,
+  type CatalogueSearchParams,
+} from "@/lib/data/filter-params";
 import { getFiltersForDivision } from "@/lib/data/filters";
 import { formatCategoryLabel, getProductsForDivision } from "@/lib/data/products";
 import { getHydraulicCategory, getTaxonomyLabelBySlug } from "@/lib/data/taxonomy";
@@ -6,6 +11,7 @@ import { getHydraulicCategory, getTaxonomyLabelBySlug } from "@/lib/data/taxonom
 type BuildCatalogueConfigOptions = {
   division?: ProductDivision;
   slug?: string[];
+  searchParams?: CatalogueSearchParams;
 };
 
 const divisionMeta: Record<
@@ -22,8 +28,9 @@ const divisionMeta: Record<
 export function buildCatalogueConfig({
   division,
   slug,
+  searchParams,
 }: BuildCatalogueConfigOptions): CataloguePageConfig {
-  const products = getProductsForDivision(division);
+  const allProducts = getProductsForDivision(division);
   const filters = getFiltersForDivision(division);
 
   const breadcrumbs: CataloguePageConfig["breadcrumbs"] = [
@@ -34,6 +41,8 @@ export function buildCatalogueConfig({
   let title = "Product Catalogue";
   let description =
     "Browse our hydraulic product range. Use filters to narrow by category, brand, or type.";
+
+  const pathScope: { category?: string; typeSlugs?: string[] } = {};
 
   if (division) {
     breadcrumbs.push({
@@ -46,6 +55,8 @@ export function buildCatalogueConfig({
 
   if (division && slug && slug.length > 0) {
     const categorySlug = slug[0];
+    pathScope.category = categorySlug;
+
     const category = getHydraulicCategory(categorySlug);
     const categoryLabel =
       category?.name ?? formatCategoryLabel(categorySlug);
@@ -64,7 +75,9 @@ export function buildCatalogueConfig({
     }
 
     if (slug.length > 1) {
-      const leafSlug = slug[slug.length - 1];
+      const typeSlugs = slug.slice(1);
+      pathScope.typeSlugs = typeSlugs;
+      const leafSlug = typeSlugs[typeSlugs.length - 1];
       const typeLabel =
         getTaxonomyLabelBySlug(leafSlug) ?? formatCategoryLabel(leafSlug);
       breadcrumbs.push({ label: typeLabel });
@@ -75,11 +88,21 @@ export function buildCatalogueConfig({
     }
   }
 
+  const { selectedFilters, lockedFilterIds, productsFilter } =
+    resolveCatalogueFilters({ pathScope, searchParams });
+
+  const locked = new Set<string>(lockedFilterIds);
+  const visibleFilters = filters.filter((group) => !locked.has(group.id));
+
+  const products = filterProducts(allProducts, productsFilter);
+
   return {
     title,
     description,
     breadcrumbs,
-    filters,
+    filters: visibleFilters,
+    selectedFilters,
+    lockedFilterIds,
     products,
   };
 }

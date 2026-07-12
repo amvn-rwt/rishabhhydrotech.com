@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** 11 July 2026 (Pneumatic catalogue deferred — removed draft taxonomy & routes)
+> **Last updated:** 12 July 2026 (Catalogue filters wired to URL + product list)
 
 ---
 
@@ -13,7 +13,7 @@
 | Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Inter/JetBrains Mono + shadcn UI primitives |
 | Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
 | Homepage                      | ✅ Full layout wired (hero → categories → brands → featured → why us → about → inquiry CTA) |
-| Product catalogue             | 🔶 Shell + taxonomy/seed data; filters not wired                       |
+| Product catalogue             | 🔶 Filters wired to URL; category hub / landings still open            |
 | Inquiry & contact             | ⬜ Not started                                                         |
 | Search                        | ⬜ Not started                                                         |
 | About & brands                | ⬜ Not started                                                         |
@@ -176,18 +176,18 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 
 | Route                           | Status | Remaining work                                         |
 | ------------------------------- | ------ | ------------------------------------------------------ |
-| `/products`                     | 🔶     | Filter products by URL params; category hub UI         |
-| `/products/hydraulic`           | 🔶     | Category grid for all 13 hydraulic categories          |
-| `/products/hydraulic/[...slug]` | 🔶     | Filter products by slug; type-level pages; unique copy |
+| `/products`                     | 🔶     | URL filters done; category hub UI                      |
+| `/products/hydraulic`           | 🔶     | URL filters done; category grid for 13 categories      |
+| `/products/hydraulic/[...slug]` | 🔶     | Slug + URL filters done; type pages / unique copy open |
 | `/products/pneumatic`           | 🔒     | Deferred — add when client delivers taxonomy (§6.3)    |
 
 ### D.2 Catalogue components (existing — extend)
 
 - [x] `CatalogueLayout.tsx` — header + sidebar + grid shell
 - [x] `CatalogueHeader.tsx` — breadcrumbs, title, description, count
-- [x] `FilterSidebar.tsx` — static disabled checkboxes
+- [x] `FilterSidebar.tsx` — URL-driven checkboxes (read/write query params)
 - [x] `ProductGrid.tsx` + `ProductCard.tsx` — basic card with image placeholder
-- [ ] **Wire filters** — read/write URL search params; filter `products` client- or server-side
+- [x] **Wire filters** — server filters from path + `?category=&brand=&type=`; sidebar updates URL
 - [ ] Mobile filter drawer / chip bar alternative to sidebar
 - [ ] `ProductCard` — brand badge, category, link to inquiry with pre-fill
 - [ ] Category landing view — show subcategory/type cards when at category level (not only product grid)
@@ -196,7 +196,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 - [ ] Related categories cross-links at bottom
 - [ ] SEO body copy section (150–300 words) per major category
 - [ ] `generateStaticParams` for all category/type slugs (SSG)
-- [ ] Empty state when filters match no products
+- [x] Empty state when filters match no products
 - [ ] Loading / suspense boundaries if client filters added
 
 ### D.3 Hydraulic category pages (13 total)
@@ -392,7 +392,7 @@ Use this when picking up work; reorder as client deliverables arrive.
 3. ✅ UI primitives (`Button`, `Input`, `DropdownMenu`, etc.) (Phase 0)
 4. ✅ Favicon + site metadata icons (Phase 0)
 5. ✅ Full hydraulic taxonomy in `lib/data/` (Phase 0)
-6. ⬜ Wire catalogue filters to URL + product list (Phase 2)
+6. ✅ Wire catalogue filters to URL + product list (Phase 2)
 7. ⬜ Hydraulic division landing — category card grid (Phase 2)
 8. ✅ Hero slider + full homepage sections (Phase 1)
 9. ⬜ Inquiry form + `/inquiry` page (Phase 3)
@@ -414,7 +414,7 @@ components/
   inquiry/      ⬜ InquiryForm, WhatsAppButton
   search/       ⬜ SearchBar, SearchResults (header search form exists; results page pending)
 lib/
-  data/         ✅ products.ts, filters.ts, catalogue.ts, navigation.ts, site.ts, brands.ts, taxonomy.ts, hero.ts, home.ts
+  data/         ✅ products.ts, filters.ts, filter-params.ts, catalogue.ts, navigation.ts, site.ts, brands.ts, taxonomy.ts, hero.ts, home.ts
   types/        ✅ product.types.ts
   inquiry.ts    ✅ inquiryHref() for pre-filled quote links
 app/

@@ -340,3 +340,35 @@ export function flattenTaxonomyTypes(
   }
   return result;
 }
+
+/** Find a type/subtype node by slug within a type tree. */
+export function findTaxonomyTypeNode(
+  types: TaxonomyTypeNode[],
+  slug: string,
+): TaxonomyTypeNode | undefined {
+  for (const type of types) {
+    if (type.slug === slug) return type;
+    const nested = findTaxonomyTypeNode(type.children ?? [], slug);
+    if (nested) return nested;
+  }
+  return undefined;
+}
+
+/**
+ * Slugs that match a type filter: the node itself plus descendants.
+ * So `piston-pump` also matches `variable-displacement-piston-pump`.
+ */
+export function expandTypeFilterSlugs(
+  categorySlug: string | undefined,
+  typeSlug: string,
+): string[] {
+  const category = categorySlug
+    ? getHydraulicCategory(categorySlug)
+    : undefined;
+  const trees = category
+    ? category.types
+    : hydraulicTaxonomy.flatMap((cat) => cat.types);
+  const node = findTaxonomyTypeNode(trees, typeSlug);
+  if (!node) return [typeSlug];
+  return flattenTaxonomyTypes([node]).map((type) => type.slug);
+}
