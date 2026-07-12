@@ -6,7 +6,7 @@ type FilterSidebarProps = {
 
 export function FilterSidebar({ filters }: FilterSidebarProps) {
   return (
-    <aside className="w-full shrink-0 border border-border bg-white lg:w-64">
+    <aside className="w-full shrink-0 overflow-hidden rounded-lg border border-border bg-white lg:w-64">
       <div className="border-b border-border px-4 py-3">
         <h2 className="type-h4 uppercase tracking-wide text-neutral-dark">
           Filters
@@ -26,7 +26,7 @@ export function FilterSidebar({ filters }: FilterSidebarProps) {
                     <input
                       type="checkbox"
                       disabled
-                      className="size-4 shrink-0 appearance-none border border-border bg-white checked:border-brand checked:bg-brand"
+                      className="size-4 shrink-0 appearance-none rounded-sm border border-border bg-white checked:border-brand checked:bg-brand"
                     />
                     <span>{option.label}</span>
                   </label>

@@ -39,7 +39,7 @@ export function WhyChooseUs() {
             const Icon = icons[item.id];
             return (
               <li key={item.id} className="flex flex-col gap-3">
-                <span className="flex size-10 items-center justify-center bg-brand-muted text-brand-dark">
+                <span className="flex size-10 items-center justify-center rounded-md bg-brand-muted text-brand-dark">
                   <Icon className="size-5" aria-hidden />
                 </span>
                 <h3 className="type-h3 text-neutral-dark">{item.title}</h3>

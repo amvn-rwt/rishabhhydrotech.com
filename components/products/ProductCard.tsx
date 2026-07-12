@@ -6,7 +6,7 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   return (
-    <article className="border border-border bg-white">
+    <article className="overflow-hidden rounded-lg border border-border bg-white">
       <div className="aspect-square border-b border-border bg-brand-muted" aria-hidden="true" />
       <div className="px-3 py-3">
         <h3 className="type-h4 text-neutral-dark">

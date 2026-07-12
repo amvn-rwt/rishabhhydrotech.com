@@ -137,7 +137,8 @@
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0;
+  /* Subtle industrial radius: soft enough to feel modern, tight enough to stay sharp. */
+  --radius: 0.375rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -275,13 +276,6 @@ body {
   font-weight: var(--type-body-weight);
   line-height: var(--type-body-leading);
   letter-spacing: var(--type-body-tracking);
-}
-
-/* Catches hardcoded radii (e.g. checkbox rounded-[4px]) that --radius: 0 won't reach. */
-*,
-*::before,
-*::after {
-  border-radius: 0;
 }
 
 /* Semantic typography utilities — compose tokens into ready-to-use styles. */

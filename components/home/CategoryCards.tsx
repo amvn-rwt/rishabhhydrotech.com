@@ -80,7 +80,7 @@ export function CategoryCards() {
                   href={category.href}
                   className="group flex h-full flex-col gap-4 px-5 py-6 transition-colors hover:bg-brand-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset"
                 >
-                  <span className="flex size-11 items-center justify-center bg-brand-muted text-brand-dark transition-colors group-hover:bg-brand group-hover:text-white">
+                  <span className="flex size-11 items-center justify-center rounded-md bg-brand-muted text-brand-dark transition-colors group-hover:bg-brand group-hover:text-white">
                     <Icon className="size-5" aria-hidden strokeWidth={1.75} />
                   </span>
                   <span className="flex flex-col gap-2">
