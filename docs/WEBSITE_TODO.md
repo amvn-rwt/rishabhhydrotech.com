@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** 12 July 2026 (ProductCard brand, category, inquiry CTA)
+> **Last updated:** 12 July 2026 (Category landing type/subcategory cards)
 
 ---
 
@@ -13,7 +13,7 @@
 | Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Clash Grotesk / General Sans / JetBrains Mono + shadcn UI primitives |
 | Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
 | Homepage                      | ✅ Full layout wired (hero → categories → brands → featured → why us → about → inquiry CTA) |
-| Product catalogue             | 🔶 URL filters + mobile drawer; category hub / landings still open     |
+| Product catalogue             | 🔶 Landings + filters done; brands strip / inquiry CTA / SEO copy open |
 | Inquiry & contact             | ⬜ Not started                                                         |
 | Search                        | ⬜ Not started                                                         |
 | About & brands                | ⬜ Not started                                                         |
@@ -176,9 +176,9 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 
 | Route                           | Status | Remaining work                                         |
 | ------------------------------- | ------ | ------------------------------------------------------ |
-| `/products`                     | 🔶     | URL filters done; category hub UI                      |
-| `/products/hydraulic`           | 🔶     | URL filters done; category grid for 13 categories      |
-| `/products/hydraulic/[...slug]` | 🔶     | Slug + URL filters done; type pages / unique copy open |
+| `/products`                     | 🔶     | Filters + category hub cards done                      |
+| `/products/hydraulic`           | 🔶     | Filters + 13-category landing grid done                |
+| `/products/hydraulic/[...slug]` | 🔶     | Type/subtype landing cards done; unique SEO copy open  |
 | `/products/pneumatic`           | 🔒     | Deferred — add when client delivers taxonomy (§6.3)    |
 
 ### D.2 Catalogue components (existing — extend)
@@ -190,7 +190,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 - [x] **Wire filters** — server filters from path + `?category=&brand=&type=`; sidebar updates URL
 - [x] Mobile filter drawer / chip bar alternative to sidebar
 - [x] `ProductCard` — brand badge, category, link to inquiry with pre-fill
-- [ ] Category landing view — show subcategory/type cards when at category level (not only product grid)
+- [x] Category landing view — show subcategory/type cards when at category level (not only product grid) (`LandingCardGrid` + `buildCatalogueLanding`)
 - [ ] Brands strip on category pages (logos for makes in category)
 - [ ] Inquiry CTA block on every catalogue page ("Get Best Price for [category]")
 - [ ] Related categories cross-links at bottom
@@ -393,7 +393,7 @@ Use this when picking up work; reorder as client deliverables arrive.
 4. ✅ Favicon + site metadata icons (Phase 0)
 5. ✅ Full hydraulic taxonomy in `lib/data/` (Phase 0)
 6. ✅ Wire catalogue filters to URL + product list (Phase 2)
-7. ⬜ Hydraulic division landing — category card grid (Phase 2)
+7. ✅ Hydraulic division landing — category card grid (Phase 2)
 8. ✅ Hero slider + full homepage sections (Phase 1)
 9. ⬜ Inquiry form + `/inquiry` page (Phase 3)
 10. ⬜ Contact page with map placeholders (Phase 3)
@@ -410,7 +410,7 @@ components/
   layout/       ✅ Header, DesktopNav, TopBar, MobileNav, SkipToContent, Footer
   ui/           ✅ Button, Card, Badge, Input, Textarea, Select, Dialog, Sheet, Field, Label, Checkbox, Separator, DropdownMenu
   home/         ✅ HeroSlider, CategoryCards, BrandsGrid, FeaturedProducts, WhyChooseUs, AboutSnippet, InquiryCTA
-  products/     🔶 CatalogueLayout, FilterSidebar, FilterPanel, MobileFilterDrawer, ProductGrid, ProductCard (+ more)
+  products/     🔶 CatalogueLayout, LandingCardGrid, FilterSidebar, FilterPanel, MobileFilterDrawer, ProductGrid, ProductCard (+ more)
   inquiry/      ⬜ InquiryForm, WhatsAppButton
   search/       ⬜ SearchBar, SearchResults (header search form exists; results page pending)
 lib/

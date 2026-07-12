@@ -24,6 +24,21 @@ export type Product = {
   type?: string;
 };
 
+/** Card linking to a child category, type, or subtype on a catalogue landing. */
+export type CatalogueLandingCard = {
+  label: string;
+  href: string;
+  /** Optional supporting line (e.g. subtype list or category intro). */
+  description?: string;
+  productCount: number;
+};
+
+/** Subcategory / type navigation shown above the product grid on landings. */
+export type CatalogueLanding = {
+  heading: string;
+  cards: CatalogueLandingCard[];
+};
+
 export type CataloguePageConfig = {
   title: string;
   description: string;
@@ -34,6 +49,8 @@ export type CataloguePageConfig = {
   /** Filter group ids fixed by the path (e.g. category on `/pumps`). */
   lockedFilterIds: string[];
   products: Product[];
+  /** Present when the path has child categories/types to browse. */
+  landing?: CatalogueLanding;
 };
 
 /** OEM / house brand metadata (WEBSITE_TODO §B.3). Logos pending client deliverables. */

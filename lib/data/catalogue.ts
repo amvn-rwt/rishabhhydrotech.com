@@ -1,4 +1,11 @@
-import type { CataloguePageConfig, ProductDivision } from "@/lib/types/product.types";
+import type {
+  CatalogueLanding,
+  CatalogueLandingCard,
+  CataloguePageConfig,
+  Product,
+  ProductDivision,
+  TaxonomyTypeNode,
+} from "@/lib/types/product.types";
 import {
   filterProducts,
   resolveCatalogueFilters,
@@ -6,7 +13,12 @@ import {
 } from "@/lib/data/filter-params";
 import { getFiltersForDivision } from "@/lib/data/filters";
 import { formatCategoryLabel, getProductsForDivision } from "@/lib/data/products";
-import { getHydraulicCategory, getTaxonomyLabelBySlug } from "@/lib/data/taxonomy";
+import {
+  findTaxonomyTypeNode,
+  getHydraulicCategory,
+  getTaxonomyLabelBySlug,
+  hydraulicTaxonomy,
+} from "@/lib/data/taxonomy";
 
 type BuildCatalogueConfigOptions = {
   division?: ProductDivision;
@@ -24,6 +36,107 @@ const divisionMeta: Record<
       "Browse pumps, valves, hoses, cylinders, power packs, and the full hydraulic range from leading brands.",
   },
 };
+
+function countProductsForType(
+  products: Product[],
+  categorySlug: string | undefined,
+  typeSlug: string,
+): number {
+  return filterProducts(products, {
+    ...(categorySlug ? { category: [categorySlug] } : {}),
+    type: [typeSlug],
+  }).length;
+}
+
+function typeCardsFromNodes({
+  types,
+  hrefBase,
+  products,
+  categorySlug,
+}: {
+  types: TaxonomyTypeNode[];
+  hrefBase: string;
+  products: Product[];
+  categorySlug: string;
+}): CatalogueLandingCard[] {
+  return types.map((type) => {
+    const childLabels = type.children?.map((child) => child.label) ?? [];
+    return {
+      label: type.label,
+      href: `${hrefBase}/${type.slug}`,
+      ...(childLabels.length > 0
+        ? { description: childLabels.join(", ") }
+        : {}),
+      productCount: countProductsForType(products, categorySlug, type.slug),
+    };
+  });
+}
+
+/**
+ * Build landing cards for hub / category / type levels.
+ * Hub → categories; category → types; type with children → subtypes.
+ */
+function buildCatalogueLanding({
+  division,
+  slug,
+  products,
+}: {
+  division?: ProductDivision;
+  slug?: string[];
+  products: Product[];
+}): CatalogueLanding | undefined {
+  const resolvedDivision = division ?? "hydraulic";
+
+  // Category or deeper path
+  if (slug && slug.length > 0) {
+    const categorySlug = slug[0];
+    const category = getHydraulicCategory(categorySlug);
+    if (!category) return undefined;
+
+    // Category level: type cards
+    if (slug.length === 1) {
+      if (category.types.length === 0) return undefined;
+      return {
+        heading: "Browse by type",
+        cards: typeCardsFromNodes({
+          types: category.types,
+          hrefBase: `/products/${resolvedDivision}/${category.slug}`,
+          products,
+          categorySlug: category.slug,
+        }),
+      };
+    }
+
+    // Type / subtype level: show children of the leaf node when present
+    const leafSlug = slug[slug.length - 1];
+    const node = findTaxonomyTypeNode(category.types, leafSlug);
+    if (!node?.children?.length) return undefined;
+
+    return {
+      heading: "Browse by type",
+      cards: typeCardsFromNodes({
+        types: node.children,
+        hrefBase: `/products/${resolvedDivision}/${slug.join("/")}`,
+        products,
+        categorySlug: category.slug,
+      }),
+    };
+  }
+
+  // Division or catalogue hub: category cards
+  const cards: CatalogueLandingCard[] = hydraulicTaxonomy.map((category) => ({
+    label: category.name,
+    href: `/products/hydraulic/${category.slug}`,
+    description: category.copy.intro,
+    productCount: products.filter((product) => product.category === category.slug)
+      .length,
+  }));
+
+  return {
+    heading: "Browse by category",
+    cards,
+  };
+}
 
 export function buildCatalogueConfig({
   division,
@@ -95,6 +208,7 @@ export function buildCatalogueConfig({
   const visibleFilters = filters.filter((group) => !locked.has(group.id));
 
   const products = filterProducts(allProducts, productsFilter);
+  const landing = buildCatalogueLanding({ division, slug, products });
 
   return {
     title,
@@ -104,5 +218,6 @@ export function buildCatalogueConfig({
     selectedFilters,
     lockedFilterIds,
     products,
+    ...(landing ? { landing } : {}),
   };
 }

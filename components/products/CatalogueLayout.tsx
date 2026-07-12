@@ -1,6 +1,7 @@
 import type { CataloguePageConfig } from "@/lib/types/product.types";
 import { CatalogueHeader } from "./CatalogueHeader";
 import { FilterSidebar } from "./FilterSidebar";
+import { LandingCardGrid } from "./LandingCardGrid";
 import { MobileFilterDrawer } from "./MobileFilterDrawer";
 import { ProductGrid } from "./ProductGrid";
 
@@ -9,6 +10,8 @@ type CatalogueLayoutProps = {
 };
 
 export function CatalogueLayout({ config }: CatalogueLayoutProps) {
+  const hasLanding = Boolean(config.landing?.cards.length);
+
   return (
     <div className="flex min-h-full flex-col bg-brand-muted">
       <CatalogueHeader
@@ -29,6 +32,14 @@ export function CatalogueLayout({ config }: CatalogueLayoutProps) {
             selectedFilters={config.selectedFilters}
           />
           <section className="min-w-0 flex-1" aria-live="polite">
+            {config.landing ? (
+              <LandingCardGrid landing={config.landing} />
+            ) : null}
+
+            {hasLanding ? (
+              <h2 className="type-h3 mb-4 text-neutral-dark">Products</h2>
+            ) : null}
+
             <ProductGrid products={config.products} />
           </section>
         </div>
