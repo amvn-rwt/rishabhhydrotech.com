@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** 12 July 2026 (Mobile filter drawer + chip bar)
+> **Last updated:** 12 July 2026 (ProductCard brand, category, inquiry CTA)
 
 ---
 
@@ -189,7 +189,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 - [x] `ProductGrid.tsx` + `ProductCard.tsx` — basic card with image placeholder
 - [x] **Wire filters** — server filters from path + `?category=&brand=&type=`; sidebar updates URL
 - [x] Mobile filter drawer / chip bar alternative to sidebar
-- [ ] `ProductCard` — brand badge, category, link to inquiry with pre-fill
+- [x] `ProductCard` — brand badge, category, link to inquiry with pre-fill
 - [ ] Category landing view — show subcategory/type cards when at category level (not only product grid)
 - [ ] Brands strip on category pages (logos for makes in category)
 - [ ] Inquiry CTA block on every catalogue page ("Get Best Price for [category]")
