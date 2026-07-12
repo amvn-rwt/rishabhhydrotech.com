@@ -51,18 +51,21 @@ export function FilterSidebar({
   return (
     <aside className="w-full shrink-0 overflow-hidden border border-border bg-white lg:w-64">
       <div className="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
-        <h2 className="type-h4 uppercase tracking-wide text-neutral-dark">
-          Filters
-        </h2>
-        {showClear ? (
-          <button
-            type="button"
-            onClick={onClear}
-            className="type-body-sm text-brand hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-          >
-            Clear
-          </button>
-        ) : null}
+        <h2 className="type-h4 text-neutral-dark">Filters</h2>
+        <button
+          type="button"
+          onClick={onClear}
+          disabled={!showClear}
+          aria-hidden={!showClear}
+          tabIndex={showClear ? undefined : -1}
+          className={
+            showClear
+              ? "type-body-sm text-brand hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+              : "type-body-sm invisible"
+          }
+        >
+          Reset filters
+        </button>
       </div>
 
       <div className="divide-y divide-border">

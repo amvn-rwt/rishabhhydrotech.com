@@ -22,7 +22,7 @@ export function InquiryCTA() {
   return (
     <section
       aria-labelledby="home-inquiry-heading"
-      className="bg-accent text-white"
+      className="border-y border-white/10 bg-ink-elevated text-white"
     >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8 px-4 py-12 sm:px-6 sm:py-14 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:px-8 lg:py-16">
         <div className="max-w-xl">
@@ -42,7 +42,7 @@ export function InquiryCTA() {
             render={<Link href={inquiryCta.primaryHref} />}
             nativeButton={false}
             size="lg"
-            className="bg-white px-5 text-accent hover:bg-white/90"
+            className="bg-brand px-5 text-white hover:bg-brand-dark"
           >
             {inquiryCta.primaryLabel}
           </Button>

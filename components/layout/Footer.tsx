@@ -35,27 +35,25 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto bg-brand text-white">
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-10 sm:px-6 sm:py-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8 lg:px-8">
+    <footer className="mt-auto bg-ink text-white">
+      <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-10 sm:px-6 sm:py-12 md:grid-cols-2 lg:grid-cols-[minmax(0,1.75fr)_repeat(3,minmax(0,1fr))] lg:gap-10 lg:px-8">
         <div className="flex flex-col gap-4 md:col-span-2 lg:col-span-1">
           <Link
             href="/"
-            className="flex w-fit items-center gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+            className="flex w-fit items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
           >
-            <span className="flex size-10 shrink-0 items-center justify-center bg-white p-0.5">
-              <Image
-                src={siteConfig.logo.src}
-                alt={siteConfig.logo.alt}
-                width={siteConfig.logo.width}
-                height={siteConfig.logo.height}
-                className="size-9 object-contain"
-              />
-            </span>
-            <span className="min-w-0">
-              <span className="block text-sm font-semibold leading-tight tracking-tight sm:text-base">
+            <Image
+              src={siteConfig.logo.src}
+              alt={siteConfig.logo.alt}
+              width={siteConfig.logo.width}
+              height={siteConfig.logo.height}
+              className="size-14 shrink-0 object-contain"
+            />
+            <span className="flex min-w-0 flex-col">
+              <span className="font-heading text-sm font-semibold leading-none tracking-tight sm:text-base">
                 {siteConfig.name}
               </span>
-              <span className="block text-xs text-white/75">
+              <span className="mt-0.5 block text-xs leading-none text-white/65">
                 {siteConfig.shortTagline}
               </span>
             </span>
@@ -200,7 +198,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="bg-brand-dark">
+      <div className="bg-ink-elevated">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-1 px-4 py-3 type-caption text-white/70 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
           <p suppressHydrationWarning>
             © {year} {siteConfig.name}. All rights reserved.

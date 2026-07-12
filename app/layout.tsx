@@ -8,9 +8,16 @@ import { SkipToContent } from "@/components/layout/SkipToContent";
 import { siteConfig } from "@/lib/data/site";
 import { cn } from "@/lib/utils";
 
+const generalSans = localFont({
+  src: "../fonts/GeneralSans-Variable.woff2",
+  variable: "--font-sans",
+  weight: "200 700",
+  display: "swap",
+});
+
 const clashGrotesk = localFont({
   src: "../fonts/ClashGrotesk-Variable.woff2",
-  variable: "--font-sans",
+  variable: "--font-heading",
   weight: "200 700",
   display: "swap",
 });
@@ -40,6 +47,7 @@ export default function RootLayout({
       className={cn(
         "h-full",
         "antialiased",
+        generalSans.variable,
         clashGrotesk.variable,
         jetbrainsMono.variable,
         "font-sans"

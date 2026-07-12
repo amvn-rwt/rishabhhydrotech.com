@@ -30,7 +30,7 @@ function NavDropdown({ item }: { item: NavItem }) {
     <DropdownMenu>
       <DropdownMenuTrigger
         className={cn(
-          "inline-flex items-center gap-1 text-sm font-medium text-white/90 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60",
+          "inline-flex items-center gap-1 font-heading text-sm font-medium text-white/90 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60",
           active && "text-white"
         )}
       >
@@ -73,7 +73,7 @@ export function DesktopNav() {
             key={item.href}
             href={item.href}
             className={cn(
-              "text-sm font-medium text-white/90 transition-colors hover:text-white",
+              "font-heading text-sm font-medium text-white/90 transition-colors hover:text-white",
               isNavActive(pathname, item.href) && "text-white underline underline-offset-4"
             )}
             aria-current={isNavActive(pathname, item.href) ? "page" : undefined}

@@ -46,7 +46,7 @@ export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
       ref={regionRef}
       aria-roledescription="carousel"
       aria-label="Featured products"
-      className="relative isolate w-full overflow-hidden bg-brand-dark"
+      className="relative isolate w-full overflow-hidden bg-ink"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
@@ -66,12 +66,12 @@ export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
           />
         ))}
 
-        <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-r from-brand-dark/95 via-brand-dark/70 to-brand-dark/25" />
-        <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-brand-dark/80 via-transparent to-brand-dark/30" />
+        <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-r from-ink/92 via-ink/55 to-ink/10" />
+        <div className="pointer-events-none absolute inset-0 z-10 bg-linear-to-t from-ink/75 via-transparent to-ink/35" />
 
         <div className="absolute inset-0 z-20 flex flex-col justify-end">
           <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-end px-4 pb-16 pt-20 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24">
-            <p className="type-overline mb-3 text-white/80">{siteConfig.name}</p>
+            <p className="type-overline mb-3 text-white/70">{siteConfig.name}</p>
 
             <div
               aria-live="polite"
@@ -81,7 +81,7 @@ export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
               <h1 className="type-display text-balance text-white">
                 {active.headline}
               </h1>
-              <p className="type-lead max-w-prose text-pretty text-white/85">
+              <p className="type-lead max-w-prose text-pretty text-white/80">
                 {active.subtext}
               </p>
               <div className="pointer-events-auto mt-2 flex flex-wrap items-center gap-3">
@@ -89,7 +89,7 @@ export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
                   render={<Link href={active.ctaHref} />}
                   nativeButton={false}
                   size="lg"
-                  className="bg-accent px-5 text-white hover:bg-accent-hover"
+                  className="bg-white px-5 text-ink hover:bg-white/90"
                 >
                   {active.ctaLabel}
                 </Button>
@@ -99,7 +99,7 @@ export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
                     nativeButton={false}
                     size="lg"
                     variant="outline"
-                    className="border-white/40 bg-transparent px-5 text-white hover:bg-white/10 hover:text-white"
+                    className="border-white/45 bg-transparent px-5 text-white hover:bg-white/10 hover:text-white"
                   >
                     {active.secondaryCtaLabel}
                   </Button>
@@ -125,8 +125,8 @@ export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
                     className={cn(
                       "h-1.5 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
                       i === index
-                        ? "w-8 bg-accent"
-                        : "w-4 bg-white/35 hover:bg-white/55"
+                        ? "w-8 bg-white"
+                        : "w-4 bg-white/30 hover:bg-white/50"
                     )}
                     onClick={() => goTo(i)}
                   />
@@ -209,18 +209,18 @@ function ProductImagePlaceholder({
 }) {
   return (
     <div
-      className="absolute inset-0 bg-[linear-gradient(135deg,#3d4f73_0%,#4a5e87_42%,#5c6f9e_68%,#2f3b52_100%)]"
+      className="absolute inset-0 bg-[linear-gradient(135deg,#0c1017_0%,#151b26_42%,#1f2937_68%,#0c1017_100%)]"
       aria-hidden="true"
     >
       <div
-        className="absolute inset-0 opacity-[0.18]"
+        className="absolute inset-0 opacity-[0.14]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.12) 1px, transparent 1px)",
+            "linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
         }}
       />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,rgba(138,155,191,0.35),transparent_55%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_70%_40%,rgba(92,111,158,0.28),transparent_55%)]" />
       <div
         className={cn(
           "absolute inset-y-0 right-0 flex w-full items-center justify-end pr-6 sm:pr-12 lg:w-[55%] lg:pr-20",

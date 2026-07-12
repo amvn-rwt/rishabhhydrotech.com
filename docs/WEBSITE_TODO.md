@@ -10,7 +10,7 @@
 
 | Area                          | Status                                                                 |
 | ----------------------------- | ---------------------------------------------------------------------- |
-| Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Inter/JetBrains Mono + shadcn UI primitives |
+| Design tokens & fonts         | ✅ Done — colors, spacing, typography tokens + Clash Grotesk / General Sans / JetBrains Mono + shadcn UI primitives |
 | Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
 | Homepage                      | ✅ Full layout wired (hero → categories → brands → featured → why us → about → inquiry CTA) |
 | Product catalogue             | 🔶 Filters wired to URL; category hub / landings still open            |
@@ -42,8 +42,8 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 - [ ] **Language** — English only for v1 (recommended) vs bilingual
 - [ ] **Dark mode** — no for v1 (recommended)
 - [ ] **Analytics** — GA4, Search Console, optional Meta Pixel / call tracking
-- [ ] **Logo on dark backgrounds** — needed or not (footer/header use steel blue)
-- [x] **Typography** — Inter (headings + body) + JetBrains Mono (specs)
+- [x] **Logo on dark backgrounds** — transparent logo; chrome uses ink (`#0c1017`) so mark reads without a white plate
+- [x] **Typography** — Clash Grotesk (headings/actions) + General Sans (body) + JetBrains Mono (specs)
 
 ### A.2 Must-have client deliverables (launch blockers)
 
@@ -82,12 +82,12 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 ### B.1 Brand & design system ✅
 
 - [x] Brand color tokens in `app/globals.css` (`--color-brand`, `--color-accent`, etc.)
-- [x] Inter font via `next/font` in root layout (weights 400–800)
+- [x] Font roles via `next/font` in root layout: Clash Grotesk (`--font-heading`) for headings/actions, General Sans (`--font-sans`) for body, JetBrains Mono for specs
 - [x] Base spacing tokens in `globals.css`
 - [x] Favicon — `app/favicon.ico` generated from `public/logo.png`
 - [x] Apple touch icon — `app/icon.png` (Next.js file-based metadata)
 - [x] Site icons — file-based metadata in `app/` (`favicon.ico` + `icon.png`)
-- [x] Full typography scale in `app/globals.css` — primitive tokens, semantic `--type-*` compositions, Tailwind `@theme` mappings, and `type-*` utility classes (display, H1–H4, body, lead, caption, button, spec)
+- [x] Full typography scale in `app/globals.css` — primitive tokens, semantic `--type-*` compositions, Tailwind `@theme` mappings, and `type-*` utility classes (display, H1–H4, body, lead, caption, button, spec) with family baked in per role
 - [x] JetBrains Mono via `next/font` + `type-spec` utility (tabular nums for spec tables)
 - [x] Zero border-radius theme — `--radius: 0` in `globals.css` + global override for hardcoded radii
 - [x] Shared UI primitives in `components/ui/` (shadcn base-nova):
@@ -164,7 +164,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 - [x] **§7 About snippet** (`components/home/AboutSnippet.tsx`) (P1)
   - [x] Placeholder paragraphs + "Learn more" → `/about` (full copy pending client §A.2)
 - [x] **§8 Inquiry CTA band** (`components/home/InquiryCTA.tsx`) (P0)
-  - [x] Full-width orange band, form link; phone + WhatsApp when contact details land
+  - [x] Full-width ink band with brand CTA; phone + WhatsApp when contact details land
 - [x] **§9 Footer** — global footer from Phase 0 (wired in root layout)
 - [x] Homepage-specific `metadata` (title, description, OG basics; dedicated OG image still open)
 
@@ -339,7 +339,7 @@ Client will provide the full pneumatic taxonomy later. Do not invent categories 
 
 - [ ] Keyboard navigable menus, modals, filters
 - [ ] Focus visible styles on interactive elements
-- [ ] Color contrast check — orange CTA on white, white text on steel blue header
+- [ ] Color contrast check — brand CTA on white/ink, white text on ink chrome
 - [ ] Form labels, `aria-invalid`, error announcements
 - [ ] Screen reader test on nav + inquiry flow
 

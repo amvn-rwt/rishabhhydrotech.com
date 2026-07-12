@@ -23,7 +23,7 @@ export function TopBar() {
   const emailLink = mailtoHref(contact.email);
 
   return (
-    <div className="bg-brand-dark text-white">
+    <div className="bg-ink-elevated text-white">
       <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-end gap-x-4 gap-y-1 px-4 py-1.5 type-caption sm:px-6 lg:px-8">
         {contact.phone && phoneLink ? (
           <a

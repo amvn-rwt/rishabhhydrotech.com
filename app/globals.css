@@ -164,17 +164,22 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  /* Ink: chrome (header/footer). Brand/accent: steel from the logo metal. */
+  --color-ink: #0c1017;
+  --color-ink-elevated: #151b26;
   --color-brand: #5c6f9e;
   --color-brand-dark: #4a5e87;
   --color-brand-light: #8a9bbf;
   --color-brand-muted: #e8eaed;
-  --color-accent: #e85d04;
-  --color-accent-hover: #c44d03;
+  --color-accent: #5c6f9e;
+  --color-accent-hover: #4a5e87;
   --color-neutral-dark: #1f2937;
   --color-neutral-mid: #6b7280;
   --color-border: #d1d5db;
   --color-white: #ffffff;
+  /* General Sans: body / UI copy. Clash Grotesk: headings & actions. JetBrains: specs. */
   --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
   --radius-none: 0;
 
@@ -233,7 +238,6 @@
 
   /* Typography — prose width (max-w-prose utility). */
   --max-width-prose: var(--max-width-prose);
-  --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -278,9 +282,13 @@ body {
   letter-spacing: var(--type-body-tracking);
 }
 
-/* Semantic typography utilities — compose tokens into ready-to-use styles. */
+/* Semantic typography utilities — compose tokens into ready-to-use styles.
+   Clash Grotesk: display / headings / overlines / buttons.
+   General Sans: body / lead / caption (inherits from body default).
+   JetBrains Mono: specs & tabular numbers. */
 @layer components {
   .type-display {
+    font-family: var(--font-heading);
     font-size: var(--type-display-size);
     font-weight: var(--type-display-weight);
     line-height: var(--type-display-leading);
@@ -288,6 +296,7 @@ body {
   }
 
   .type-h1 {
+    font-family: var(--font-heading);
     font-size: var(--type-h1-size);
     font-weight: var(--type-h1-weight);
     line-height: var(--type-h1-leading);
@@ -295,6 +304,7 @@ body {
   }
 
   .type-h2 {
+    font-family: var(--font-heading);
     font-size: var(--type-h2-size);
     font-weight: var(--type-h2-weight);
     line-height: var(--type-h2-leading);
@@ -302,6 +312,7 @@ body {
   }
 
   .type-h3 {
+    font-family: var(--font-heading);
     font-size: var(--type-h3-size);
     font-weight: var(--type-h3-weight);
     line-height: var(--type-h3-leading);
@@ -309,6 +320,7 @@ body {
   }
 
   .type-h4 {
+    font-family: var(--font-heading);
     font-size: var(--type-h4-size);
     font-weight: var(--type-h4-weight);
     line-height: var(--type-h4-leading);
@@ -316,6 +328,7 @@ body {
   }
 
   .type-overline {
+    font-family: var(--font-heading);
     font-size: var(--type-overline-size);
     font-weight: var(--type-overline-weight);
     line-height: var(--type-overline-leading);
@@ -324,6 +337,7 @@ body {
   }
 
   .type-body {
+    font-family: var(--font-sans);
     font-size: var(--type-body-size);
     font-weight: var(--type-body-weight);
     line-height: var(--type-body-leading);
@@ -331,6 +345,7 @@ body {
   }
 
   .type-body-sm {
+    font-family: var(--font-sans);
     font-size: var(--type-body-sm-size);
     font-weight: var(--type-body-sm-weight);
     line-height: var(--type-body-sm-leading);
@@ -338,6 +353,7 @@ body {
   }
 
   .type-lead {
+    font-family: var(--font-sans);
     font-size: var(--type-lead-size);
     font-weight: var(--type-lead-weight);
     line-height: var(--type-lead-leading);
@@ -345,6 +361,7 @@ body {
   }
 
   .type-caption {
+    font-family: var(--font-sans);
     font-size: var(--type-caption-size);
     font-weight: var(--type-caption-weight);
     line-height: var(--type-caption-leading);
@@ -352,6 +369,7 @@ body {
   }
 
   .type-button {
+    font-family: var(--font-heading);
     font-size: var(--type-button-size);
     font-weight: var(--type-button-weight);
     line-height: var(--type-button-leading);
