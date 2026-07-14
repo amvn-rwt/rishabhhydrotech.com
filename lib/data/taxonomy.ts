@@ -2,6 +2,10 @@ import type {
   HydraulicCategoryTaxonomy,
   TaxonomyTypeNode,
 } from "@/lib/types/product.types";
+import { siteConfig } from "@/lib/data/site";
+
+/** Own-brand make in catalogue filters. Same company as `siteConfig.name`. */
+const HOUSE_BRAND = siteConfig.name;
 
 /** Slugify taxonomy labels for URLs (e.g."Direction control valve" → "direction-control-valve"). */
 export function toTaxonomySlug(label: string): string {
@@ -146,7 +150,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
   {
     slug: "cylinders",
     name: "Cylinders",
-    makes: ["Parker Taiyo", "SMC", "Rishabh Hydro Tech"],
+    makes: ["Parker Taiyo", "SMC", HOUSE_BRAND],
     types: [
       typeNode("Single acting"),
       typeNode("Double acting"),
@@ -160,7 +164,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
         "Single acting, double acting, telescopic, and SS magnetic cylinders. Bore 25-450 mm, stroke 5-6000 mm.",
       seoBody: [
         "Hydraulic cylinders convert fluid pressure into linear force for presses, machine tools, mobile equipment, and plant actuators. Key dimensions are bore, stroke, rod diameter, mounting style, and whether the circuit needs single or double acting operation.",
-        "This catalogue lists single acting, double acting, telescopic, and stainless magnetic cylinders with sensors. Bore coverage is 25-450 mm and stroke 5-6000 mm. Makes include Parker Taiyo, SMC, and Rishabh Hydro Tech.",
+        `This catalogue lists single acting, double acting, telescopic, and stainless magnetic cylinders with sensors. Bore coverage is 25-450 mm and stroke 5-6000 mm. Makes include Parker Taiyo, SMC, and ${HOUSE_BRAND}.`,
         "Open a type landing to filter products, then request a quote with bore, stroke, mounting, and port details. Custom builds are available when a standard catalogue size does not fit the machine envelope.",
         "Get a best price for hydraulic cylinders by sending bore, stroke, type, and any existing model reference.",
       ],
@@ -169,7 +173,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
   {
     slug: "power-packs",
     name: "Power packs",
-    makes: ["Rishabh Hydro Tech Engineers"],
+    makes: [HOUSE_BRAND],
     types: [
       typeNode("AC driven (industrial consistent power)"),
       typeNode("DC driven (mobile battery operated)"),
@@ -178,10 +182,10 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
     copy: {
       title: "Hydraulic Power Packs",
       intro:
-        "AC-driven industrial, DC-driven mobile, and high-pressure heavy-duty power packs from Rishabh Hydro Tech Engineers.",
+        `AC-driven industrial, DC-driven mobile, and high-pressure heavy-duty power packs from ${HOUSE_BRAND}.`,
       seoBody: [
         "A hydraulic power pack combines pump, motor, reservoir, valves, and filtration into a self-contained unit that supplies pressurised oil to cylinders and motors. Buyers specify drive type, flow, pressure, tank size, and control options for the application.",
-        "We list AC-driven packs for steady industrial supply, DC-driven packs for mobile or battery-powered duty, and high-pressure heavy-duty packs. Units are supplied under Rishabh Hydro Tech Engineers.",
+        `We list AC-driven packs for steady industrial supply, DC-driven packs for mobile or battery-powered duty, and high-pressure heavy-duty packs. Units are supplied under ${HOUSE_BRAND}.`,
         "Browse by drive type, then inquire with required pressure, flow, voltage, and duty cycle. Include valve and manifold preferences if the pack must drop into an existing skid or machine frame.",
         "Request a best price for a hydraulic power pack with drive type, pressure, and flow targets.",
       ],
@@ -215,16 +219,16 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
   {
     slug: "accumulators",
     name: "Accumulators",
-    makes: ["Hydac", "EPE", "Parker", "Oliver", "Rishabh Hydro Tech"],
+    makes: ["Hydac", "EPE", "Parker", "Oliver", HOUSE_BRAND],
     types: [typeNode("Diaphragm"), typeNode("Piston"), typeNode("Bladder")],
     sizes: ["1-50 litre"],
     copy: {
       title: "Hydraulic Accumulators",
       intro:
-        "Diaphragm, piston, and bladder accumulators (1-50 litre) from Hydac, EPE, Parker, Oliver, and Rishabh Hydro Tech.",
+        `Diaphragm, piston, and bladder accumulators (1-50 litre) from Hydac, EPE, Parker, Oliver, and ${HOUSE_BRAND}.`,
       seoBody: [
         "Hydraulic accumulators store energy as pressurised fluid for shock absorption, leakage compensation, and emergency backup. Type (diaphragm, piston, or bladder), gas precharge, and litre size must suit system pressure and response needs.",
-        "Browse diaphragm, piston, and bladder units from 1-50 litre. Makes include Hydac, EPE, Parker, Oliver, and Rishabh Hydro Tech. Filter by type and brand, then confirm volume and pressure rating in your quote request.",
+        `Browse diaphragm, piston, and bladder units from 1-50 litre. Makes include Hydac, EPE, Parker, Oliver, and ${HOUSE_BRAND}. Filter by type and brand, then confirm volume and pressure rating in your quote request.`,
         "Get a best price for hydraulic accumulators with type, size, and working pressure.",
       ],
     },

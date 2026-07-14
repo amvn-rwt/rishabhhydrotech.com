@@ -62,6 +62,10 @@ export function getProductsForCategory(
   );
 }
 
+export function getProductById(id: string): Product | undefined {
+  return getProductsForDivision().find((product) => product.id === id);
+}
+
 export function formatCategoryLabel(slug: string): string {
   const fromTaxonomy = getTaxonomyLabelBySlug(slug);
   if (fromTaxonomy) return fromTaxonomy;

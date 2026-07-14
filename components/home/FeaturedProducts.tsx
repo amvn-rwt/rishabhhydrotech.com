@@ -1,9 +1,9 @@
-import Link from "next/link";
+"use client";
 
+import { InquiryModal } from "@/components/inquiry/InquiryModal";
 import { Button } from "@/components/ui/button";
 import { getFeaturedProducts } from "@/lib/data/home";
 import { formatCategoryLabel } from "@/lib/data/products";
-import { inquiryHref } from "@/lib/inquiry";
 
 export function FeaturedProducts() {
   const products = getFeaturedProducts();
@@ -49,21 +49,19 @@ export function FeaturedProducts() {
                   </div>
                   <h3 className="type-h3 text-neutral-dark">{product.name}</h3>
                   <div className="mt-auto pt-2">
-                    <Button
-                      render={
-                        <Link
-                          href={inquiryHref({
-                            division: product.division,
-                            category: product.category,
-                            product: product.id,
-                          })}
-                        />
+                    <InquiryModal
+                      defaults={{
+                        division: product.division,
+                        category: product.category,
+                        product: product.id,
+                        brand: product.brand,
+                      }}
+                      title={`Inquiry: ${product.name}`}
+                      triggerLabel="Inquiry"
+                      trigger={
+                        <Button className="bg-accent px-4 text-white hover:bg-accent-hover" />
                       }
-                      nativeButton={false}
-                      className="bg-accent px-4 text-white hover:bg-accent-hover"
-                    >
-                      Inquiry
-                    </Button>
+                    />
                   </div>
                 </div>
               </article>

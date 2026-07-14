@@ -1,9 +1,9 @@
-import Link from "next/link";
+"use client";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { InquiryModal } from "@/components/inquiry/InquiryModal";
 import { formatCategoryLabel } from "@/lib/data/products";
-import { inquiryHref } from "@/lib/inquiry";
 import type { Product } from "@/lib/types/product.types";
 
 type ProductCardProps = {
@@ -12,11 +12,6 @@ type ProductCardProps = {
 
 export function ProductCard({ product }: ProductCardProps) {
   const categoryLabel = formatCategoryLabel(product.category);
-  const href = inquiryHref({
-    division: product.division,
-    category: product.category,
-    product: product.id,
-  });
 
   return (
     <article className="flex h-full flex-col overflow-hidden border border-border bg-white">
@@ -40,13 +35,20 @@ export function ProductCard({ product }: ProductCardProps) {
         <h3 className="type-h4 text-neutral-dark">{product.name}</h3>
 
         <div className="mt-auto pt-1">
-          <Button
-            render={<Link href={href} />}
-            nativeButton={false}
-            className="w-full justify-center bg-accent text-white hover:bg-accent-hover"
-          >
-            Get Best Price
-          </Button>
+          <InquiryModal
+            defaults={{
+              division: product.division,
+              category: product.category,
+              product: product.id,
+              brand: product.brand,
+            }}
+            title={`Get Best Price: ${product.name}`}
+            description={`Request pricing for this ${categoryLabel.toLowerCase()} item. Add model numbers or specs in the message.`}
+            triggerLabel="Get Best Price"
+            trigger={
+              <Button className="w-full justify-center bg-accent text-white hover:bg-accent-hover" />
+            }
+          />
         </div>
       </div>
     </article>

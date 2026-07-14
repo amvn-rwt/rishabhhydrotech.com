@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** 12 July 2026 (D.2 catalogue brands strip, inquiry CTA, related links, SEO body, SSG)
+> **Last updated:** 12 July 2026 (E.1 inquiry form, `/inquiry` page, modal, pre-fill)
 
 ---
 
@@ -14,7 +14,7 @@
 | Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
 | Homepage                      | ✅ Full layout wired (hero → categories → brands → featured → why us → about → inquiry CTA) |
 | Product catalogue             | 🔶 Landings + filters + brands/CTA/SEO/SSG done; unique type SEO copy open |
-| Inquiry & contact             | ⬜ Not started                                                         |
+| Inquiry & contact             | 🔶 Inquiry form + `/inquiry` + modal done; backend + contact page open |
 | Search                        | ⬜ Not started                                                         |
 | About & brands                | ⬜ Not started                                                         |
 | SEO & launch                  | ⬜ Not started                                                         |
@@ -224,16 +224,16 @@ Client will provide the full pneumatic taxonomy later. Do not invent categories 
 
 ## E. Phase 3 — Inquiry & contact
 
-### E.1 Inquiry form
+### E.1 Inquiry form ✅
 
-- [ ] `components/inquiry/InquiryForm.tsx` — reusable form component
-- [ ] `app/inquiry/page.tsx` — dedicated full inquiry page
-- [ ] Form fields: name*, phone*, email, company, product/category (dropdown or pre-filled), message
-- [ ] Optional: quantity, brand preference, file attachment (drawing/photo)
-- [ ] Client-side validation + accessible error messages
-- [ ] Pre-fill category/product from query params (`?category=pumps&division=hydraulic`)
-- [ ] Inline inquiry modal on product/category pages
-- [ ] Thank-you page or success state after submit
+- [x] `components/inquiry/InquiryForm.tsx` — reusable form component
+- [x] `app/inquiry/page.tsx` — dedicated full inquiry page
+- [x] Form fields: name*, phone*, email, company, product/category (dropdown or pre-filled), message
+- [x] Optional: quantity, brand preference, file attachment (drawing/photo)
+- [x] Client-side validation + accessible error messages
+- [x] Pre-fill category/product from query params (`?category=pumps&division=hydraulic`)
+- [x] Inline inquiry modal on product/category pages
+- [x] Thank-you page or success state after submit
 
 ### E.2 Form backend
 
@@ -395,7 +395,7 @@ Use this when picking up work; reorder as client deliverables arrive.
 6. ✅ Wire catalogue filters to URL + product list (Phase 2)
 7. ✅ Hydraulic division landing — category card grid (Phase 2)
 8. ✅ Hero slider + full homepage sections (Phase 1)
-9. ⬜ Inquiry form + `/inquiry` page (Phase 3)
+9. ✅ Inquiry form + `/inquiry` page (Phase 3)
 10. ⬜ Contact page with map placeholders (Phase 3)
 11. ⬜ Search results page `/search` with JSON index (Phase 4) — header search form already posts to `/search`
 
@@ -411,19 +411,19 @@ components/
   ui/           ✅ Button, Card, Badge, Input, Textarea, Select, Dialog, Sheet, Field, Label, Checkbox, Separator, DropdownMenu
   home/         ✅ HeroSlider, CategoryCards, BrandsGrid, FeaturedProducts, WhyChooseUs, AboutSnippet, InquiryCTA
   products/     ✅ CatalogueLayout, LandingCardGrid, FilterSidebar, FilterPanel, MobileFilterDrawer, ProductGrid, ProductCard, CatalogueBrandsStrip, CatalogueInquiryCTA, RelatedCategories, CatalogueSeoCopy, CatalogueSkeleton
-  inquiry/      ⬜ InquiryForm, WhatsAppButton
+  inquiry/      ✅ InquiryForm, InquiryModal (WhatsAppButton still open)
   search/       ⬜ SearchBar, SearchResults (header search form exists; results page pending)
 lib/
   data/         ✅ products.ts, filters.ts, filter-params.ts, catalogue.ts, navigation.ts, site.ts, brands.ts, taxonomy.ts, hero.ts, home.ts
   types/        ✅ product.types.ts
-  inquiry.ts    ✅ inquiryHref() for pre-filled quote links
+  inquiry.ts    ✅ inquiryHref(), pre-fill parsers, validation, submit stub (API in E.2)
 app/
   page.tsx      ✅ full homepage layout + metadata
   layout.tsx    ✅ root layout + header + footer + skip link + #main-content
   favicon.ico   ✅
   icon.png      ✅
   products/     🔶 catalogue routes
-  inquiry/      ⬜
+  inquiry/      ✅ page + form (thank-you is in-form success state)
   contact/      ⬜
   about/        ⬜
   brands/       ⬜

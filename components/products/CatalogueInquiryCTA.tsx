@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import { MessageCircleIcon, PhoneIcon } from "lucide-react";
 
+import { InquiryModal } from "@/components/inquiry/InquiryModal";
 import { Button } from "@/components/ui/button";
 import type { CatalogueInquiryCta } from "@/lib/types/product.types";
+import { inquiryDefaultsFromHref } from "@/lib/inquiry";
 import {
   hasContactDetails,
   siteConfig,
@@ -23,6 +27,7 @@ export function CatalogueInquiryCTA({ cta }: CatalogueInquiryCTAProps) {
   );
   const showDirectContact = hasContactDetails(contact);
   const headingId = "catalogue-inquiry-heading";
+  const defaults = inquiryDefaultsFromHref(cta.href);
 
   return (
     <section
@@ -40,13 +45,27 @@ export function CatalogueInquiryCTA({ cta }: CatalogueInquiryCTAProps) {
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
+          <InquiryModal
+            defaults={defaults}
+            title={cta.title}
+            description={cta.description}
+            triggerLabel={cta.primaryLabel}
+            trigger={
+              <Button
+                size="lg"
+                className="bg-brand px-5 text-white hover:bg-brand-dark"
+              />
+            }
+          />
+
           <Button
             render={<Link href={cta.href} />}
             nativeButton={false}
             size="lg"
-            className="bg-brand px-5 text-white hover:bg-brand-dark"
+            variant="outline"
+            className="border-white/50 bg-transparent px-5 text-white hover:bg-white/10 hover:text-white"
           >
-            {cta.primaryLabel}
+            Full inquiry form
           </Button>
 
           {showDirectContact && contact.phone && phoneLink ? (

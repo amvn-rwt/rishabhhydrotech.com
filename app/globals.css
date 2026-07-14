@@ -173,6 +173,8 @@
   --color-brand-muted: #e8eaed;
   --color-accent: #5c6f9e;
   --color-accent-hover: #4a5e87;
+  /* Pair with brand accent (steel). Dark foreground fails contrast on this mid blue. */
+  --color-accent-foreground: #ffffff;
   --color-neutral-dark: #1f2937;
   --color-neutral-mid: #6b7280;
   --color-border: #d1d5db;
@@ -254,7 +256,6 @@
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-secondary-foreground: var(--secondary-foreground);
