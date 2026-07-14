@@ -8,11 +8,12 @@ Cards are already wired: missing files stay as grey placeholders until added.
 ```
 Photorealistic industrial product studio photo for a B2B hydraulics catalogue card.
 Light cool-grey seamless backdrop (#E8EAED to #F9FAFB). Soft diffused front-left lighting, soft shadows.
-Matte cast iron / steel / chrome, brand-new unused part. Centre the product, fill most of the frame.
-Square 1:1. Sharp focus. No logos, no brand names, no text, no people, no factory, no lifestyle props, no purple tones.
+Matte cast iron / steel / chrome, brand-new unused part. Centre the product in the frame.
+Composition critically important: leave generous empty padding on the LEFT and RIGHT edges (about 12-18% of the image width on each side). The product must not touch or crowd the left or right borders. Top and bottom padding should stay comfortable and balanced, similar to a catalogue card crop. Do not stretch the product edge-to-edge horizontally.
+Square 1:1. Product is the clear subject but with breathing room. Sharp focus. No logos, no brand names, no text, no people, no factory, no lifestyle props, no purple tones.
 ```
 
-Aim for ~1200×1200 PNG. Look like the reference catalogue cards: white/light studio, one clear product (or small related set) per card, distinct from siblings in the same category.
+Aim for ~1200×1200 PNG. Catalogue-card framing: product centred with clear left/right breathing room (not flush to the sides). One clear product (or small related set) per card, distinct from siblings in the same category.
 
 ---
 
