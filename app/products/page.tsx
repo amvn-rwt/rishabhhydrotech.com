@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "Product Catalogue",
   description:
     "Browse hydraulic products: pumps, valves, hoses, cylinders, and more.",
+  alternates: { canonical: "/products" },
 };
 
 type ProductsPageProps = {

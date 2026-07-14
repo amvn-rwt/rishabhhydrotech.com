@@ -5,7 +5,9 @@ import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { SkipToContent } from "@/components/layout/SkipToContent";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/lib/data/site";
+import { organizationJsonLd, webSiteJsonLd } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
 const generalSans = localFont({
@@ -29,11 +31,16 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.tagline,
+  openGraph: {
+    siteName: siteConfig.name,
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -54,6 +61,8 @@ export default function RootLayout({
       )}
     >
       <body className="flex min-h-full flex-col bg-background font-sans text-foreground">
+        <JsonLd data={organizationJsonLd()} />
+        <JsonLd data={webSiteJsonLd()} />
         <SkipToContent />
         <Header />
         <main id="main-content" className="flex flex-1 flex-col">

@@ -80,7 +80,7 @@ export function MobileFilterDrawer({
               Filters
               {selectedCount > 0 ? (
                 <span
-                  className="type-caption ml-0.5 inline-flex min-w-5 items-center justify-center bg-brand px-1.5 text-white"
+                  className="type-caption ml-0.5 inline-flex min-w-5 items-center justify-center bg-brand px-1.5 text-white tabular-nums"
                   aria-label={`${selectedCount} active`}
                 >
                   {selectedCount}
@@ -131,7 +131,7 @@ export function MobileFilterDrawer({
                 </div>
               </SheetHeader>
 
-              <div className="flex-1 overflow-y-auto">
+              <div className="flex-1 overflow-y-auto overscroll-contain">
                 <FilterPanel
                   filters={filters}
                   selectedFilters={optimisticSelected}
@@ -164,7 +164,7 @@ export function MobileFilterDrawer({
         </div>
 
         {chips.length > 0 ? (
-          <div className="flex gap-2 overflow-x-auto border-t border-border px-3 py-2">
+          <div className="flex gap-2 overflow-x-auto overscroll-x-contain border-t border-border px-3 py-2">
             {chips.map((chip) => (
               <button
                 key={`${chip.groupId}-${chip.value}`}

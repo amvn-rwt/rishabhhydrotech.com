@@ -2,7 +2,7 @@
 
 > **Purpose:** Actionable checklist for completing the full website.  
 > **Companion doc:** [WEBSITE_PLAN.md](./WEBSITE_PLAN.md) (design, content, and architecture reference)  
-> **Last updated:** 12 July 2026 (E.1 inquiry form, `/inquiry` page, modal, pre-fill)
+> **Last updated:** 14 July 2026 (search, brands pages, about/contact, technical SEO, 404/error pages, a11y & UI audit fixes)
 
 ---
 
@@ -14,10 +14,10 @@
 | Global layout (header/footer) | ✅ Header + Footer shell done (TopBar, Header, MobileNav, Footer, skip link) |
 | Homepage                      | ✅ Full layout wired (hero → categories → brands → featured → why us → about → inquiry CTA) |
 | Product catalogue             | 🔶 Landings + filters + brands/CTA/SEO/SSG done; unique type SEO copy open |
-| Inquiry & contact             | 🔶 Inquiry form + `/inquiry` + modal done; backend + contact page open |
-| Search                        | ⬜ Not started                                                         |
-| About & brands                | ⬜ Not started                                                         |
-| SEO & launch                  | ⬜ Not started                                                         |
+| Inquiry & contact             | 🔶 Inquiry form + `/inquiry` + modal + minimal contact page done; backend + map/hours open |
+| Search                        | ✅ Index + `/search` page + header bar + keyboard shortcuts            |
+| About & brands                | 🔶 Minimal `/about` + `/brands` + `/brands/[slug]` done; full about copy blocked on client |
+| SEO & launch                  | 🔶 Sitemap, robots, canonicals, JSON-LD done; OG images + analytics open |
 | Client content                | 🔒 Mostly blocked on client deliverables                               |
 
 **Legend:** ✅ Done · 🔶 In progress / partial · ⬜ Todo · 🔒 Blocked on client/decision
@@ -246,12 +246,12 @@ Client will provide the full pneumatic taxonomy later. Do not invent categories 
 
 ### E.3 Contact page
 
-- [ ] `app/contact/page.tsx`
-- [ ] NAP block (name, address, phone) — consistent with footer
-- [ ] Embedded Google Map
-- [ ] Business hours
-- [ ] Inquiry form embed or link
-- [ ] Click-to-call (`tel:`) and click-to-email (`mailto:`) links
+- [x] `app/contact/page.tsx` — minimal version (details render once client data lands in `site.ts`)
+- [x] NAP block (name, address, phone) — conditional on `siteConfig`, consistent with footer
+- [ ] Embedded Google Map (blocked on address §A.2)
+- [ ] Business hours (blocked on client §A.3)
+- [x] Inquiry form embed
+- [x] Click-to-call (`tel:`) and click-to-email (`mailto:`) links (render when contact details are set)
 
 ### E.4 Contact shortcuts (site-wide)
 
@@ -264,23 +264,23 @@ Client will provide the full pneumatic taxonomy later. Do not invent categories 
 
 ## F. Phase 4 — Search & brands
 
-### F.1 Search
+### F.1 Search ✅
 
-- [ ] `components/search/SearchBar.tsx` in header (all pages)
-- [ ] `lib/data/search-index.ts` — flatten categories, types, brands, keywords
-- [ ] `app/search/page.tsx` — results page with query param `?q=`
-- [ ] Client-side search (Phase 1) or Fuse.js integration
-- [ ] No-results state with category suggestions + contact CTA
-- [ ] Popular search chips ("Rexroth pump", "Parker hose", "Hydraulic cylinder")
-- [ ] Keyboard navigation (/ to focus, escape to close) for search UI
+- [x] `components/search/SearchBar.tsx` in header (all pages)
+- [x] `lib/data/search-index.ts` — flatten categories, types, brands, keywords
+- [x] `app/search/page.tsx` — results page with query param `?q=` + on-page search form
+- [x] Client-side scoring over static index (no external dependency needed at this size)
+- [x] No-results state with category suggestions + contact CTA
+- [x] Popular search chips ("Rexroth pump", "Parker hose", "Hydraulic cylinder")
+- [x] Keyboard navigation (/ to focus, escape to clear/blur) for search UI
 
-### F.2 Brand pages (optional hub)
+### F.2 Brand pages ✅
 
-- [ ] `app/brands/page.tsx` — A–Z brand listing (optional)
-- [ ] `app/brands/[slug]/page.tsx` — e.g. `/brands/rexroth`
-- [ ] Brand hero, logo, divisions served, linked categories/products
-- [ ] Inquiry CTA per brand page
-- [ ] Priority brands: Rexroth, Yuken, Parker, Vickers (pneumatic brands when taxonomy arrives)
+- [x] `app/brands/page.tsx` — A–Z brand listing (34 makes, grouped by letter)
+- [x] `app/brands/[slug]/page.tsx` — e.g. `/brands/rexroth` (SSG for all brands)
+- [x] Brand hero, linked categories (`?brand=` pre-filtered), matching products
+- [x] Inquiry CTA per brand page (brand pre-filled)
+- [ ] OEM brand logos (blocked on client §A.3; text placeholders until then)
 
 ---
 
@@ -288,34 +288,34 @@ Client will provide the full pneumatic taxonomy later. Do not invent categories 
 
 ### G.1 About page
 
-- [ ] `app/about/page.tsx`
-- [ ] Sections: history, what we do, industries served, geographic reach, differentiators
+- [x] `app/about/page.tsx` — minimal version using approved copy (about snippet + why-us + categories)
+- [ ] Sections: history, industries served, geographic reach (blocked on client copy §A.2)
 - [ ] Team / facility photos (when available)
-- [ ] Certifications block
-- [ ] Mission / values
-- [ ] CTA to contact and catalogue
+- [ ] Certifications block (blocked on client §A.4)
+- [ ] Mission / values (blocked on client copy)
+- [x] CTA to contact and catalogue
 
 ### G.2 On-page SEO (every public page)
 
-- [ ] Unique `<title>` and meta description per page (use metadata API)
-- [ ] One H1 per page, logical heading hierarchy
-- [ ] Canonical URLs
-- [ ] Open Graph + Twitter card images (default + per major page)
-- [ ] Alt text on all images
+- [x] Unique `<title>` and meta description per page (metadata API + title template)
+- [x] One H1 per page, logical heading hierarchy
+- [x] Canonical URLs (`metadataBase` + `alternates.canonical` on all routes)
+- [ ] Open Graph + Twitter card images (default + per major page) — needs brand imagery
+- [x] Alt text on all images (logo, placeholders are decorative `aria-hidden`)
 
 ### G.3 Structured data
 
-- [ ] `LocalBusiness` / `Organization` JSON-LD on homepage and contact
-- [ ] `BreadcrumbList` on catalogue pages
-- [ ] `WebSite` with `SearchAction` when search ships
+- [x] `Organization` JSON-LD in root layout (upgrade to `LocalBusiness` when address lands)
+- [x] `BreadcrumbList` on catalogue pages
+- [x] `WebSite` with `SearchAction` (search shipped)
 
 ### G.4 Technical SEO
 
-- [ ] `app/sitemap.ts` — dynamic sitemap for all routes
-- [ ] `app/robots.ts` — allow crawling, point to sitemap
-- [ ] `public/robots.txt` if needed beyond `robots.ts`
-- [ ] Internal linking audit (homepage → categories → inquiry)
-- [ ] Priority SEO copy for: homepage, `/products/hydraulic`, pumps, valves, hoses, cylinders, power packs, top brand pages
+- [x] `app/sitemap.ts` — dynamic sitemap (static routes + all catalogue paths + brand pages)
+- [x] `app/robots.ts` — allow crawling, disallow `/search`, point to sitemap
+- [x] `public/robots.txt` not needed — `robots.ts` covers it
+- [x] Internal linking audit (homepage → categories → types → inquiry; brands ↔ catalogue)
+- [ ] Priority SEO copy for: homepage, `/products/hydraulic`, pumps, valves, hoses, cylinders, power packs, top brand pages (copy blocked on client review §A.3)
 
 ### G.5 Analytics (post-staging)
 
@@ -337,11 +337,12 @@ Client will provide the full pneumatic taxonomy later. Do not invent categories 
 
 ### H.2 Accessibility (WCAG 2.1 AA target)
 
-- [ ] Keyboard navigable menus, modals, filters
-- [ ] Focus visible styles on interactive elements
-- [ ] Color contrast check — brand CTA on white/ink, white text on ink chrome
-- [ ] Form labels, `aria-invalid`, error announcements
-- [ ] Screen reader test on nav + inquiry flow
+- [x] Keyboard navigable menus, modals, filters (Base UI primitives + `/` search shortcut)
+- [x] Focus visible styles on interactive elements
+- [x] Color contrast check — brand CTA on white/ink, white text on ink chrome (header placeholder bumped to white/55)
+- [x] Form labels, `aria-invalid`, error announcements (+ focus moves to first invalid field)
+- [x] `prefers-reduced-motion` — global CSS guard + hero slider pauses auto-rotate
+- [ ] Screen reader test on nav + inquiry flow (manual pass with VoiceOver still to do)
 
 ### H.3 Cross-browser & device QA
 
@@ -354,8 +355,8 @@ Client will provide the full pneumatic taxonomy later. Do not invent categories 
 
 - [x] Copyright year in footer
 - [ ] Privacy note for inquiry form (data use) if required
-- [ ] 404 page (`app/not-found.tsx`) with links home + catalogue + contact
-- [ ] 500 / error boundary styling
+- [x] 404 page (`app/not-found.tsx`) with links home + catalogue + contact + popular categories
+- [x] 500 / error boundary styling (`app/error.tsx` with retry)
 
 ### H.5 Deployment & launch
 
@@ -396,8 +397,11 @@ Use this when picking up work; reorder as client deliverables arrive.
 7. ✅ Hydraulic division landing — category card grid (Phase 2)
 8. ✅ Hero slider + full homepage sections (Phase 1)
 9. ✅ Inquiry form + `/inquiry` page (Phase 3)
-10. ⬜ Contact page with map placeholders (Phase 3)
-11. ⬜ Search results page `/search` with JSON index (Phase 4) — header search form already posts to `/search`
+10. ✅ Contact page (map + hours pending client data) (Phase 3)
+11. ✅ Search results page `/search` with static index (Phase 4)
+12. ✅ Brands hub + brand detail pages (Phase 4)
+13. ✅ Technical SEO: sitemap, robots, canonicals, JSON-LD (Phase 5)
+14. ⬜ Form backend (`app/api/inquiry/route.ts`) — needs backend decision (§A.1)
 
 ---
 
@@ -412,23 +416,29 @@ components/
   home/         ✅ HeroSlider, CategoryCards, BrandsGrid, FeaturedProducts, WhyChooseUs, AboutSnippet, InquiryCTA
   products/     ✅ CatalogueLayout, LandingCardGrid, FilterSidebar, FilterPanel, MobileFilterDrawer, ProductGrid, ProductCard, CatalogueBrandsStrip, CatalogueInquiryCTA, RelatedCategories, CatalogueSeoCopy, CatalogueSkeleton
   inquiry/      ✅ InquiryForm, InquiryModal (WhatsAppButton still open)
-  search/       ⬜ SearchBar, SearchResults (header search form exists; results page pending)
+  search/       ✅ SearchBar, SearchResults
+  seo/          ✅ JsonLd
 lib/
-  data/         ✅ products.ts, filters.ts, filter-params.ts, catalogue.ts, navigation.ts, site.ts, brands.ts, taxonomy.ts, hero.ts, home.ts
+  data/         ✅ products.ts, filters.ts, filter-params.ts, catalogue.ts, navigation.ts, site.ts, brands.ts, taxonomy.ts, hero.ts, home.ts, search-index.ts
   types/        ✅ product.types.ts
   inquiry.ts    ✅ inquiryHref(), pre-fill parsers, validation, submit stub (API in E.2)
+  seo.ts        ✅ absoluteUrl, Organization / WebSite / BreadcrumbList JSON-LD builders
 app/
   page.tsx      ✅ full homepage layout + metadata
-  layout.tsx    ✅ root layout + header + footer + skip link + #main-content
+  layout.tsx    ✅ root layout + header + footer + skip link + #main-content + JSON-LD
   favicon.ico   ✅
   icon.png      ✅
-  products/     🔶 catalogue routes
+  products/     🔶 catalogue routes (type-level SEO copy open)
   inquiry/      ✅ page + form (thank-you is in-form success state)
-  contact/      ⬜
-  about/        ⬜
-  brands/       ⬜
-  search/       ⬜
-  api/inquiry/  ⬜
+  contact/      ✅ minimal (map + hours pending client data)
+  about/        ✅ minimal (full copy pending client)
+  brands/       ✅ hub + [slug] detail pages
+  search/       ✅ results page
+  not-found.tsx ✅ 404 with popular categories
+  error.tsx     ✅ error boundary with retry
+  sitemap.ts    ✅ all routes
+  robots.ts     ✅ allow all, disallow /search
+  api/inquiry/  ⬜ (blocked on backend decision §A.1)
 public/
   logo.png      ✅
 ```

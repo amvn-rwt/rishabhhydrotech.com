@@ -1,5 +1,8 @@
 import { hydraulicTaxonomy, toTaxonomySlug } from "@/lib/data/taxonomy";
-import type { Brand } from "@/lib/types/product.types";
+import type {
+  Brand,
+  HydraulicCategoryTaxonomy,
+} from "@/lib/types/product.types";
 
 /**
  * Brand metadata derived from hydraulic taxonomy makes (WEBSITE_PLAN §6.2).
@@ -38,4 +41,13 @@ export function getBrandsForDivision(
   division: Brand["divisions"][number] = "hydraulic",
 ): Brand[] {
   return brands.filter((brand) => brand.divisions.includes(division));
+}
+
+/** Hydraulic categories that list this make (taxonomy `makes`). */
+export function getCategoriesForBrand(
+  brandName: string,
+): HydraulicCategoryTaxonomy[] {
+  return hydraulicTaxonomy.filter((category) =>
+    category.makes.includes(brandName),
+  );
 }

@@ -15,7 +15,7 @@ import {
   resolveCatalogueFilters,
   type CatalogueSearchParams,
 } from "@/lib/data/filter-params";
-import { getFiltersForDivision } from "@/lib/data/filters";
+import { getFiltersForCatalogue } from "@/lib/data/filters";
 import { inquiryHref } from "@/lib/inquiry";
 import { formatCategoryLabel, getProductsForDivision } from "@/lib/data/products";
 import {
@@ -220,7 +220,6 @@ export function buildCatalogueConfig({
   searchParams,
 }: BuildCatalogueConfigOptions): CataloguePageConfig {
   const allProducts = getProductsForDivision(division);
-  const filters = getFiltersForDivision(division);
 
   const breadcrumbs: CataloguePageConfig["breadcrumbs"] = [
     { label: "Home", href: "/" },
@@ -281,6 +280,11 @@ export function buildCatalogueConfig({
         : `Browse ${typeLabel.toLowerCase()} products. Filter by brand and specifications.`;
     }
   }
+
+  const filters = getFiltersForCatalogue({
+    division,
+    categorySlug: pathScope.category,
+  });
 
   const { selectedFilters, lockedFilterIds, productsFilter } =
     resolveCatalogueFilters({ pathScope, searchParams });

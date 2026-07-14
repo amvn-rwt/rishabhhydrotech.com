@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { CheckCircle2Icon } from "lucide-react";
 
@@ -61,6 +61,7 @@ export function InquiryForm({
   const [formError, setFormError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
 
   const productLabel = resolveInquiryProductLabel(defaults?.product);
   const brandOptions = getInquiryBrandOptions(values.category || undefined);
@@ -111,6 +112,13 @@ export function InquiryForm({
 
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
+      // Move focus to the first invalid control once errors render.
+      requestAnimationFrame(() => {
+        const invalid = formRef.current?.querySelector<HTMLElement>(
+          '[aria-invalid="true"]',
+        );
+        invalid?.focus();
+      });
       return;
     }
 
@@ -217,8 +225,10 @@ export function InquiryForm({
 
   return (
     <form
+      ref={formRef}
       onSubmit={handleSubmit}
       noValidate
+      aria-busy={isSubmitting || undefined}
       className={cn(
         "relative flex flex-col gap-6 border border-border bg-white p-6 sm:p-8",
         isModal && "border-0 p-0",
@@ -294,6 +304,7 @@ export function InquiryForm({
               name="email"
               type="email"
               autoComplete="email"
+              spellCheck={false}
               value={values.email}
               onChange={(event) => updateField("email", event.target.value)}
               aria-invalid={Boolean(errors.email) || undefined}

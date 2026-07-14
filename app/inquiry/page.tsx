@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "Get Best Price",
   description:
     "Request pricing and availability for hydraulic pumps, valves, hoses, cylinders, and more from Rishabh Hydro Tech Engineers.",
+  alternates: { canonical: "/inquiry" },
   openGraph: {
     title: `Get Best Price | ${siteConfig.name}`,
     description:

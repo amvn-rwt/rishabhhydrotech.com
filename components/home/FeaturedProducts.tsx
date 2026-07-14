@@ -31,7 +31,7 @@ export function FeaturedProducts() {
         <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <li key={product.id}>
-              <article className="flex h-full flex-col overflow-hidden rounded-lg border border-border bg-white">
+              <article className="flex h-full flex-col overflow-hidden border border-border bg-white">
                 <div
                   className="aspect-4/3 border-b border-border bg-brand-muted"
                   aria-hidden="true"
@@ -47,7 +47,9 @@ export function FeaturedProducts() {
                       {formatCategoryLabel(product.category)}
                     </span>
                   </div>
-                  <h3 className="type-h3 text-neutral-dark">{product.name}</h3>
+                  <h3 className="type-h3 wrap-break-word text-neutral-dark">
+                    {product.name}
+                  </h3>
                   <div className="mt-auto pt-2">
                     <InquiryModal
                       defaults={{

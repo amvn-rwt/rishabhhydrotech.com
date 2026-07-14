@@ -39,7 +39,7 @@ export function LandingCardGrid({ landing }: LandingCardGridProps) {
                 </span>
               ) : null}
 
-              <span className="type-caption mt-auto text-neutral-mid">
+              <span className="type-caption mt-auto text-neutral-mid tabular-nums">
                 {card.productCount}{" "}
                 {card.productCount === 1 ? "product" : "products"}
               </span>

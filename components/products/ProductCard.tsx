@@ -32,7 +32,9 @@ export function ProductCard({ product }: ProductCardProps) {
           <span className="type-caption text-neutral-mid">{categoryLabel}</span>
         </div>
 
-        <h3 className="type-h4 text-neutral-dark">{product.name}</h3>
+        <h3 className="type-h4 wrap-break-word text-neutral-dark">
+          {product.name}
+        </h3>
 
         <div className="mt-auto pt-1">
           <InquiryModal

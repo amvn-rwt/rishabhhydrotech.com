@@ -19,6 +19,7 @@ type HeroSliderProps = {
 export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
   const regionRef = useRef<HTMLDivElement>(null);
 
   const count = slides.length;
@@ -30,14 +31,24 @@ export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
   });
 
   useEffect(() => {
-    if (paused || count <= 1) return;
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mediaQuery.matches);
+
+    const onChange = (event: MediaQueryListEvent) =>
+      setReducedMotion(event.matches);
+    mediaQuery.addEventListener("change", onChange);
+    return () => mediaQuery.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (paused || reducedMotion || count <= 1) return;
 
     const id = window.setInterval(() => {
       goTo(index + 1);
     }, AUTO_ROTATE_MS);
 
     return () => window.clearInterval(id);
-  }, [paused, count, index]);
+  }, [paused, reducedMotion, count, index]);
 
   if (!active || count === 0) return null;
 
@@ -121,9 +132,10 @@ export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
                     type="button"
                     role="tab"
                     aria-selected={i === index}
+                    aria-controls={`hero-slide-${slide.id}`}
                     aria-label={`Show slide ${i + 1}: ${slide.productLabel}`}
                     className={cn(
-                      "h-1.5 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
+                      "h-1.5 transition-[width,background-color] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70",
                       i === index
                         ? "w-8 bg-white"
                         : "w-4 bg-white/30 hover:bg-white/50"
@@ -142,7 +154,7 @@ export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
                   className="border-white/35 bg-transparent text-white hover:bg-white/10 hover:text-white"
                   onClick={() => goTo(index - 1)}
                 >
-                  <ChevronLeftIcon />
+                  <ChevronLeftIcon aria-hidden />
                 </Button>
                 <Button
                   type="button"
@@ -152,7 +164,7 @@ export function HeroSlider({ slides = heroSlides }: HeroSliderProps) {
                   className="border-white/35 bg-transparent text-white hover:bg-white/10 hover:text-white"
                   onClick={() => goTo(index + 1)}
                 >
-                  <ChevronRightIcon />
+                  <ChevronRightIcon aria-hidden />
                 </Button>
               </div>
             </div>
@@ -174,6 +186,8 @@ function SlidePanel({
 }) {
   return (
     <div
+      id={`hero-slide-${slide.id}`}
+      role="tabpanel"
       aria-hidden={!active}
       className={cn(
         "absolute inset-0 transition-opacity duration-700 ease-out",

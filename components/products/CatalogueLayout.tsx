@@ -1,3 +1,5 @@
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/seo";
 import type { CataloguePageConfig } from "@/lib/types/product.types";
 import { CatalogueBrandsStrip } from "./CatalogueBrandsStrip";
 import { CatalogueHeader } from "./CatalogueHeader";
@@ -21,6 +23,7 @@ export function CatalogueLayout({ config }: CatalogueLayoutProps) {
 
   return (
     <div className="flex min-h-full flex-col bg-brand-muted">
+      <JsonLd data={breadcrumbJsonLd(config.breadcrumbs)} />
       <CatalogueHeader
         title={config.title}
         description={config.description}

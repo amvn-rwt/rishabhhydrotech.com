@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   },
   description:
     "Browse hydraulic pumps, valves, hoses, cylinders, power packs, and more. Request a quote from Rishabh Hydro Tech Engineers.",
+  alternates: { canonical: "/" },
   openGraph: {
     title: siteConfig.name,
     description: siteConfig.tagline,

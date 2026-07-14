@@ -45,6 +45,7 @@ export async function generateMetadata({
   return {
     title: titleBase,
     description,
+    alternates: { canonical: `/products/hydraulic/${slug.join("/")}` },
   };
 }
 

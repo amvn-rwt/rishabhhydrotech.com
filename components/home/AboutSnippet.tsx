@@ -38,7 +38,7 @@ export function AboutSnippet() {
             className="mt-2 w-fit border-brand/30 px-5 text-brand-dark hover:bg-white hover:text-brand-dark"
           >
             {aboutSnippet.ctaLabel}
-            <ArrowRightIcon data-icon="inline-end" />
+            <ArrowRightIcon data-icon="inline-end" aria-hidden />
           </Button>
         </div>
       </div>
