@@ -3,6 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { InquiryModal } from "@/components/inquiry/InquiryModal";
+import { ProductImage } from "@/components/products/ProductImage";
 import { formatCategoryLabel } from "@/lib/data/products";
 import type { Product } from "@/lib/types/product.types";
 
@@ -15,9 +16,9 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <article className="flex h-full flex-col overflow-hidden border border-border bg-white">
-      <div
-        className="aspect-square border-b border-border bg-brand-muted"
-        aria-hidden="true"
+      <ProductImage
+        src={product.image}
+        alt={`${product.name}, ${categoryLabel}`}
       />
       <div className="flex flex-1 flex-col gap-3 px-3 py-3">
         <div className="flex flex-wrap items-center gap-2">

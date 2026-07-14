@@ -2,8 +2,20 @@ import {
   flattenTaxonomyTypes,
   getTaxonomyLabelBySlug,
   hydraulicTaxonomy,
+  toTaxonomySlug,
 } from "@/lib/data/taxonomy";
 import type { Product, ProductDivision } from "@/lib/types/product.types";
+
+/**
+ * Unique catalogue card image per product type (or motor brand).
+ * Drop the PNG at `public/products/{category}/{slug}.png`.
+ */
+export function productImagePath(
+  categorySlug: string,
+  fileSlug: string,
+): string {
+  return `/products/${categorySlug}/${fileSlug}.png`;
+}
 
 /**
  * Seed products generated from the hydraulic taxonomy so every category is covered.
@@ -19,12 +31,14 @@ function buildHydraulicSeedProducts(): Product[] {
     if (category.types.length === 0) {
       // e.g. motors — taxonomy lists makes + sizes, no types
       for (const make of category.makes) {
+        const fileSlug = toTaxonomySlug(make);
         products.push({
           id: `h-${index++}`,
           name: `${make} hydraulic motor`,
           division: "hydraulic",
           category: category.slug,
           brand: make,
+          image: productImagePath(category.slug, fileSlug),
         });
       }
       continue;
@@ -38,6 +52,7 @@ function buildHydraulicSeedProducts(): Product[] {
         category: category.slug,
         ...(defaultBrand ? { brand: defaultBrand } : {}),
         type: type.slug,
+        image: productImagePath(category.slug, type.slug),
       });
     }
   }

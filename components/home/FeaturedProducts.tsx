@@ -1,6 +1,7 @@
 "use client";
 
 import { InquiryModal } from "@/components/inquiry/InquiryModal";
+import { ProductImage } from "@/components/products/ProductImage";
 import { Button } from "@/components/ui/button";
 import { getFeaturedProducts } from "@/lib/data/home";
 import { formatCategoryLabel } from "@/lib/data/products";
@@ -32,9 +33,11 @@ export function FeaturedProducts() {
           {products.map((product) => (
             <li key={product.id}>
               <article className="flex h-full flex-col overflow-hidden border border-border bg-white">
-                <div
-                  className="aspect-4/3 border-b border-border bg-brand-muted"
-                  aria-hidden="true"
+                <ProductImage
+                  src={product.image}
+                  alt={`${product.name}, ${formatCategoryLabel(product.category)}`}
+                  aspectClassName="aspect-4/3"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="flex flex-1 flex-col gap-3 px-4 py-4">
                   <div className="flex flex-wrap items-center gap-2">

@@ -22,6 +22,11 @@ export type Product = {
   category: string;
   brand?: string;
   type?: string;
+  /**
+   * Path under /public. Convention: `/products/{category}/{type-or-brand}.png`.
+   * Optional until the file is added; ProductCard shows a placeholder if missing.
+   */
+  image?: string;
 };
 
 /** Card linking to a child category, type, or subtype on a catalogue landing. */
