@@ -37,8 +37,8 @@ function buildSeedProductsForTaxonomy({
   let index = 1;
 
   for (const category of taxonomy) {
-    const defaultBrand = category.makes[0];
-
+    // Only attach brand when the product itself is make-scoped (no types).
+    // Typed cards are category/type seeds, not OEM SKUs - do not invent a brand.
     if (category.types.length === 0) {
       for (const make of category.makes) {
         const fileSlug = toTaxonomySlug(make);
@@ -60,7 +60,6 @@ function buildSeedProductsForTaxonomy({
         name: type.label,
         division,
         category: category.slug,
-        ...(defaultBrand ? { brand: defaultBrand } : {}),
         type: type.slug,
         image: productImagePath(category.slug, type.slug),
       });

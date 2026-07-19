@@ -1,8 +1,8 @@
-import { expandTypeFilterSlugs, toTaxonomySlug } from "@/lib/data/taxonomy";
+import { expandTypeFilterSlugs } from "@/lib/data/taxonomy";
 import type { Product } from "@/lib/types/product.types";
 
 /** Filter group ids that map to URL query keys. */
-export const CATALOGUE_FILTER_IDS = ["category", "brand", "type"] as const;
+export const CATALOGUE_FILTER_IDS = ["category", "type"] as const;
 
 export type CatalogueFilterId = (typeof CATALOGUE_FILTER_IDS)[number];
 
@@ -32,7 +32,7 @@ function normalizeParamValues(
   return [...new Set(values)];
 }
 
-/** Parse catalogue filter query params (`?brand=yuken,rexroth&type=gear-pump`). */
+/** Parse catalogue filter query params (`?category=pumps&type=gear-pump`). */
 export function parseCatalogueSearchParams(
   searchParams?: CatalogueSearchParams,
 ): CatalogueSelectedFilters {
@@ -159,33 +159,20 @@ function productMatchesTypeFilter(
   return false;
 }
 
-function productMatchesBrandFilter(
-  product: Product,
-  brandValues: string[],
-): boolean {
-  if (!product.brand) return false;
-  const brandSlug = toTaxonomySlug(product.brand);
-  return brandValues.includes(brandSlug);
-}
-
 /** Filter products by resolved catalogue filters (OR within group, AND across groups). */
 export function filterProducts(
   products: Product[],
   filters: CatalogueSelectedFilters,
 ): Product[] {
   const categories = filters.category;
-  const brands = filters.brand;
   const types = filters.type;
 
-  if (!categories?.length && !brands?.length && !types?.length) {
+  if (!categories?.length && !types?.length) {
     return products;
   }
 
   return products.filter((product) => {
     if (categories?.length && !categories.includes(product.category)) {
-      return false;
-    }
-    if (brands?.length && !productMatchesBrandFilter(product, brands)) {
       return false;
     }
     if (types?.length && !productMatchesTypeFilter(product, types)) {

@@ -85,8 +85,8 @@ export default async function BrandPage({ params }: BrandPageProps) {
           </h1>
           <p className="mt-3 max-w-prose type-lead text-pretty text-muted-foreground">
             {categories.length > 0
-              ? `Make listed for ${categories.length} ${divisionPhrase} ${categories.length === 1 ? "category" : "categories"}. Open a category to filter the catalogue to ${brand.name}.`
-              : `Make listed in our ${divisionPhrase} catalogue. Send an inquiry with the model or part number you need.`}
+              ? `Make listed for ${categories.length} ${divisionPhrase} ${categories.length === 1 ? "category" : "categories"}. Open a category to browse related products, or send an inquiry with the ${brand.name} model or part number you need.`
+              : `Make listed in our ${divisionPhrase} range. Send an inquiry with the model or part number you need.`}
           </p>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default async function BrandPage({ params }: BrandPageProps) {
                     className="bg-white"
                   >
                     <Link
-                      href={`/products/${category.division}/${category.slug}?brand=${brand.slug}`}
+                      href={`/products/${category.division}/${category.slug}`}
                       className="group flex h-full flex-col gap-2 px-4 py-5 transition-colors hover:bg-brand-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset"
                     >
                       <span className="flex items-start justify-between gap-3">

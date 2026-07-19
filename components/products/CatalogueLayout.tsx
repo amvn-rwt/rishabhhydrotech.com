@@ -1,7 +1,6 @@
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/seo";
 import type { CataloguePageConfig } from "@/lib/types/product.types";
-import { CatalogueBrandsStrip } from "./CatalogueBrandsStrip";
 import { CatalogueHeader } from "./CatalogueHeader";
 import { CatalogueInquiryCTA } from "./CatalogueInquiryCTA";
 import { CatalogueSeoCopy } from "./CatalogueSeoCopy";
@@ -17,9 +16,6 @@ type CatalogueLayoutProps = {
 
 export function CatalogueLayout({ config }: CatalogueLayoutProps) {
   const hasLanding = Boolean(config.landing?.cards.length);
-  const brandsHeading = config.relatedCategories
-    ? "Makes in this category"
-    : "Brands we deal in";
 
   return (
     <div className="flex min-h-full flex-col bg-brand-muted">
@@ -54,10 +50,6 @@ export function CatalogueLayout({ config }: CatalogueLayoutProps) {
           </section>
         </div>
       </div>
-
-      {config.brands ? (
-        <CatalogueBrandsStrip brands={config.brands} heading={brandsHeading} />
-      ) : null}
 
       <CatalogueInquiryCTA cta={config.inquiryCta} />
 

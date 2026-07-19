@@ -1,5 +1,4 @@
 import type {
-  Brand,
   CatalogueInquiryCta,
   CatalogueLanding,
   CatalogueLandingCard,
@@ -9,7 +8,6 @@ import type {
   ProductDivision,
   TaxonomyTypeNode,
 } from "@/lib/types/product.types";
-import { getBrandByName, getBrandsForDivision } from "@/lib/data/brands";
 import {
   filterProducts,
   resolveCatalogueFilters,
@@ -167,42 +165,6 @@ function buildCatalogueLanding({
   };
 }
 
-function brandsFromMakeNames(makes: string[]): Brand[] {
-  return makes.flatMap((name) => {
-    const brand = getBrandByName(name);
-    return brand ? [brand] : [];
-  });
-}
-
-function buildCatalogueBrands({
-  division,
-  categorySlug,
-}: {
-  division?: ProductDivision;
-  categorySlug?: string;
-}): Brand[] | undefined {
-  if (categorySlug && division) {
-    const category = getCategoryForDivision(division, categorySlug);
-    if (!category?.makes.length) return undefined;
-    const brands = brandsFromMakeNames(category.makes);
-    return brands.length > 0 ? brands : undefined;
-  }
-
-  if (division) {
-    const brands = getBrandsForDivision(division);
-    return brands.length > 0 ? brands : undefined;
-  }
-
-  const brands = [
-    ...getBrandsForDivision("hydraulic"),
-    ...getBrandsForDivision("pneumatic"),
-  ];
-  const unique = [
-    ...new Map(brands.map((brand) => [brand.slug, brand])).values(),
-  ];
-  return unique.length > 0 ? unique : undefined;
-}
-
 function buildCatalogueInquiryCta({
   division,
   categorySlug,
@@ -264,7 +226,7 @@ export function buildCatalogueConfig({
 
   let title = "Product Catalogue";
   let description =
-    "Browse our hydraulic and pneumatic product range. Use filters to narrow by category, brand, or type.";
+    "Browse our hydraulic and pneumatic product range. Use filters to narrow by category or type.";
 
   const pathScope: { category?: string; typeSlugs?: string[] } = {};
   let seoBody: string[] | undefined;
@@ -314,7 +276,7 @@ export function buildCatalogueConfig({
       title = typeLabel;
       description = category
         ? `${category.copy.intro} Filtered to ${typeLabel.toLowerCase()}.`
-        : `Browse ${typeLabel.toLowerCase()} products. Filter by brand and specifications.`;
+        : `Browse ${typeLabel.toLowerCase()} products. Filter by type and specifications.`;
     }
   }
 
@@ -332,7 +294,6 @@ export function buildCatalogueConfig({
   const products = filterProducts(allProducts, productsFilter);
   const landing = buildCatalogueLanding({ division, slug, products });
   const categorySlug = pathScope.category;
-  const brands = buildCatalogueBrands({ division, categorySlug });
   const relatedCategories = buildRelatedCategories({ division, categorySlug });
   const inquiryCta = buildCatalogueInquiryCta({
     division,
@@ -350,7 +311,6 @@ export function buildCatalogueConfig({
     products,
     inquiryCta,
     ...(landing ? { landing } : {}),
-    ...(brands ? { brands } : {}),
     ...(relatedCategories ? { relatedCategories } : {}),
     ...(seoBody ? { seoBody } : {}),
   };

@@ -1,11 +1,9 @@
 import type { FilterGroup, ProductDivision } from "@/lib/types/product.types";
-import { getBrandsForDivision } from "@/lib/data/brands";
 import {
   getCategoryForDivision,
   getTaxonomyForDivision,
   hydraulicTaxonomy,
   pneumaticTaxonomy,
-  toTaxonomySlug,
 } from "@/lib/data/taxonomy";
 
 type CatalogueFilterScope = {
@@ -38,44 +36,6 @@ function categoryFilterGroup(division?: ProductDivision): FilterGroup {
   };
 }
 
-function brandFilterGroup(
-  division?: ProductDivision,
-  categorySlug?: string,
-): FilterGroup | undefined {
-  const category =
-    categorySlug && division
-      ? getCategoryForDivision(division, categorySlug)
-      : categorySlug
-        ? (getCategoryForDivision("hydraulic", categorySlug) ??
-          getCategoryForDivision("pneumatic", categorySlug))
-        : undefined;
-
-  const options = category
-    ? [...category.makes]
-        .toSorted((a, b) => a.localeCompare(b))
-        .map((make) => ({ label: make, value: toTaxonomySlug(make) }))
-    : getBrandsForDivision(division ?? "hydraulic").map((brand) => ({
-        label: brand.name,
-        value: brand.slug,
-      }));
-
-  // Hub with no division: show all brands
-  const hubOptions =
-    !category && !division
-      ? [
-          ...new Map(
-            [...getBrandsForDivision("hydraulic"), ...getBrandsForDivision("pneumatic")].map(
-              (brand) => [brand.slug, { label: brand.name, value: brand.slug }],
-            ),
-          ).values(),
-        ].toSorted((a, b) => a.label.localeCompare(b.label))
-      : options;
-
-  if (hubOptions.length === 0) return undefined;
-
-  return { id: "brand", label: "Brand", options: hubOptions };
-}
-
 /**
  * Top-level types for the current category. Selecting a parent type also
  * matches its subtypes (see `expandTypeFilterSlugs`).
@@ -105,14 +65,14 @@ function typeFilterGroup(
 
 /**
  * Filter groups scoped to the current catalogue page.
- * Hub: category + all brands. Category page: its makes + its types.
+ * Hub: category. Category page: category types.
+ * Brand filters stay off the catalogue until products have real OEM links.
  */
 export function getFiltersForCatalogue(
   scope: CatalogueFilterScope = {},
 ): FilterGroup[] {
   const groups: (FilterGroup | undefined)[] = [
     categoryFilterGroup(scope.division),
-    brandFilterGroup(scope.division, scope.categorySlug),
     typeFilterGroup(scope.division, scope.categorySlug),
   ];
 

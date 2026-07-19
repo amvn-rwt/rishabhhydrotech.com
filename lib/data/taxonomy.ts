@@ -7,7 +7,7 @@ import type {
 } from "@/lib/types/product.types";
 import { siteConfig } from "@/lib/data/site";
 
-/** Own-brand make in catalogue filters. Same company as `siteConfig.name`. */
+/** Own-brand make listed in taxonomy. Same company as `siteConfig.name`. */
 const HOUSE_BRAND = siteConfig.name;
 
 /** Slugify taxonomy labels for URLs (e.g."Direction control valve" → "direction-control-valve"). */
@@ -60,8 +60,8 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
         "Gear, piston, and vane pumps from leading hydraulic makes including Yuken, Vickers, Rexroth, and more.",
       seoBody: [
         "Hydraulic pumps convert mechanical input into pressurised flow for industrial and mobile systems. Plant buyers and OEMs typically specify by pump type, displacement, pressure rating, and make so the unit matches the existing circuit and duty cycle.",
-        "This catalogue covers gear pumps (internal and external), piston pumps including variable displacement designs, and vane pumps in fixed and variable configurations. Filter by make to compare Yuken, Vickers, Rexroth, Daikin, Veljan, THM Haude, Nachi, Eckerle, and Voith options side by side.",
-        "Use the type cards above to open a gear, piston, or vane landing, then narrow with brand filters. When you have a model number, mounting style, or shaft detail from the machine plate, include it in your inquiry so we can quote the correct replacement or upgrade.",
+        "This catalogue covers gear pumps (internal and external), piston pumps including variable displacement designs, and vane pumps in fixed and variable configurations. Makes we deal in include Yuken, Vickers, Rexroth, Daikin, Veljan, THM Haude, Nachi, Eckerle, and Voith.",
+        "Use the type cards above to open a gear, piston, or vane landing. When you have a model number, mounting style, or shaft detail from the machine plate, include it in your inquiry so we can quote the correct replacement or upgrade.",
         "Request a best price for hydraulic pumps with the make, type, and operating pressure you need. We supply for maintenance, retrofit, and new builds.",
       ],
     },
@@ -87,7 +87,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       seoBody: [
         "Hydraulic valves direct flow, set pressure limits, and sequence actuators in industrial circuits. Correct valve selection depends on function (direction, relief, reducing, check, sequence, or balancing), port size, spool type, and OEM make.",
         "Browse direction control, check, non-return, pressure reducing, pressure relief, sequence, balancing valves, and pressure switches. Makes listed for this category include Yuken, Vickers, Rexroth, Daikin, THM Haude, and Nachi.",
-        "Filter by brand and type to match manifold patterns and subplate standards already on the machine. For CETOP or modular stacks, note the size and interface in your quote request.",
+        "Browse by type to match manifold patterns and subplate standards already on the machine. For CETOP or modular stacks, note the size and interface in your quote request.",
         "Get a best price for hydraulic valves by sending the function, make preference, and any part number from the existing unit.",
       ],
     },
@@ -119,7 +119,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       seoBody: [
         "Hydraulic hose assemblies carry pressurised fluid between pumps, valves, cylinders, and reservoirs. Specs usually include pressure class, ID, reinforcement (wire braid or spiral), cover compound, and end fittings.",
         "This range covers low, medium, and high pressure hose plus jack, spiral, vacuum, suction, thermoplastic, steam, gas, water, carbon-free, Teflon, and stainless bellow types. Makes include Parker, Gates, and Polyhose.",
-        "Choose a pressure or specialty type above, then filter by brand. For replacements, share working pressure, hose ID, length, and fitting style so the assembly matches the line already on the plant.",
+        "Choose a pressure or specialty type above. For replacements, share working pressure, hose ID, length, and fitting style so the assembly matches the line already on the plant.",
         "Request a quote for hydraulic hose by pressure rating, make, and fitting requirements.",
       ],
     },
@@ -145,7 +145,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       seoBody: [
         "Hydraulic fittings connect hose and tube to pumps, valves, cylinders, and manifolds. Thread standard and geometry must match both ends of the connection to avoid leaks and damaged seats.",
         "Browse elbow, straight, tee, banjo, union, bulkhead, and swivel fittings. Size filters cover metric, inches, BSW, and UNF. Makes include Parker, Hydromatic, Fitwell, Hyfit, and Hyloc.",
-        "Use type and brand filters to shortlist options, then confirm thread callout and sealing face (JIC, BSP, ORFS, and similar) in your inquiry.",
+        "Use type filters to shortlist options, then confirm thread callout and sealing face (JIC, BSP, ORFS, and similar) in your inquiry.",
         "Get a best price for hydraulic fittings with the type, thread standard, and quantity you need.",
       ],
     },
@@ -214,7 +214,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
         "Hydraulic motors from Danfoss, THM Haude, Entermote, SAI, Vickers, Rexroth, and Eagle. Sizes 100-3500 cc.",
       seoBody: [
         "Hydraulic motors turn pressurised flow into rotary torque for conveyors, winches, drives, and mobile equipment. Selection usually starts with displacement (cc/rev), continuous and intermittent pressure, shaft style, and mounting.",
-        "Displacement coverage here is 100-3500 cc across Danfoss, THM Haude, Entermote, SAI, Vickers, Rexroth, and Eagle. Filter by make to match the brand already on the machine or to evaluate alternatives in the same size class.",
+        "Displacement coverage here is 100-3500 cc across Danfoss, THM Haude, Entermote, SAI, Vickers, Rexroth, and Eagle. Browse by make to match the brand already on the machine or to evaluate alternatives in the same size class.",
         "Include displacement, shaft, and mounting details in your inquiry so we can quote a compatible motor.",
       ],
     },
@@ -231,7 +231,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
         `Diaphragm, piston, and bladder accumulators (1-50 litre) from Hydac, EPE, Parker, Oliver, and ${HOUSE_BRAND}.`,
       seoBody: [
         "Hydraulic accumulators store energy as pressurised fluid for shock absorption, leakage compensation, and emergency backup. Type (diaphragm, piston, or bladder), gas precharge, and litre size must suit system pressure and response needs.",
-        `Browse diaphragm, piston, and bladder units from 1-50 litre. Makes include Hydac, EPE, Parker, Oliver, and ${HOUSE_BRAND}. Filter by type and brand, then confirm volume and pressure rating in your quote request.`,
+        `Browse diaphragm, piston, and bladder units from 1-50 litre. Makes include Hydac, EPE, Parker, Oliver, and ${HOUSE_BRAND}. Filter by type, then confirm volume and pressure rating in your quote request.`,
         "Get a best price for hydraulic accumulators with type, size, and working pressure.",
       ],
     },
@@ -260,7 +260,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
       seoBody: [
         "Hydraulic filters protect pumps, valves, and actuators from particulate contamination. Choose by circuit location (suction, pressure, or return), micron rating, flow capacity, and housing style.",
         "This category covers pressure line, suction, and return line filters from 3-250 micron. Makes include Rexroth, MP Filter, Donaldson, Hydac, Hydroline, and Mahle.",
-        "Filter by line type and brand, then inquire with micron rating, port size, and element part number if known.",
+        "Filter by line type, then inquire with micron rating, port size, and element part number if known.",
       ],
     },
   },
@@ -322,7 +322,7 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
         "Analog glycerine-filled and digital pressure gauges from H-Guru, Micro, Wika, and Mass. Dial sizes 2.5-4 inches.",
       seoBody: [
         "Pressure gauges let operators and maintenance teams read system pressure at pumps, manifolds, and test points. Specs include dial size, range, connection thread, and whether an analog glycerine-filled or digital display is preferred.",
-        "Browse analog glycerine-filled and digital gauges in 2.5-4 inch dial sizes from H-Guru, Micro, Wika, and Mass. Filter by type and brand, then confirm pressure range and connection in your inquiry.",
+        "Browse analog glycerine-filled and digital gauges in 2.5-4 inch dial sizes from H-Guru, Micro, Wika, and Mass. Filter by type, then confirm pressure range and connection in your inquiry.",
         "Request a quote for pressure gauges with dial size, range, and make preference.",
       ],
     },
@@ -408,7 +408,7 @@ export const pneumaticTaxonomy: PneumaticCategoryTaxonomy[] = [
       seoBody: [
         "Air preparation equipment cleans, regulates, and conditions compressed air before it reaches valves, cylinders, and tools. Specs usually include port size, filtration micron rating, pressure range, and whether lubrication is required.",
         "Browse FRL units, air filters, pressure regulators, air lubricators, filter regulators, moisture separators, and air dryers. Makes listed for this category include Festo, SMC, Aventics (Emerson), Camozzi, AirTAC, Parker Hannifin, Norgren (IMI), and more.",
-        "Filter by brand and type to match the existing air line. Include port thread, flow, and working pressure in your inquiry so we can quote the correct assembly.",
+        "Browse by type to match the existing air line. Include port thread, flow, and working pressure in your inquiry so we can quote the correct assembly.",
         "Request a best price for air preparation products with the type and make you need.",
       ],
     },
@@ -424,7 +424,7 @@ export const pneumaticTaxonomy: PneumaticCategoryTaxonomy[] = [
         "Pressure gauges for pneumatic circuits from Festo, SMC, Parker Hannifin, and other listed makes.",
       seoBody: [
         "Pneumatic pressure gauges show line and regulator pressure for setup, monitoring, and troubleshooting. Buyers typically specify dial size, pressure range, connection thread, and mounting style.",
-        "Filter by make to compare Festo, SMC, Aventics (Emerson), Camozzi, AirTAC, Parker Hannifin, Norgren (IMI), and other listed brands.",
+        "Makes we deal in include Festo, SMC, Aventics (Emerson), Camozzi, AirTAC, Parker Hannifin, Norgren (IMI), and other listed brands.",
         "Share the pressure range and connection size in your quote request so we can match the gauge to your circuit.",
         "Get a best price for pneumatic pressure gauges with range and make preference.",
       ],
@@ -452,7 +452,7 @@ export const pneumaticTaxonomy: PneumaticCategoryTaxonomy[] = [
       seoBody: [
         "Pneumatic cylinders convert compressed air into linear or rotary motion for clamping, transfer, and machine actuation. Selection depends on bore, stroke, mounting, cushioning, and duty cycle.",
         "This range covers standard, compact, mini, round body, guided, rodless, twin rod, clamp, and gripper cylinders plus rotary actuators. Makes include Festo, SMC, Aventics (Emerson), Camozzi, AirTAC, and more.",
-        "Open a type card, then filter by brand. Include bore, stroke, and mounting style in your inquiry for a matching quote.",
+        "Open a type card, then include bore, stroke, and mounting style in your inquiry for a matching quote.",
         "Request a best price for pneumatic cylinders with type, size, and make details.",
       ],
     },
@@ -480,7 +480,7 @@ export const pneumaticTaxonomy: PneumaticCategoryTaxonomy[] = [
       seoBody: [
         "Pneumatic valves direct and control air flow in industrial circuits. Specs usually include function, port size, voltage for solenoids, and mounting (inline, manifold, or sub-base).",
         "Browse solenoid, mechanical, manual, foot operated, hand lever, shuttle, check, flow control, quick exhaust, directional control, and pneumatic logic valves. Makes include Festo, SMC, ASCO (Emerson), Camozzi, Norgren (IMI), and more.",
-        "Filter by brand and type to match existing valve islands and port standards. Note voltage and port size in your quote request.",
+        "Browse by type to match existing valve islands and port standards. Note voltage and port size in your quote request.",
         "Get a best price for pneumatic valves by function, make, and port details.",
       ],
     },
@@ -507,7 +507,7 @@ export const pneumaticTaxonomy: PneumaticCategoryTaxonomy[] = [
       seoBody: [
         "Pneumatic fittings join tubing and threaded ports in compressed-air systems. Buyers specify tube OD, thread form, shape, and material.",
         "This catalogue covers push-in fittings, straight, elbow, tee, and Y connectors, bulkhead and banjo fittings, reducers, adapters, and silencers (mufflers). Makes include Pisco, Legris (Parker), SMC, Festo, Camozzi, and more.",
-        "Choose a fitting type, then filter by brand. Share tube size and thread in your inquiry.",
+        "Choose a fitting type, then share tube size and thread in your inquiry.",
         "Request a quote for pneumatic fittings by type, size, and make.",
       ],
     },
@@ -529,7 +529,7 @@ export const pneumaticTaxonomy: PneumaticCategoryTaxonomy[] = [
         "PU, nylon, PTFE, and PE tubes plus coiled and braided air hoses from listed pneumatic makes.",
       seoBody: [
         "Pneumatic tubing carries compressed air between preparation equipment, valves, and actuators. Material, OD, and pressure rating must match the circuit and fittings.",
-        "Browse PU, nylon, PTFE, and PE tubes plus coiled and braided air hoses. Filter by brand among Festo, SMC, Parker Hannifin, Pisco, and other listed makes.",
+        "Browse PU, nylon, PTFE, and PE tubes plus coiled and braided air hoses. Makes include Festo, SMC, Parker Hannifin, Pisco, and other listed brands.",
         "Include tube OD, length, and working pressure in your quote request.",
         "Get a best price for pneumatic tubing with material and size details.",
       ],
@@ -569,7 +569,7 @@ export const pneumaticTaxonomy: PneumaticCategoryTaxonomy[] = [
       seoBody: [
         "Vacuum components create and control vacuum for pick-and-place, packaging, and handling. Selection depends on cup size, generator flow, and switch setpoints.",
         "This range covers vacuum cups, generators, filters, pads, switches, and ejectors. Makes include Festo, SMC, Pisco, Camozzi, and more.",
-        "Filter by type and brand, then note workpiece material and cup size in your quote request.",
+        "Filter by type, then note workpiece material and cup size in your quote request.",
         "Get a best price for vacuum components with type and application details.",
       ],
     },
@@ -644,7 +644,7 @@ export const pneumaticTaxonomy: PneumaticCategoryTaxonomy[] = [
       seoBody: [
         "Pneumatic tools use compressed air for fastening, cutting, finishing, and assembly. Specs include drive size, RPM, air consumption, and duty rating.",
         "This catalogue covers air impact wrenches, drills, screwdrivers, grinders, sanders, ratchets, hammers, spray guns, nailers, and staplers.",
-        "Filter by type and brand, then include drive size or application in your inquiry.",
+        "Filter by type, then include drive size or application in your inquiry.",
         "Request a best price for pneumatic tools with type and make preference.",
       ],
     },
@@ -668,7 +668,7 @@ export const pneumaticTaxonomy: PneumaticCategoryTaxonomy[] = [
       seoBody: [
         "Industrial automation components use pneumatics for repeatable motion and sensing on machines and fixtures. Specs include stroke, grip force, sensor type, and mounting.",
         "Browse pneumatic actuators, grippers, air slides, rotary tables, sensor switches for cylinders, reed switches, and cylinder position sensors. Makes include Festo, SMC, AirTAC, Camozzi, and more.",
-        "Open a type card, filter by brand, and note the parent cylinder or series when ordering sensors.",
+        "Open a type card and note the parent cylinder or series when ordering sensors.",
         "Get a best price for automation components with type, size, and make details.",
       ],
     },

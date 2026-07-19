@@ -67,8 +67,6 @@ export type CataloguePageConfig = {
   products: Product[];
   /** Present when the path has child categories/types to browse. */
   landing?: CatalogueLanding;
-  /** Makes shown in the brands strip (category makes, or division brands on hubs). */
-  brands?: Brand[];
   /** "Get Best Price for [category]" inquiry band. */
   inquiryCta: CatalogueInquiryCta;
   /** Sibling / peer category links at the bottom of the page. */

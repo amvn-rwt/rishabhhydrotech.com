@@ -40,16 +40,9 @@ export function FeaturedProducts() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
                 <div className="flex flex-1 flex-col gap-3 px-4 py-4">
-                  <div className="flex flex-wrap items-center gap-2">
-                    {product.brand ? (
-                      <span className="type-caption font-medium text-brand">
-                        {product.brand}
-                      </span>
-                    ) : null}
-                    <span className="type-caption text-muted-foreground">
-                      {formatCategoryLabel(product.category)}
-                    </span>
-                  </div>
+                  <span className="type-caption text-muted-foreground">
+                    {formatCategoryLabel(product.category)}
+                  </span>
                   <h3 className="type-h3 wrap-break-word text-neutral-dark">
                     {product.name}
                   </h3>
@@ -59,7 +52,7 @@ export function FeaturedProducts() {
                         division: product.division,
                         category: product.category,
                         product: product.id,
-                        brand: product.brand,
+                        ...(product.brand ? { brand: product.brand } : {}),
                       }}
                       title={`Inquiry: ${product.name}`}
                       triggerLabel="Inquiry"

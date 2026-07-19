@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { InquiryModal } from "@/components/inquiry/InquiryModal";
 import { ProductImage } from "@/components/products/ProductImage";
@@ -21,17 +20,7 @@ export function ProductCard({ product }: ProductCardProps) {
         alt={`${product.name}, ${categoryLabel}`}
       />
       <div className="flex flex-1 flex-col gap-3 px-3 py-3">
-        <div className="flex flex-wrap items-center gap-2">
-          {product.brand ? (
-            <Badge
-              variant="outline"
-              className="border-brand/25 bg-brand-muted/50 font-heading text-brand"
-            >
-              {product.brand}
-            </Badge>
-          ) : null}
-          <span className="type-caption text-neutral-mid">{categoryLabel}</span>
-        </div>
+        <span className="type-caption text-neutral-mid">{categoryLabel}</span>
 
         <h3 className="type-h4 wrap-break-word text-neutral-dark">
           {product.name}
@@ -43,7 +32,7 @@ export function ProductCard({ product }: ProductCardProps) {
               division: product.division,
               category: product.category,
               product: product.id,
-              brand: product.brand,
+              ...(product.brand ? { brand: product.brand } : {}),
             }}
             title={`Get Best Price: ${product.name}`}
             description={`Request pricing for this ${categoryLabel.toLowerCase()} item. Add model numbers or specs in the message.`}
