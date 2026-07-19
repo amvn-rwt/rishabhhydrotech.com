@@ -2,14 +2,25 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { hydraulicTaxonomy } from "@/lib/data/taxonomy";
+import { hydraulicTaxonomy, pneumaticTaxonomy } from "@/lib/data/taxonomy";
 
 export const metadata: Metadata = {
   title: "Page not found",
   robots: { index: false },
 };
 
-const quickLinks = hydraulicTaxonomy.slice(0, 6);
+const quickLinks = [
+  ...hydraulicTaxonomy.slice(0, 3).map((category) => ({
+    key: `hydraulic-${category.slug}`,
+    name: category.name,
+    href: `/products/hydraulic/${category.slug}`,
+  })),
+  ...pneumaticTaxonomy.slice(0, 3).map((category) => ({
+    key: `pneumatic-${category.slug}`,
+    name: category.name,
+    href: `/products/pneumatic/${category.slug}`,
+  })),
+];
 
 export default function NotFound() {
   return (
@@ -34,7 +45,7 @@ export default function NotFound() {
             Go to homepage
           </Button>
           <Button
-            render={<Link href="/products/hydraulic" />}
+            render={<Link href="/products" />}
             nativeButton={false}
             variant="outline"
           >
@@ -53,9 +64,9 @@ export default function NotFound() {
           <h2 className="type-h4 text-neutral-dark">Popular categories</h2>
           <ul className="mt-3 flex flex-wrap gap-2">
             {quickLinks.map((category) => (
-              <li key={category.slug}>
+              <li key={category.key}>
                 <Link
-                  href={`/products/hydraulic/${category.slug}`}
+                  href={category.href}
                   className="type-body-sm inline-block border border-border bg-white px-3 py-1.5 text-neutral-dark transition-colors hover:border-brand/40 hover:bg-brand-muted hover:text-brand-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
                 >
                   {category.name}

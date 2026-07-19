@@ -1,30 +1,52 @@
-import { hydraulicTaxonomy, toTaxonomySlug } from "@/lib/data/taxonomy";
+import {
+  hydraulicTaxonomy,
+  pneumaticTaxonomy,
+  toTaxonomySlug,
+} from "@/lib/data/taxonomy";
 import type {
   Brand,
-  HydraulicCategoryTaxonomy,
+  CategoryTaxonomy,
+  ProductDivision,
 } from "@/lib/types/product.types";
 
+export type BrandCategoryLink = CategoryTaxonomy & {
+  division: ProductDivision;
+};
+
 /**
- * Brand metadata derived from hydraulic taxonomy makes (WEBSITE_PLAN §6.2).
+ * Brand metadata derived from taxonomy makes (WEBSITE_PLAN §6.2 / §6.3).
  * `logo` is null until OEM logos arrive (WEBSITE_TODO §A.3).
- * Divisions are hydraulic-only until pneumatic taxonomy is delivered (§6.3).
  */
-function collectBrandNames(): string[] {
-  const names = new Set<string>();
+function collectBrands(): Brand[] {
+  const divisionsByName = new Map<string, Set<ProductDivision>>();
+
   for (const category of hydraulicTaxonomy) {
     for (const make of category.makes) {
-      names.add(make);
+      const set = divisionsByName.get(make) ?? new Set<ProductDivision>();
+      set.add("hydraulic");
+      divisionsByName.set(make, set);
     }
   }
-  return [...names].toSorted((a, b) => a.localeCompare(b));
+
+  for (const category of pneumaticTaxonomy) {
+    for (const make of category.makes) {
+      const set = divisionsByName.get(make) ?? new Set<ProductDivision>();
+      set.add("pneumatic");
+      divisionsByName.set(make, set);
+    }
+  }
+
+  return [...divisionsByName.entries()]
+    .toSorted(([a], [b]) => a.localeCompare(b))
+    .map(([name, divisions]) => ({
+      name,
+      slug: toTaxonomySlug(name),
+      logo: null,
+      divisions: [...divisions].toSorted(),
+    }));
 }
 
-export const brands: Brand[] = collectBrandNames().map((name) => ({
-  name,
-  slug: toTaxonomySlug(name),
-  logo: null,
-  divisions: ["hydraulic"],
-}));
+export const brands: Brand[] = collectBrands();
 
 const brandBySlug = new Map(brands.map((brand) => [brand.slug, brand]));
 const brandByName = new Map(brands.map((brand) => [brand.name, brand]));
@@ -37,17 +59,33 @@ export function getBrandByName(name: string): Brand | undefined {
   return brandByName.get(name);
 }
 
+export function getAllBrands(): Brand[] {
+  return brands;
+}
+
 export function getBrandsForDivision(
-  division: Brand["divisions"][number] = "hydraulic",
+  division: ProductDivision = "hydraulic",
 ): Brand[] {
   return brands.filter((brand) => brand.divisions.includes(division));
 }
 
-/** Hydraulic categories that list this make (taxonomy `makes`). */
+/** Categories (either division) that list this make. */
 export function getCategoriesForBrand(
   brandName: string,
-): HydraulicCategoryTaxonomy[] {
-  return hydraulicTaxonomy.filter((category) =>
-    category.makes.includes(brandName),
-  );
+): BrandCategoryLink[] {
+  const result: BrandCategoryLink[] = [];
+
+  for (const category of hydraulicTaxonomy) {
+    if (category.makes.includes(brandName)) {
+      result.push({ ...category, division: "hydraulic" });
+    }
+  }
+
+  for (const category of pneumaticTaxonomy) {
+    if (category.makes.includes(brandName)) {
+      result.push({ ...category, division: "pneumatic" });
+    }
+  }
+
+  return result;
 }

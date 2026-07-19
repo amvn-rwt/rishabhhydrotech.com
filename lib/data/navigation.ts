@@ -16,7 +16,7 @@ export const primaryNav: NavItem[] = [
     children: [
       { label: "All Products", href: "/products" },
       { label: "Hydraulic Products", href: "/products/hydraulic" },
-      // Pneumatic Products — add when client delivers taxonomy (WEBSITE_PLAN §6.3)
+      { label: "Pneumatic Products", href: "/products/pneumatic" },
     ],
   },
   { label: "Brands", href: "/brands" },
@@ -29,18 +29,20 @@ export const ctaNav: NavLink = {
   href: "/inquiry",
 };
 
-/** Quick category links for mobile drawer (top hydraulic categories). */
+/** Quick category links for mobile drawer (top categories across divisions). */
 export const mobileCategoryLinks: NavLink[] = [
   { label: "Hydraulic Pumps", href: "/products/hydraulic/pumps" },
   { label: "Hydraulic Valves", href: "/products/hydraulic/valves" },
-  { label: "Hydraulic Hoses", href: "/products/hydraulic/hoses" },
   { label: "Hydraulic Cylinders", href: "/products/hydraulic/cylinders" },
-  { label: "Power Packs", href: "/products/hydraulic/power-packs" },
+  { label: "Pneumatic Cylinders", href: "/products/pneumatic/cylinders" },
+  { label: "Pneumatic Valves", href: "/products/pneumatic/valves" },
+  { label: "Pneumatic Fittings", href: "/products/pneumatic/fittings" },
 ];
 
 /** Footer quick links. */
 export const footerProductLinks: NavLink[] = [
   { label: "Hydraulic Products", href: "/products/hydraulic" },
+  { label: "Pneumatic Products", href: "/products/pneumatic" },
   { label: "Full Catalogue", href: "/products" },
 ];
 

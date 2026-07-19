@@ -1,8 +1,13 @@
 import { brands } from "@/lib/data/brands";
 import {
   hydraulicTaxonomy,
+  pneumaticTaxonomy,
 } from "@/lib/data/taxonomy";
-import type { TaxonomyTypeNode } from "@/lib/types/product.types";
+import type {
+  CategoryTaxonomy,
+  ProductDivision,
+  TaxonomyTypeNode,
+} from "@/lib/types/product.types";
 
 export type SearchEntryKind = "category" | "type" | "brand";
 
@@ -23,6 +28,8 @@ export const popularSearches = [
   "Parker hose",
   "Hydraulic cylinder",
   "Yuken valve",
+  "Festo cylinder",
+  "SMC solenoid",
   "Power pack",
   "Pressure gauge",
 ] as const;
@@ -49,21 +56,23 @@ function walkTypeEntries(
   }
 }
 
-function buildSearchIndex(): SearchEntry[] {
-  const entries: SearchEntry[] = [];
-
-  for (const category of hydraulicTaxonomy) {
+function indexDivisionTaxonomy(
+  taxonomy: CategoryTaxonomy[],
+  division: ProductDivision,
+  out: SearchEntry[],
+) {
+  for (const category of taxonomy) {
     const makeKeywords = category.makes.map((make) => make.toLowerCase());
     const typeKeywords = category.types.map((type) => type.label.toLowerCase());
 
-    entries.push({
+    out.push({
       kind: "category",
       title: category.copy.title,
       description: category.copy.intro,
-      href: `/products/hydraulic/${category.slug}`,
+      href: `/products/${division}/${category.slug}`,
       keywords: [
         category.name.toLowerCase(),
-        "hydraulic",
+        division,
         ...makeKeywords,
         ...typeKeywords,
       ],
@@ -71,17 +80,35 @@ function buildSearchIndex(): SearchEntry[] {
 
     walkTypeEntries(
       category.types,
-      `/products/hydraulic/${category.slug}`,
+      `/products/${division}/${category.slug}`,
       category.name,
       makeKeywords,
-      entries,
+      out,
     );
   }
+}
+
+function buildSearchIndex(): SearchEntry[] {
+  const entries: SearchEntry[] = [];
+
+  indexDivisionTaxonomy(hydraulicTaxonomy, "hydraulic", entries);
+  indexDivisionTaxonomy(pneumaticTaxonomy, "pneumatic", entries);
 
   for (const brand of brands) {
-    const categoryNames = hydraulicTaxonomy
+    const hydraulicNames = hydraulicTaxonomy
       .filter((category) => category.makes.includes(brand.name))
       .map((category) => category.name);
+    const pneumaticNames = pneumaticTaxonomy
+      .filter((category) => category.makes.includes(brand.name))
+      .map((category) => category.name);
+    const categoryNames = [...hydraulicNames, ...pneumaticNames];
+
+    const divisionLabel =
+      brand.divisions.length === 2
+        ? "hydraulic and pneumatic"
+        : brand.divisions[0] === "pneumatic"
+          ? "pneumatic"
+          : "hydraulic";
 
     entries.push({
       kind: "brand",
@@ -89,11 +116,12 @@ function buildSearchIndex(): SearchEntry[] {
       description:
         categoryNames.length > 0
           ? `Make listed for: ${categoryNames.join(", ")}.`
-          : "Make listed in the hydraulic catalogue.",
+          : `Make listed in the ${divisionLabel} catalogue.`,
       href: `/brands/${brand.slug}`,
       keywords: [
         "brand",
         "make",
+        ...brand.divisions,
         ...categoryNames.map((name) => name.toLowerCase()),
       ],
     });

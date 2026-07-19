@@ -1,8 +1,10 @@
 import type { FilterGroup, ProductDivision } from "@/lib/types/product.types";
 import { getBrandsForDivision } from "@/lib/data/brands";
 import {
-  getHydraulicCategory,
+  getCategoryForDivision,
+  getTaxonomyForDivision,
   hydraulicTaxonomy,
+  pneumaticTaxonomy,
   toTaxonomySlug,
 } from "@/lib/data/taxonomy";
 
@@ -12,44 +14,83 @@ type CatalogueFilterScope = {
   categorySlug?: string;
 };
 
-function categoryFilterGroup(): FilterGroup {
+function categoryFilterGroup(division?: ProductDivision): FilterGroup {
+  const taxonomy = division
+    ? getTaxonomyForDivision(division)
+    : [...hydraulicTaxonomy, ...pneumaticTaxonomy];
+
+  const seen = new Set<string>();
+  const options: FilterGroup["options"] = [];
+
+  for (const category of taxonomy) {
+    if (seen.has(category.slug)) continue;
+    seen.add(category.slug);
+    options.push({
+      label: category.name,
+      value: category.slug,
+    });
+  }
+
   return {
     id: "category",
     label: "Category",
-    options: hydraulicTaxonomy.map((category) => ({
-      label: category.name,
-      value: category.slug,
-    })),
+    options,
   };
 }
 
-function brandFilterGroup(categorySlug?: string): FilterGroup | undefined {
-  const category = categorySlug
-    ? getHydraulicCategory(categorySlug)
-    : undefined;
+function brandFilterGroup(
+  division?: ProductDivision,
+  categorySlug?: string,
+): FilterGroup | undefined {
+  const category =
+    categorySlug && division
+      ? getCategoryForDivision(division, categorySlug)
+      : categorySlug
+        ? (getCategoryForDivision("hydraulic", categorySlug) ??
+          getCategoryForDivision("pneumatic", categorySlug))
+        : undefined;
 
   const options = category
     ? [...category.makes]
         .toSorted((a, b) => a.localeCompare(b))
         .map((make) => ({ label: make, value: toTaxonomySlug(make) }))
-    : getBrandsForDivision().map((brand) => ({
+    : getBrandsForDivision(division ?? "hydraulic").map((brand) => ({
         label: brand.name,
         value: brand.slug,
       }));
 
-  if (options.length === 0) return undefined;
+  // Hub with no division: show all brands
+  const hubOptions =
+    !category && !division
+      ? [
+          ...new Map(
+            [...getBrandsForDivision("hydraulic"), ...getBrandsForDivision("pneumatic")].map(
+              (brand) => [brand.slug, { label: brand.name, value: brand.slug }],
+            ),
+          ).values(),
+        ].toSorted((a, b) => a.label.localeCompare(b.label))
+      : options;
 
-  return { id: "brand", label: "Brand", options };
+  if (hubOptions.length === 0) return undefined;
+
+  return { id: "brand", label: "Brand", options: hubOptions };
 }
 
 /**
  * Top-level types for the current category. Selecting a parent type also
  * matches its subtypes (see `expandTypeFilterSlugs`).
  */
-function typeFilterGroup(categorySlug?: string): FilterGroup | undefined {
+function typeFilterGroup(
+  division?: ProductDivision,
+  categorySlug?: string,
+): FilterGroup | undefined {
   if (!categorySlug) return undefined;
 
-  const category = getHydraulicCategory(categorySlug);
+  const category = division
+    ? getCategoryForDivision(division, categorySlug)
+    : (getCategoryForDivision("hydraulic", categorySlug) ??
+      getCategoryForDivision("pneumatic", categorySlug));
+
   if (!category?.types.length) return undefined;
 
   return {
@@ -65,15 +106,14 @@ function typeFilterGroup(categorySlug?: string): FilterGroup | undefined {
 /**
  * Filter groups scoped to the current catalogue page.
  * Hub: category + all brands. Category page: its makes + its types.
- * Pneumatic filters deferred until client taxonomy (WEBSITE_PLAN §6.3).
  */
 export function getFiltersForCatalogue(
   scope: CatalogueFilterScope = {},
 ): FilterGroup[] {
   const groups: (FilterGroup | undefined)[] = [
-    categoryFilterGroup(),
-    brandFilterGroup(scope.categorySlug),
-    typeFilterGroup(scope.categorySlug),
+    categoryFilterGroup(scope.division),
+    brandFilterGroup(scope.division, scope.categorySlug),
+    typeFilterGroup(scope.division, scope.categorySlug),
   ];
 
   return groups.filter((group): group is FilterGroup => Boolean(group));

@@ -5,27 +5,34 @@ import { CatalogueSkeleton } from "@/components/products/CatalogueSkeleton";
 import { buildCatalogueConfig } from "@/lib/data/catalogue";
 
 export const metadata: Metadata = {
-  title: "Product Catalogue",
+  title: "Pneumatic Products",
   description:
-    "Browse hydraulic and pneumatic products: pumps, valves, cylinders, fittings, and more.",
-  alternates: { canonical: "/products" },
+    "Browse air preparation, cylinders, valves, fittings, tubing, tools, and more.",
+  alternates: { canonical: "/products/pneumatic" },
 };
 
-type ProductsPageProps = {
+type PneumaticProductsPageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-async function ProductsPageContent({ searchParams }: ProductsPageProps) {
+async function PneumaticProductsPageContent({
+  searchParams,
+}: PneumaticProductsPageProps) {
   const params = await searchParams;
-  const config = buildCatalogueConfig({ searchParams: params });
+  const config = buildCatalogueConfig({
+    division: "pneumatic",
+    searchParams: params,
+  });
 
   return <CatalogueLayout config={config} />;
 }
 
-export default function ProductsPage(props: ProductsPageProps) {
+export default function PneumaticProductsPage(
+  props: PneumaticProductsPageProps,
+) {
   return (
     <Suspense fallback={<CatalogueSkeleton />}>
-      <ProductsPageContent {...props} />
+      <PneumaticProductsPageContent {...props} />
     </Suspense>
   );
 }

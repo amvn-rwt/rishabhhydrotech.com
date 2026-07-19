@@ -20,9 +20,9 @@ import { inquiryHref } from "@/lib/inquiry";
 import { formatCategoryLabel, getProductsForDivision } from "@/lib/data/products";
 import {
   findTaxonomyTypeNode,
-  getHydraulicCategory,
+  getCategoryForDivision,
+  getTaxonomyForDivision,
   getTaxonomyLabelBySlug,
-  hydraulicTaxonomy,
 } from "@/lib/data/taxonomy";
 
 type BuildCatalogueConfigOptions = {
@@ -39,6 +39,11 @@ const divisionMeta: Record<
     title: "Hydraulic Products",
     description:
       "Browse pumps, valves, hoses, cylinders, power packs, and the full hydraulic range from leading brands.",
+  },
+  pneumatic: {
+    title: "Pneumatic Products",
+    description:
+      "Browse air preparation, cylinders, valves, fittings, tubing, tools, and the full pneumatic range from leading brands.",
   },
 };
 
@@ -81,7 +86,7 @@ function typeCardsFromNodes({
 
 /**
  * Build landing cards for hub / category / type levels.
- * Hub → categories; category → types; type with children → subtypes.
+ * Hub → divisions; division → categories; category → types; type with children → subtypes.
  */
 function buildCatalogueLanding({
   division,
@@ -92,12 +97,10 @@ function buildCatalogueLanding({
   slug?: string[];
   products: Product[];
 }): CatalogueLanding | undefined {
-  const resolvedDivision = division ?? "hydraulic";
-
   // Category or deeper path
-  if (slug && slug.length > 0) {
+  if (division && slug && slug.length > 0) {
     const categorySlug = slug[0];
-    const category = getHydraulicCategory(categorySlug);
+    const category = getCategoryForDivision(division, categorySlug);
     if (!category) return undefined;
 
     // Category level: type cards
@@ -107,7 +110,7 @@ function buildCatalogueLanding({
         heading: "Browse by type",
         cards: typeCardsFromNodes({
           types: category.types,
-          hrefBase: `/products/${resolvedDivision}/${category.slug}`,
+          hrefBase: `/products/${division}/${category.slug}`,
           products,
           categorySlug: category.slug,
         }),
@@ -123,24 +126,43 @@ function buildCatalogueLanding({
       heading: "Browse by type",
       cards: typeCardsFromNodes({
         types: node.children,
-        hrefBase: `/products/${resolvedDivision}/${slug.join("/")}`,
+        hrefBase: `/products/${division}/${slug.join("/")}`,
         products,
         categorySlug: category.slug,
       }),
     };
   }
 
-  // Division or catalogue hub: category cards
-  const cards: CatalogueLandingCard[] = hydraulicTaxonomy.map((category) => ({
-    label: category.name,
-    href: `/products/hydraulic/${category.slug}`,
-    description: category.copy.intro,
-    productCount: products.filter((product) => product.category === category.slug)
-      .length,
+  // Division landing: category cards
+  if (division) {
+    const taxonomy = getTaxonomyForDivision(division);
+    const cards: CatalogueLandingCard[] = taxonomy.map((category) => ({
+      label: category.name,
+      href: `/products/${division}/${category.slug}`,
+      description: category.copy.intro,
+      productCount: products.filter(
+        (product) => product.category === category.slug,
+      ).length,
+    }));
+
+    return {
+      heading: "Browse by category",
+      cards,
+    };
+  }
+
+  // Catalogue hub: division cards
+  const cards: CatalogueLandingCard[] = (
+    ["hydraulic", "pneumatic"] as const
+  ).map((div) => ({
+    label: divisionMeta[div].title,
+    href: `/products/${div}`,
+    description: divisionMeta[div].description,
+    productCount: getProductsForDivision(div).length,
   }));
 
   return {
-    heading: "Browse by category",
+    heading: "Browse by division",
     cards,
   };
 }
@@ -159,15 +181,26 @@ function buildCatalogueBrands({
   division?: ProductDivision;
   categorySlug?: string;
 }): Brand[] | undefined {
-  if (categorySlug) {
-    const category = getHydraulicCategory(categorySlug);
+  if (categorySlug && division) {
+    const category = getCategoryForDivision(division, categorySlug);
     if (!category?.makes.length) return undefined;
     const brands = brandsFromMakeNames(category.makes);
     return brands.length > 0 ? brands : undefined;
   }
 
-  const brands = getBrandsForDivision(division ?? "hydraulic");
-  return brands.length > 0 ? brands : undefined;
+  if (division) {
+    const brands = getBrandsForDivision(division);
+    return brands.length > 0 ? brands : undefined;
+  }
+
+  const brands = [
+    ...getBrandsForDivision("hydraulic"),
+    ...getBrandsForDivision("pneumatic"),
+  ];
+  const unique = [
+    ...new Map(brands.map((brand) => [brand.slug, brand])).values(),
+  ];
+  return unique.length > 0 ? unique : undefined;
 }
 
 function buildCatalogueInquiryCta({
@@ -179,7 +212,11 @@ function buildCatalogueInquiryCta({
   categorySlug?: string;
   titleLabel: string;
 }): CatalogueInquiryCta {
-  const label = categorySlug ? titleLabel : division ? divisionMeta[division].title : "Products";
+  const label = categorySlug
+    ? titleLabel
+    : division
+      ? divisionMeta[division].title
+      : "Products";
 
   return {
     title: `Get Best Price for ${label}`,
@@ -200,15 +237,14 @@ function buildRelatedCategories({
   division?: ProductDivision;
   categorySlug?: string;
 }): CatalogueRelatedLink[] | undefined {
-  if (!categorySlug) return undefined;
+  if (!categorySlug || !division) return undefined;
 
-  const resolvedDivision = division ?? "hydraulic";
-  const related = hydraulicTaxonomy
+  const related = getTaxonomyForDivision(division)
     .filter((category) => category.slug !== categorySlug)
     .slice(0, RELATED_CATEGORY_LIMIT)
     .map((category) => ({
       label: category.name,
-      href: `/products/${resolvedDivision}/${category.slug}`,
+      href: `/products/${division}/${category.slug}`,
     }));
 
   return related.length > 0 ? related : undefined;
@@ -228,7 +264,7 @@ export function buildCatalogueConfig({
 
   let title = "Product Catalogue";
   let description =
-    "Browse our hydraulic product range. Use filters to narrow by category, brand, or type.";
+    "Browse our hydraulic and pneumatic product range. Use filters to narrow by category, brand, or type.";
 
   const pathScope: { category?: string; typeSlugs?: string[] } = {};
   let seoBody: string[] | undefined;
@@ -246,7 +282,7 @@ export function buildCatalogueConfig({
     const categorySlug = slug[0];
     pathScope.category = categorySlug;
 
-    const category = getHydraulicCategory(categorySlug);
+    const category = getCategoryForDivision(division, categorySlug);
     const categoryLabel =
       category?.name ?? formatCategoryLabel(categorySlug);
 
@@ -272,7 +308,8 @@ export function buildCatalogueConfig({
       pathScope.typeSlugs = typeSlugs;
       const leafSlug = typeSlugs[typeSlugs.length - 1];
       const typeLabel =
-        getTaxonomyLabelBySlug(leafSlug) ?? formatCategoryLabel(leafSlug);
+        getTaxonomyLabelBySlug(leafSlug, division) ??
+        formatCategoryLabel(leafSlug);
       breadcrumbs.push({ label: typeLabel });
       title = typeLabel;
       description = category

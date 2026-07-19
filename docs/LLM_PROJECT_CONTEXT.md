@@ -2,7 +2,7 @@
 
 ## 1. What this is
 
-**Business:** Rishabh Hydro Tech Engineers (`rishabhhydrotech.com`) — Indian B2B manufacturer/supplier of hydraulic (and later pneumatic) industrial equipment.
+**Business:** Rishabh Hydro Tech Engineers (`rishabhhydrotech.com`) — Indian B2B manufacturer/supplier of hydraulic and pneumatic industrial equipment.
 
 **Site type:** Local industrial **catalogue + lead generation**. Not e-commerce (no cart, checkout, or payments).
 
@@ -81,22 +81,23 @@ Path alias: `@/` → project root (`tsconfig`).
 | `/products` | Catalogue hub |
 | `/products/hydraulic` | Hydraulic division landing |
 | `/products/hydraulic/[...slug]` | Category → type → subtype (SSG via `generateStaticParams`) |
+| `/products/pneumatic` | Pneumatic division landing |
+| `/products/pneumatic/[...slug]` | Category → type (SSG via `generateStaticParams`) |
 | `/brands`, `/brands/[slug]` | Brand directory / brand landing |
 | `/inquiry` | Full inquiry form (query pre-fill: `category`, `product`, `brand`, `division`) |
 | `/contact`, `/about` | Contact / about (thin until client copy arrives) |
 | `/search` | Search results |
 
-**Pneumatic** (`/products/pneumatic`) is **deferred** until the client delivers taxonomy. Do not invent pneumatic categories.
-
 **Catalogue URL pattern:**
 
 ```
-/products/hydraulic/{category}
-/products/hydraulic/{category}/{type}
+/products/{division}/{category}
+/products/{division}/{category}/{type}
 /products/hydraulic/{category}/{type}/{subtype}
 ```
 
-Example: `/products/hydraulic/pumps/piston-pump/variable-displacement-piston-pump`
+Example: `/products/hydraulic/pumps/piston-pump/variable-displacement-piston-pump`  
+Example: `/products/pneumatic/valves/solenoid-valves`
 
 Query filters (e.g. `?brand=yuken,rexroth`) are handled in `lib/data/filter-params.ts` + catalogue builders.
 
@@ -104,18 +105,21 @@ Query filters (e.g. `?brand=yuken,rexroth`) are handled in `lib/data/filter-para
 
 ## 5. Data model & catalogue logic
 
-**Source of truth for products:** `lib/data/taxonomy.ts` (`hydraulicTaxonomy`) — 13 hydraulic categories from the client brief. Do **not** invent makes, types, or SKUs.
+**Source of truth for products:** `lib/data/taxonomy.ts` — `hydraulicTaxonomy` (13 categories) and `pneumaticTaxonomy` (12 categories) from the client brief. Do **not** invent makes, types, or SKUs.
 
-**Seed products:** Generated in `lib/data/products.ts` from taxonomy (one card per type/subtype, or per make for motors). Images: `/products/{category}/{slug}.png`.
+**Seed products:** Generated in `lib/data/products.ts` from taxonomy (one card per type/subtype, or per make when a category has no types). Images: `/products/{category}/{slug}.png`.
 
 **Page assembly:** `lib/data/catalogue.ts` → `buildCatalogueConfig()` returns `CataloguePageConfig` (title, breadcrumbs, filters, products, landing cards, brands strip, inquiry CTA, SEO body, related categories).
 
-**Key types** (`lib/types/product.types.ts`): `Product`, `ProductDivision` (`"hydraulic"` only for now), `Brand`, `HydraulicCategoryTaxonomy`, `CataloguePageConfig`, filter groups.
+**Key types** (`lib/types/product.types.ts`): `Product`, `ProductDivision` (`"hydraulic" | "pneumatic"`), `Brand`, `CategoryTaxonomy` / `HydraulicCategoryTaxonomy` / `PneumaticCategoryTaxonomy`, `CataloguePageConfig`, filter groups.
 
 **Hydraulic categories (slugs):**  
-`pumps`, `valves`, `hoses`, `fittings`, `cylinders`, `power-packs`, `motors`, `accumulators`, `filters`, `seals`, `manifolds`, `pressure-gauges`, `heat-exchangers` (confirm against `taxonomy.ts` if editing).
+`pumps`, `valves`, `hoses`, `fittings`, `cylinders`, `power-packs`, `motors`, `accumulators`, `filters`, `seals`, `manifolds`, `pressure-gauges`, `heat-exchangers`.
 
-**OEM makes (examples):** Yuken, Vickers, Rexroth, Daikin, Parker, Gates, Hydac, Danfoss, house brand = company name from `siteConfig`.
+**Pneumatic categories (slugs):**  
+`air-preparation`, `pressure-gauges`, `cylinders`, `valves`, `fittings`, `tubing`, `air-blow-equipment`, `vacuum-components`, `accessories`, `air-compressors`, `tools`, `industrial-automation`.
+
+**OEM makes (examples):** Hydraulic: Yuken, Vickers, Rexroth, Daikin, Parker, Gates, Hydac, Danfoss, house brand = company name from `siteConfig`. Pneumatic: Festo, SMC, Aventics (Emerson), Camozzi, AirTAC, Parker Hannifin, Norgren (IMI), ASCO (Emerson), and others in §6.3.
 
 **Site config:** `lib/data/site.ts` — name, URL, tagline, logo, contact/address/legal (many fields still empty strings pending client).
 
@@ -217,7 +221,7 @@ From `docs/WEBSITE_TODO.md` (as of mid-July 2026):
 | Search | Done |
 | About / contact / brands | Minimal; full content blocked on client |
 | Client contact details, address, WhatsApp, map, hours | **Blocked** |
-| Pneumatic catalogue | Deferred |
+| Pneumatic catalogue | Done (client taxonomy wired) |
 | Analytics, floating WhatsApp, form provider | Open decisions |
 
 ---
@@ -254,7 +258,7 @@ Do **not** invent these; leave empty or keep stubs until client delivers:
 1. `docs/WEBSITE_PLAN.md` — product/business/design decisions
 2. `docs/WEBSITE_TODO.md` — what's done vs open
 3. `lib/data/site.ts` — company config
-4. `lib/data/taxonomy.ts` — full hydraulic tree
+4. `lib/data/taxonomy.ts` — hydraulic + pneumatic trees
 5. `lib/data/catalogue.ts` + `lib/types/product.types.ts` — page model
 6. `app/globals.css` — design tokens
 7. `app/layout.tsx` — shell + fonts
@@ -264,4 +268,4 @@ Do **not** invent these; leave empty or keep stubs until client delivers:
 
 ## 15. One-line summary for system prompts
 
-> Static Next.js 16 App Router B2B hydraulic catalogue for Rishabh Hydro Tech Engineers: TypeScript taxonomy-driven product landings, client-side search, inquiry-led conversion (no cart), shadcn + Tailwind 4, Vercel host; contact details and form backend still pending; never invent SKUs, certifications, or AI-flavored marketing copy.
+> Static Next.js 16 App Router B2B hydraulic and pneumatic catalogue for Rishabh Hydro Tech Engineers: TypeScript taxonomy-driven product landings, client-side search, inquiry-led conversion (no cart), shadcn + Tailwind 4, Vercel host; contact details and form backend still pending; never invent SKUs, certifications, or AI-flavored marketing copy.

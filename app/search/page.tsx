@@ -6,7 +6,7 @@ import { SearchResults } from "@/components/search/SearchResults";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { popularSearches, searchCatalogue } from "@/lib/data/search-index";
-import { hydraulicTaxonomy } from "@/lib/data/taxonomy";
+import { hydraulicTaxonomy, pneumaticTaxonomy } from "@/lib/data/taxonomy";
 
 type SearchPageProps = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -15,7 +15,7 @@ type SearchPageProps = {
 export const metadata: Metadata = {
   title: "Search",
   description:
-    "Search hydraulic categories, product types, and brands in the Rishabh Hydro Tech Engineers catalogue.",
+    "Search hydraulic and pneumatic categories, product types, and brands in the Rishabh Hydro Tech Engineers catalogue.",
   robots: { index: false },
 };
 
@@ -41,20 +41,40 @@ function PopularSearchChips() {
 }
 
 function CategorySuggestions() {
+  const suggestions = [
+    ...hydraulicTaxonomy.slice(0, 6).map((category) => ({
+      key: `hydraulic-${category.slug}`,
+      href: `/products/hydraulic/${category.slug}`,
+      name: category.name,
+      intro: category.copy.intro,
+      division: "Hydraulic",
+    })),
+    ...pneumaticTaxonomy.slice(0, 6).map((category) => ({
+      key: `pneumatic-${category.slug}`,
+      href: `/products/pneumatic/${category.slug}`,
+      name: category.name,
+      intro: category.copy.intro,
+      division: "Pneumatic",
+    })),
+  ];
+
   return (
     <nav aria-label="Browse categories">
       <ul className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
-        {hydraulicTaxonomy.map((category) => (
-          <li key={category.slug} className="bg-white">
+        {suggestions.map((category) => (
+          <li key={category.key} className="bg-white">
             <Link
-              href={`/products/hydraulic/${category.slug}`}
+              href={category.href}
               className="group flex h-full flex-col gap-1 px-4 py-4 transition-colors hover:bg-brand-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset"
             >
+              <span className="type-caption text-brand">
+                {category.division}
+              </span>
               <span className="type-h4 text-neutral-dark transition-colors group-hover:text-brand-dark">
                 {category.name}
               </span>
               <span className="type-caption line-clamp-1 text-neutral-mid">
-                {category.copy.intro}
+                {category.intro}
               </span>
             </Link>
           </li>

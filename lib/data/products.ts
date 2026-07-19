@@ -2,9 +2,14 @@ import {
   flattenTaxonomyTypes,
   getTaxonomyLabelBySlug,
   hydraulicTaxonomy,
+  pneumaticTaxonomy,
   toTaxonomySlug,
 } from "@/lib/data/taxonomy";
-import type { Product, ProductDivision } from "@/lib/types/product.types";
+import type {
+  CategoryTaxonomy,
+  Product,
+  ProductDivision,
+} from "@/lib/types/product.types";
 
 /**
  * Unique catalogue card image per product type (or motor brand).
@@ -17,25 +22,30 @@ export function productImagePath(
   return `/products/${categorySlug}/${fileSlug}.png`;
 }
 
-/**
- * Seed products generated from the hydraulic taxonomy so every category is covered.
- * Names/types/makes come from WEBSITE_PLAN §6.2 — not invented SKUs.
- */
-function buildHydraulicSeedProducts(): Product[] {
+function buildSeedProductsForTaxonomy({
+  taxonomy,
+  division,
+  idPrefix,
+  nameForMakeOnly,
+}: {
+  taxonomy: CategoryTaxonomy[];
+  division: ProductDivision;
+  idPrefix: string;
+  nameForMakeOnly: (make: string, categoryName: string) => string;
+}): Product[] {
   const products: Product[] = [];
   let index = 1;
 
-  for (const category of hydraulicTaxonomy) {
+  for (const category of taxonomy) {
     const defaultBrand = category.makes[0];
 
     if (category.types.length === 0) {
-      // e.g. motors — taxonomy lists makes + sizes, no types
       for (const make of category.makes) {
         const fileSlug = toTaxonomySlug(make);
         products.push({
-          id: `h-${index++}`,
-          name: `${make} hydraulic motor`,
-          division: "hydraulic",
+          id: `${idPrefix}-${index++}`,
+          name: nameForMakeOnly(make, category.name),
+          division,
           category: category.slug,
           brand: make,
           image: productImagePath(category.slug, fileSlug),
@@ -46,9 +56,9 @@ function buildHydraulicSeedProducts(): Product[] {
 
     for (const type of flattenTaxonomyTypes(category.types)) {
       products.push({
-        id: `h-${index++}`,
+        id: `${idPrefix}-${index++}`,
         name: type.label,
-        division: "hydraulic",
+        division,
         category: category.slug,
         ...(defaultBrand ? { brand: defaultBrand } : {}),
         type: type.slug,
@@ -60,12 +70,38 @@ function buildHydraulicSeedProducts(): Product[] {
   return products;
 }
 
+/**
+ * Seed products generated from the hydraulic taxonomy so every category is covered.
+ * Names/types/makes come from WEBSITE_PLAN §6.2 — not invented SKUs.
+ */
+function buildHydraulicSeedProducts(): Product[] {
+  return buildSeedProductsForTaxonomy({
+    taxonomy: hydraulicTaxonomy,
+    division: "hydraulic",
+    idPrefix: "h",
+    nameForMakeOnly: (make) => `${make} hydraulic motor`,
+  });
+}
+
+/**
+ * Seed products from the pneumatic taxonomy (WEBSITE_PLAN §6.3).
+ */
+function buildPneumaticSeedProducts(): Product[] {
+  return buildSeedProductsForTaxonomy({
+    taxonomy: pneumaticTaxonomy,
+    division: "pneumatic",
+    idPrefix: "p",
+    nameForMakeOnly: (make, categoryName) => `${make} ${categoryName}`,
+  });
+}
+
 const hydraulicProducts: Product[] = buildHydraulicSeedProducts();
+const pneumaticProducts: Product[] = buildPneumaticSeedProducts();
 
 export function getProductsForDivision(division?: ProductDivision): Product[] {
   if (division === "hydraulic") return hydraulicProducts;
-  // Pneumatic: add when client delivers taxonomy (WEBSITE_PLAN §6.3)
-  return hydraulicProducts;
+  if (division === "pneumatic") return pneumaticProducts;
+  return [...hydraulicProducts, ...pneumaticProducts];
 }
 
 export function getProductsForCategory(

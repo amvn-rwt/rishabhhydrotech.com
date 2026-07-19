@@ -1,8 +1,5 @@
-/**
- * Catalogue divisions. v1 ships hydraulic only.
- * Add `"pneumatic"` when the client delivers the pneumatic taxonomy (WEBSITE_PLAN §6.3).
- */
-export type ProductDivision = "hydraulic";
+/** Catalogue divisions (WEBSITE_PLAN §6.2 hydraulic, §6.3 pneumatic). */
+export type ProductDivision = "hydraulic" | "pneumatic";
 
 export type FilterOption = {
   label: string;
@@ -104,10 +101,10 @@ export type CategoryLandingCopy = {
 };
 
 /**
- * One hydraulic category from the confirmed client taxonomy.
- * `sizes` holds discrete options or range strings exactly as listed in WEBSITE_PLAN §6.2.
+ * One catalogue category from the confirmed client taxonomy.
+ * `sizes` holds discrete options or range strings exactly as listed in WEBSITE_PLAN.
  */
-export type HydraulicCategoryTaxonomy = {
+export type CategoryTaxonomy = {
   slug: string;
   name: string;
   makes: string[];
@@ -115,3 +112,6 @@ export type HydraulicCategoryTaxonomy = {
   sizes?: string[];
   copy: CategoryLandingCopy;
 };
+
+export type HydraulicCategoryTaxonomy = CategoryTaxonomy;
+export type PneumaticCategoryTaxonomy = CategoryTaxonomy;

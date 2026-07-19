@@ -1,5 +1,8 @@
 import type {
+  CategoryTaxonomy,
   HydraulicCategoryTaxonomy,
+  PneumaticCategoryTaxonomy,
+  ProductDivision,
   TaxonomyTypeNode,
 } from "@/lib/types/product.types";
 import { siteConfig } from "@/lib/data/site";
@@ -345,26 +348,382 @@ export const hydraulicTaxonomy: HydraulicCategoryTaxonomy[] = [
   },
 ];
 
-const categoryBySlug = new Map(
+/** OEM makes shared across all pneumatic categories (WEBSITE_PLAN §6.3). */
+const PNEUMATIC_MAKES = [
+  "Festo",
+  "SMC",
+  "Aventics (Emerson)",
+  "Camozzi",
+  "Metal Work Pneumatic",
+  "Pneumax",
+  "AirTAC",
+  "Mindman",
+  "Parker Hannifin",
+  "Norgren (IMI)",
+  "ASCO (Emerson)",
+  "CKD",
+  "Pisco",
+  "EMC Pneumatics",
+  "Sang-A",
+  "Legris (Parker)",
+  "Numatics (Emerson)",
+];
+
+function pneumaticCategory(
+  slug: string,
+  name: string,
+  types: string[],
+  copy: CategoryTaxonomy["copy"],
+): PneumaticCategoryTaxonomy {
+  return {
+    slug,
+    name,
+    makes: [...PNEUMATIC_MAKES],
+    types: types.map((label) => typeNode(label)),
+    copy,
+  };
+}
+
+/**
+ * Full pneumatic taxonomy — 12 categories from WEBSITE_PLAN §6.3.
+ * Makes and types match the client brief; do not invent entries.
+ */
+export const pneumaticTaxonomy: PneumaticCategoryTaxonomy[] = [
+  pneumaticCategory(
+    "air-preparation",
+    "Air Preparation",
+    [
+      "FRL Units (Filter, Regulator, Lubricator)",
+      "Air Filters",
+      "Pressure Regulators",
+      "Air Lubricators",
+      "Filter Regulators",
+      "Moisture Separators",
+      "Air Dryers",
+    ],
+    {
+      title: "Air Preparation",
+      intro:
+        "FRL units, filters, regulators, lubricators, moisture separators, and air dryers from Festo, SMC, Aventics, and other listed makes.",
+      seoBody: [
+        "Air preparation equipment cleans, regulates, and conditions compressed air before it reaches valves, cylinders, and tools. Specs usually include port size, filtration micron rating, pressure range, and whether lubrication is required.",
+        "Browse FRL units, air filters, pressure regulators, air lubricators, filter regulators, moisture separators, and air dryers. Makes listed for this category include Festo, SMC, Aventics (Emerson), Camozzi, AirTAC, Parker Hannifin, Norgren (IMI), and more.",
+        "Filter by brand and type to match the existing air line. Include port thread, flow, and working pressure in your inquiry so we can quote the correct assembly.",
+        "Request a best price for air preparation products with the type and make you need.",
+      ],
+    },
+  ),
+  {
+    slug: "pressure-gauges",
+    name: "Pressure Gauges",
+    makes: [...PNEUMATIC_MAKES],
+    types: [],
+    copy: {
+      title: "Pneumatic Pressure Gauges",
+      intro:
+        "Pressure gauges for pneumatic circuits from Festo, SMC, Parker Hannifin, and other listed makes.",
+      seoBody: [
+        "Pneumatic pressure gauges show line and regulator pressure for setup, monitoring, and troubleshooting. Buyers typically specify dial size, pressure range, connection thread, and mounting style.",
+        "Filter by make to compare Festo, SMC, Aventics (Emerson), Camozzi, AirTAC, Parker Hannifin, Norgren (IMI), and other listed brands.",
+        "Share the pressure range and connection size in your quote request so we can match the gauge to your circuit.",
+        "Get a best price for pneumatic pressure gauges with range and make preference.",
+      ],
+    },
+  },
+  pneumaticCategory(
+    "cylinders",
+    "Pneumatic Cylinders",
+    [
+      "Standard Cylinders",
+      "Compact Cylinders",
+      "Mini Cylinders",
+      "Round Body Cylinders",
+      "Guided Cylinders",
+      "Rodless Cylinders",
+      "Twin Rod Cylinders",
+      "Rotary Actuators",
+      "Clamp Cylinders",
+      "Gripper Cylinders",
+    ],
+    {
+      title: "Pneumatic Cylinders",
+      intro:
+        "Standard, compact, guided, rodless, and specialty pneumatic cylinders plus rotary actuators from Festo, SMC, and other listed makes.",
+      seoBody: [
+        "Pneumatic cylinders convert compressed air into linear or rotary motion for clamping, transfer, and machine actuation. Selection depends on bore, stroke, mounting, cushioning, and duty cycle.",
+        "This range covers standard, compact, mini, round body, guided, rodless, twin rod, clamp, and gripper cylinders plus rotary actuators. Makes include Festo, SMC, Aventics (Emerson), Camozzi, AirTAC, and more.",
+        "Open a type card, then filter by brand. Include bore, stroke, and mounting style in your inquiry for a matching quote.",
+        "Request a best price for pneumatic cylinders with type, size, and make details.",
+      ],
+    },
+  ),
+  pneumaticCategory(
+    "valves",
+    "Pneumatic Valves",
+    [
+      "Solenoid Valves",
+      "Mechanical Valves",
+      "Manual Valves",
+      "Foot Operated Valves",
+      "Hand Lever Valves",
+      "Shuttle Valves",
+      "Check Valves",
+      "Flow Control Valves",
+      "Quick Exhaust Valves",
+      "Directional Control Valves",
+      "Pneumatic Logic Valves",
+    ],
+    {
+      title: "Pneumatic Valves",
+      intro:
+        "Solenoid, mechanical, manual, and directional pneumatic valves from Festo, SMC, ASCO, and other listed makes.",
+      seoBody: [
+        "Pneumatic valves direct and control air flow in industrial circuits. Specs usually include function, port size, voltage for solenoids, and mounting (inline, manifold, or sub-base).",
+        "Browse solenoid, mechanical, manual, foot operated, hand lever, shuttle, check, flow control, quick exhaust, directional control, and pneumatic logic valves. Makes include Festo, SMC, ASCO (Emerson), Camozzi, Norgren (IMI), and more.",
+        "Filter by brand and type to match existing valve islands and port standards. Note voltage and port size in your quote request.",
+        "Get a best price for pneumatic valves by function, make, and port details.",
+      ],
+    },
+  ),
+  pneumaticCategory(
+    "fittings",
+    "Pneumatic Fittings",
+    [
+      "Push-in Fittings",
+      "Straight Connectors",
+      "Elbow Connectors",
+      "Tee Connectors",
+      "Y Connectors",
+      "Bulkhead Fittings",
+      "Banjo Fittings",
+      "Reducers",
+      "Adapters",
+      "Silencers (Mufflers)",
+    ],
+    {
+      title: "Pneumatic Fittings",
+      intro:
+        "Push-in fittings, connectors, reducers, adapters, and silencers from Pisco, Legris, SMC, and other listed makes.",
+      seoBody: [
+        "Pneumatic fittings join tubing and threaded ports in compressed-air systems. Buyers specify tube OD, thread form, shape, and material.",
+        "This catalogue covers push-in fittings, straight, elbow, tee, and Y connectors, bulkhead and banjo fittings, reducers, adapters, and silencers (mufflers). Makes include Pisco, Legris (Parker), SMC, Festo, Camozzi, and more.",
+        "Choose a fitting type, then filter by brand. Share tube size and thread in your inquiry.",
+        "Request a quote for pneumatic fittings by type, size, and make.",
+      ],
+    },
+  ),
+  pneumaticCategory(
+    "tubing",
+    "Pneumatic Tubing",
+    [
+      "PU Tubes",
+      "Nylon Tubes",
+      "PTFE Tubes",
+      "PE Tubes",
+      "Coiled Air Hoses",
+      "Braided Air Hoses",
+    ],
+    {
+      title: "Pneumatic Tubing",
+      intro:
+        "PU, nylon, PTFE, and PE tubes plus coiled and braided air hoses from listed pneumatic makes.",
+      seoBody: [
+        "Pneumatic tubing carries compressed air between preparation equipment, valves, and actuators. Material, OD, and pressure rating must match the circuit and fittings.",
+        "Browse PU, nylon, PTFE, and PE tubes plus coiled and braided air hoses. Filter by brand among Festo, SMC, Parker Hannifin, Pisco, and other listed makes.",
+        "Include tube OD, length, and working pressure in your quote request.",
+        "Get a best price for pneumatic tubing with material and size details.",
+      ],
+    },
+  ),
+  pneumaticCategory(
+    "air-blow-equipment",
+    "Air Blow Equipment",
+    ["Air Blow Guns", "Air Nozzles", "Safety Air Guns", "Air Dusters"],
+    {
+      title: "Air Blow Equipment",
+      intro:
+        "Air blow guns, nozzles, safety air guns, and dusters for shop and production use.",
+      seoBody: [
+        "Air blow equipment uses compressed air for cleaning, drying, and chip removal. Specs include nozzle style, flow, noise level, and safety features.",
+        "Browse air blow guns, air nozzles, safety air guns, and air dusters from Festo, SMC, and other listed makes.",
+        "Share the application and connection size in your inquiry so we can quote the right tool.",
+        "Request a best price for air blow equipment with type and make preference.",
+      ],
+    },
+  ),
+  pneumaticCategory(
+    "vacuum-components",
+    "Vacuum Components",
+    [
+      "Vacuum Cups",
+      "Vacuum Generators",
+      "Vacuum Filters",
+      "Vacuum Pads",
+      "Vacuum Switches",
+      "Vacuum Ejectors",
+    ],
+    {
+      title: "Vacuum Components",
+      intro:
+        "Vacuum cups, generators, filters, pads, switches, and ejectors from Festo, SMC, and other listed makes.",
+      seoBody: [
+        "Vacuum components create and control vacuum for pick-and-place, packaging, and handling. Selection depends on cup size, generator flow, and switch setpoints.",
+        "This range covers vacuum cups, generators, filters, pads, switches, and ejectors. Makes include Festo, SMC, Pisco, Camozzi, and more.",
+        "Filter by type and brand, then note workpiece material and cup size in your quote request.",
+        "Get a best price for vacuum components with type and application details.",
+      ],
+    },
+  ),
+  pneumaticCategory(
+    "accessories",
+    "Pneumatic Accessories",
+    [
+      "Pneumatic Manifolds",
+      "Cylinder Mounting Accessories",
+      "Piston Rod Accessories",
+      "Tube Cutters",
+      "Hose Clamps",
+      "Air Pressure Switches",
+      "Solenoid Coils",
+      "Valve Connectors",
+    ],
+    {
+      title: "Pneumatic Accessories",
+      intro:
+        "Manifolds, mounting hardware, pressure switches, solenoid coils, and related pneumatic accessories.",
+      seoBody: [
+        "Pneumatic accessories support installation, sensing, and maintenance of air circuits. Specs vary by cylinder series, valve connector type, and switch rating.",
+        "Browse pneumatic manifolds, cylinder mounting and piston rod accessories, tube cutters, hose clamps, air pressure switches, solenoid coils, and valve connectors.",
+        "Include the parent valve or cylinder series in your inquiry when replacing coils, mounts, or switches.",
+        "Request a quote for pneumatic accessories by type and make.",
+      ],
+    },
+  ),
+  pneumaticCategory(
+    "air-compressors",
+    "Air Compressors & Accessories",
+    [
+      "Air Compressors",
+      "Compressor Filters",
+      "Air Receivers",
+      "Drain Valves",
+      "Compressor Oil",
+      "Compressor Spare Parts",
+    ],
+    {
+      title: "Air Compressors & Accessories",
+      intro:
+        "Air compressors, receivers, filters, drain valves, oil, and spare parts for plant air supply.",
+      seoBody: [
+        "Air compressors and related accessories supply and condition plant air. Buyers specify capacity, pressure, tank size, and filtration needs.",
+        "Browse air compressors, compressor filters, air receivers, drain valves, compressor oil, and spare parts. Filter by listed makes where applicable.",
+        "Share required CFM, pressure, and duty in your quote request.",
+        "Get a best price for air compressors and accessories with capacity and type details.",
+      ],
+    },
+  ),
+  pneumaticCategory(
+    "tools",
+    "Pneumatic Tools",
+    [
+      "Air Impact Wrenches",
+      "Air Drills",
+      "Air Screwdrivers",
+      "Air Grinders",
+      "Air Sanders",
+      "Air Ratchets",
+      "Air Hammers",
+      "Spray Guns",
+      "Air Nailers",
+      "Air Staplers",
+    ],
+    {
+      title: "Pneumatic Tools",
+      intro:
+        "Air impact wrenches, drills, grinders, sanders, spray guns, and other pneumatic tools.",
+      seoBody: [
+        "Pneumatic tools use compressed air for fastening, cutting, finishing, and assembly. Specs include drive size, RPM, air consumption, and duty rating.",
+        "This catalogue covers air impact wrenches, drills, screwdrivers, grinders, sanders, ratchets, hammers, spray guns, nailers, and staplers.",
+        "Filter by type and brand, then include drive size or application in your inquiry.",
+        "Request a best price for pneumatic tools with type and make preference.",
+      ],
+    },
+  ),
+  pneumaticCategory(
+    "industrial-automation",
+    "Industrial Automation Components",
+    [
+      "Pneumatic Actuators",
+      "Pneumatic Grippers",
+      "Air Slides",
+      "Rotary Tables",
+      "Sensor Switches for Cylinders",
+      "Reed Switches",
+      "Cylinder Position Sensors",
+    ],
+    {
+      title: "Industrial Automation Components",
+      intro:
+        "Pneumatic actuators, grippers, air slides, rotary tables, and cylinder position sensors from listed makes.",
+      seoBody: [
+        "Industrial automation components use pneumatics for repeatable motion and sensing on machines and fixtures. Specs include stroke, grip force, sensor type, and mounting.",
+        "Browse pneumatic actuators, grippers, air slides, rotary tables, sensor switches for cylinders, reed switches, and cylinder position sensors. Makes include Festo, SMC, AirTAC, Camozzi, and more.",
+        "Open a type card, filter by brand, and note the parent cylinder or series when ordering sensors.",
+        "Get a best price for automation components with type, size, and make details.",
+      ],
+    },
+  ),
+];
+
+const hydraulicCategoryBySlug = new Map(
   hydraulicTaxonomy.map((category) => [category.slug, category]),
 );
+
+const pneumaticCategoryBySlug = new Map(
+  pneumaticTaxonomy.map((category) => [category.slug, category]),
+);
+
+export function getTaxonomyForDivision(
+  division: ProductDivision,
+): CategoryTaxonomy[] {
+  return division === "pneumatic" ? pneumaticTaxonomy : hydraulicTaxonomy;
+}
+
+export function getCategoryForDivision(
+  division: ProductDivision,
+  slug: string,
+): CategoryTaxonomy | undefined {
+  return division === "pneumatic"
+    ? pneumaticCategoryBySlug.get(slug)
+    : hydraulicCategoryBySlug.get(slug);
+}
 
 export function getHydraulicCategory(
   slug: string,
 ): HydraulicCategoryTaxonomy | undefined {
-  return categoryBySlug.get(slug);
+  return hydraulicCategoryBySlug.get(slug);
+}
+
+export function getPneumaticCategory(
+  slug: string,
+): PneumaticCategoryTaxonomy | undefined {
+  return pneumaticCategoryBySlug.get(slug);
 }
 
 export function getHydraulicCategorySlugs(): string[] {
   return hydraulicTaxonomy.map((category) => category.slug);
 }
 
-/** Resolve a display label for a category, type, or subtype slug from the taxonomy. */
-export function getTaxonomyLabelBySlug(slug: string): string | undefined {
-  const category = categoryBySlug.get(slug);
-  if (category) return category.name;
+export function getPneumaticCategorySlugs(): string[] {
+  return pneumaticTaxonomy.map((category) => category.slug);
+}
 
-  for (const cat of hydraulicTaxonomy) {
+function labelFromTaxonomyList(
+  taxonomy: CategoryTaxonomy[],
+  slug: string,
+): string | undefined {
+  for (const cat of taxonomy) {
+    if (cat.slug === slug) return cat.name;
     for (const type of cat.types) {
       if (type.slug === slug) return type.label;
       for (const child of type.children ?? []) {
@@ -372,8 +731,22 @@ export function getTaxonomyLabelBySlug(slug: string): string | undefined {
       }
     }
   }
-
   return undefined;
+}
+
+/** Resolve a display label for a category, type, or subtype slug from the taxonomy. */
+export function getTaxonomyLabelBySlug(
+  slug: string,
+  division?: ProductDivision,
+): string | undefined {
+  if (division) {
+    return labelFromTaxonomyList(getTaxonomyForDivision(division), slug);
+  }
+
+  return (
+    labelFromTaxonomyList(hydraulicTaxonomy, slug) ??
+    labelFromTaxonomyList(pneumaticTaxonomy, slug)
+  );
 }
 
 /** Flatten type + subtype nodes under a category (depth-first). */
@@ -410,23 +783,32 @@ export function findTaxonomyTypeNode(
 export function expandTypeFilterSlugs(
   categorySlug: string | undefined,
   typeSlug: string,
+  division?: ProductDivision,
 ): string[] {
-  const category = categorySlug
-    ? getHydraulicCategory(categorySlug)
-    : undefined;
-  const trees = category
-    ? category.types
-    : hydraulicTaxonomy.flatMap((cat) => cat.types);
+  let trees: TaxonomyTypeNode[];
+
+  if (categorySlug && division) {
+    trees = getCategoryForDivision(division, categorySlug)?.types ?? [];
+  } else if (categorySlug) {
+    const hydraulic = getHydraulicCategory(categorySlug);
+    const pneumatic = getPneumaticCategory(categorySlug);
+    trees = [...(hydraulic?.types ?? []), ...(pneumatic?.types ?? [])];
+  } else if (division) {
+    trees = getTaxonomyForDivision(division).flatMap((cat) => cat.types);
+  } else {
+    trees = [...hydraulicTaxonomy, ...pneumaticTaxonomy].flatMap(
+      (cat) => cat.types,
+    );
+  }
+
   const node = findTaxonomyTypeNode(trees, typeSlug);
   if (!node) return [typeSlug];
   return flattenTaxonomyTypes([node]).map((type) => type.slug);
 }
 
-/**
- * All category / type / subtype slug paths for SSG (`generateStaticParams`).
- * Example: `["pumps"]`, `["pumps","gear-pump"]`, `["pumps","gear-pump","internal-gear-pump"]`.
- */
-export function getAllHydraulicCatalogueSlugPaths(): string[][] {
+function catalogueSlugPathsForTaxonomy(
+  taxonomy: CategoryTaxonomy[],
+): string[][] {
   const paths: string[][] = [];
 
   function walkTypes(nodes: TaxonomyTypeNode[], prefix: string[]) {
@@ -439,10 +821,23 @@ export function getAllHydraulicCatalogueSlugPaths(): string[][] {
     }
   }
 
-  for (const category of hydraulicTaxonomy) {
+  for (const category of taxonomy) {
     paths.push([category.slug]);
     walkTypes(category.types, [category.slug]);
   }
 
   return paths;
+}
+
+/**
+ * All category / type / subtype slug paths for SSG (`generateStaticParams`).
+ * Example: `["pumps"]`, `["pumps","gear-pump"]`, `["pumps","gear-pump","internal-gear-pump"]`.
+ */
+export function getAllHydraulicCatalogueSlugPaths(): string[][] {
+  return catalogueSlugPathsForTaxonomy(hydraulicTaxonomy);
+}
+
+/** All pneumatic category / type slug paths for SSG. */
+export function getAllPneumaticCatalogueSlugPaths(): string[][] {
+  return catalogueSlugPathsForTaxonomy(pneumaticTaxonomy);
 }

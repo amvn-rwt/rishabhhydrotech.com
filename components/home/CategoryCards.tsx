@@ -46,26 +46,44 @@ export function CategoryCards() {
               id="home-categories-heading"
               className="type-h2 text-balance text-neutral-dark"
             >
-              Hydraulic product categories
+              Product categories
             </h2>
             <p className="mt-3 max-w-prose type-lead text-pretty text-muted-foreground">
-              Find pumps, valves, hoses, cylinders, and more by category.
+              Find hydraulic pumps, valves, hoses, and cylinders, plus the full
+              pneumatic range, by category.
             </p>
           </div>
-          <Button
-            render={<Link href="/products/hydraulic" />}
-            nativeButton={false}
-            size="lg"
-            className="h-9 w-fit gap-0 overflow-hidden bg-brand p-0 text-white hover:bg-brand-dark"
-          >
-            <span className="px-5">View Hydraulic Catalogue</span>
-            <span
-              className="flex size-9 shrink-0 items-center justify-center border-l border-white/20 bg-brand-dark"
-              aria-hidden
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Button
+              render={<Link href="/products/hydraulic" />}
+              nativeButton={false}
+              size="lg"
+              className="h-9 w-fit gap-0 overflow-hidden bg-brand p-0 text-white hover:bg-brand-dark"
             >
-              <ArrowRightIcon className="size-4" />
-            </span>
-          </Button>
+              <span className="px-5">View Hydraulic Catalogue</span>
+              <span
+                className="flex size-9 shrink-0 items-center justify-center border-l border-white/20 bg-brand-dark"
+                aria-hidden
+              >
+                <ArrowRightIcon className="size-4" />
+              </span>
+            </Button>
+            <Button
+              render={<Link href="/products/pneumatic" />}
+              nativeButton={false}
+              size="lg"
+              variant="outline"
+              className="h-9 w-fit gap-0 overflow-hidden border-brand p-0 text-brand hover:bg-brand-muted"
+            >
+              <span className="px-5">View Pneumatic Catalogue</span>
+              <span
+                className="flex size-9 shrink-0 items-center justify-center border-l border-brand/20"
+                aria-hidden
+              >
+                <ArrowRightIcon className="size-4" />
+              </span>
+            </Button>
+          </div>
         </div>
 
         <ul className="mt-10 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">

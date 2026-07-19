@@ -7,8 +7,8 @@ import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { CatalogueInquiryCTA } from "@/components/products/CatalogueInquiryCTA";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import {
+  getAllBrands,
   getBrandBySlug,
-  getBrandsForDivision,
   getCategoriesForBrand,
 } from "@/lib/data/brands";
 import { getProductsForDivision } from "@/lib/data/products";
@@ -19,7 +19,7 @@ type BrandPageProps = {
 };
 
 export function generateStaticParams() {
-  return getBrandsForDivision("hydraulic").map((brand) => ({
+  return getAllBrands().map((brand) => ({
     slug: brand.slug,
   }));
 }
@@ -33,13 +33,19 @@ export async function generateMetadata({
 
   const categories = getCategoriesForBrand(brand.name);
   const categoryNames = categories.map((category) => category.name);
+  const divisionLabel =
+    brand.divisions.length === 2
+      ? "Hydraulic & Pneumatic"
+      : brand.divisions[0] === "pneumatic"
+        ? "Pneumatic"
+        : "Hydraulic";
 
   return {
-    title: `${brand.name} Hydraulic Products`,
+    title: `${brand.name} ${divisionLabel} Products`,
     description:
       categoryNames.length > 0
         ? `${brand.name} products we deal in: ${categoryNames.join(", ")}. Request a best price quote.`
-        : `${brand.name} hydraulic products. Request a best price quote.`,
+        : `${brand.name} catalogue products. Request a best price quote.`,
     alternates: { canonical: `/brands/${brand.slug}` },
   };
 }
@@ -50,9 +56,16 @@ export default async function BrandPage({ params }: BrandPageProps) {
   if (!brand) notFound();
 
   const categories = getCategoriesForBrand(brand.name);
-  const products = getProductsForDivision("hydraulic").filter(
+  const products = getProductsForDivision().filter(
     (product) => product.brand === brand.name,
   );
+
+  const divisionPhrase =
+    brand.divisions.length === 2
+      ? "hydraulic and pneumatic"
+      : brand.divisions[0] === "pneumatic"
+        ? "pneumatic"
+        : "hydraulic";
 
   return (
     <div className="flex flex-1 flex-col bg-brand-muted">
@@ -72,8 +85,8 @@ export default async function BrandPage({ params }: BrandPageProps) {
           </h1>
           <p className="mt-3 max-w-prose type-lead text-pretty text-muted-foreground">
             {categories.length > 0
-              ? `Make listed for ${categories.length} hydraulic ${categories.length === 1 ? "category" : "categories"}. Open a category to filter the catalogue to ${brand.name}.`
-              : "Make listed in our hydraulic catalogue. Send an inquiry with the model or part number you need."}
+              ? `Make listed for ${categories.length} ${divisionPhrase} ${categories.length === 1 ? "category" : "categories"}. Open a category to filter the catalogue to ${brand.name}.`
+              : `Make listed in our ${divisionPhrase} catalogue. Send an inquiry with the model or part number you need.`}
           </p>
         </div>
       </div>
@@ -90,9 +103,12 @@ export default async function BrandPage({ params }: BrandPageProps) {
               </h2>
               <ul className="mt-4 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
                 {categories.map((category) => (
-                  <li key={category.slug} className="bg-white">
+                  <li
+                    key={`${category.division}-${category.slug}`}
+                    className="bg-white"
+                  >
                     <Link
-                      href={`/products/hydraulic/${category.slug}?brand=${brand.slug}`}
+                      href={`/products/${category.division}/${category.slug}?brand=${brand.slug}`}
                       className="group flex h-full flex-col gap-2 px-4 py-5 transition-colors hover:bg-brand-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset"
                     >
                       <span className="flex items-start justify-between gap-3">
@@ -103,6 +119,11 @@ export default async function BrandPage({ params }: BrandPageProps) {
                           className="mt-0.5 size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-brand"
                           aria-hidden
                         />
+                      </span>
+                      <span className="type-caption text-brand">
+                        {category.division === "pneumatic"
+                          ? "Pneumatic"
+                          : "Hydraulic"}
                       </span>
                       <span className="type-body-sm line-clamp-2 text-muted-foreground">
                         {category.copy.intro}
@@ -136,7 +157,10 @@ export default async function BrandPage({ params }: BrandPageProps) {
           description:
             "Share the model number, type, and specs you need. We will reply with pricing and availability.",
           primaryLabel: "Get Best Price",
-          href: inquiryHref({ division: "hydraulic", brand: brand.name }),
+          href: inquiryHref({
+            division: brand.divisions[0],
+            brand: brand.name,
+          }),
         }}
       />
     </div>

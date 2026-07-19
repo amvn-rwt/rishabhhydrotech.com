@@ -46,14 +46,14 @@ export const homepageBrandSlugs = [
   "rexroth",
   "vickers",
   "parker",
+  "festo",
+  "smc",
   "gates",
   "daikin",
+  "airtac",
   "nachi",
   "danfoss",
   "hydac",
-  "polyhose",
-  "donaldson",
-  "wika",
 ] as const;
 
 export function getHomepageBrands(): Brand[] {

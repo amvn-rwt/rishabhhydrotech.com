@@ -11,12 +11,12 @@ import { InquiryCTA } from "@/components/home/InquiryCTA";
 import { Button } from "@/components/ui/button";
 import { aboutSnippet, whyChooseUsItems } from "@/lib/data/home";
 import { siteConfig } from "@/lib/data/site";
-import { hydraulicTaxonomy } from "@/lib/data/taxonomy";
+import { hydraulicTaxonomy, pneumaticTaxonomy } from "@/lib/data/taxonomy";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Rishabh Hydro Tech Engineers supplies hydraulic components and systems: pumps, valves, hoses, cylinders, and power packs for plant and OEM buyers.",
+    "Rishabh Hydro Tech Engineers supplies hydraulic and pneumatic components: pumps, valves, hoses, cylinders, fittings, and more for plant and OEM buyers.",
   alternates: { canonical: "/about" },
 };
 
@@ -109,16 +109,34 @@ export default function AboutPage() {
             What we supply
           </h2>
           <p className="mt-3 max-w-prose type-lead text-pretty text-muted-foreground">
-            {hydraulicTaxonomy.length} hydraulic categories, from pumps and
-            valves to manifolds and heat exchangers.
+            {hydraulicTaxonomy.length} hydraulic and {pneumaticTaxonomy.length}{" "}
+            pneumatic categories, from pumps and valves to air preparation and
+            automation components.
           </p>
           <ul className="mt-8 grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3">
             {hydraulicTaxonomy.map((category) => (
-              <li key={category.slug} className="bg-white">
+              <li key={`hydraulic-${category.slug}`} className="bg-white">
                 <Link
                   href={`/products/hydraulic/${category.slug}`}
                   className="group flex h-full flex-col gap-1 px-4 py-4 transition-colors hover:bg-brand-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset"
                 >
+                  <span className="type-caption text-brand">Hydraulic</span>
+                  <span className="type-h4 text-neutral-dark transition-colors group-hover:text-brand-dark">
+                    {category.name}
+                  </span>
+                  <span className="type-caption line-clamp-1 text-neutral-mid">
+                    {category.copy.intro}
+                  </span>
+                </Link>
+              </li>
+            ))}
+            {pneumaticTaxonomy.map((category) => (
+              <li key={`pneumatic-${category.slug}`} className="bg-white">
+                <Link
+                  href={`/products/pneumatic/${category.slug}`}
+                  className="group flex h-full flex-col gap-1 px-4 py-4 transition-colors hover:bg-brand-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset"
+                >
+                  <span className="type-caption text-brand">Pneumatic</span>
                   <span className="type-h4 text-neutral-dark transition-colors group-hover:text-brand-dark">
                     {category.name}
                   </span>

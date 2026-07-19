@@ -56,7 +56,7 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 - [ ] Preferred inquiry email recipient
 - [ ] Company description for About page
 - [ ] 5–10 hero slider images (pumps, cylinders, power packs, hoses, etc.)
-- [ ] **Pneumatic product list** — client will provide later; not a v1 blocker ([WEBSITE_PLAN.md §6.3](./WEBSITE_PLAN.md#63-pneumatic-products--deferred))
+- [x] **Pneumatic product list** — confirmed ([WEBSITE_PLAN.md §6.3](./WEBSITE_PLAN.md#63-pneumatic-products--confirmed))
 
 ### A.3 Should-have client deliverables
 
@@ -116,8 +116,8 @@ These unblock content, copy, and several technical choices. Track in meetings; m
 ### B.3 Data model & taxonomy ✅
 
 - [x] `lib/types/product.types.ts` — Product, FilterGroup, CataloguePageConfig, Brand, taxonomy types
-- [x] Sample products in `lib/data/products.ts` (hydraulic placeholders only; pneumatic deferred)
-- [x] Sample filters in `lib/data/filters.ts` (hydraulic subset; pneumatic deferred)
+- [x] Sample products in `lib/data/products.ts` (hydraulic + pneumatic seed cards)
+- [x] Sample filters in `lib/data/filters.ts` (hydraulic + pneumatic)
 - [x] `lib/data/navigation.ts` — primary nav, footer links, category quick links
 - [x] `lib/data/brands.ts` — brand metadata (name, slug, logo, divisions)
 - [x] Full **hydraulic taxonomy** (13 categories) as structured data in `lib/data/taxonomy.ts`:
@@ -152,7 +152,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
   - [x] Product-image placeholders until client photos (client direction: use product images for slider)
 - [x] **§3 Quick category cards** (`components/home/CategoryCards.tsx`) (P0)
   - [x] Hydraulic catalogue CTA + top subcategory links (pumps, valves, hoses, cylinders, etc.)
-  - [ ] Pneumatic card — only after client taxonomy (§6.3)
+  - [x] Pneumatic catalogue CTA after client taxonomy (§6.3)
 - [x] **§4 Brands we deal in** (`components/home/BrandsGrid.tsx`) (P1)
   - [x] Logo grid, grayscale treatment (text placeholders until OEM logos arrive)
   - [x] Link to `/brands` and `/brands/[slug]` (pages still Phase 4)
@@ -179,7 +179,7 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 | `/products`                     | 🔶     | Hub cards + filters + brands/CTA/SEO shell done        |
 | `/products/hydraulic`           | 🔶     | 13-category grid + brands/CTA done                     |
 | `/products/hydraulic/[...slug]` | 🔶     | Type cards + brands/CTA/related/SEO/SSG; type SEO open |
-| `/products/pneumatic`           | 🔒     | Deferred — add when client delivers taxonomy (§6.3)    |
+| `/products/pneumatic`           | ✅     | Division landing + `[...slug]` SSG from §6.3 taxonomy  |
 
 ### D.2 Catalogue components ✅
 
@@ -216,9 +216,12 @@ Target sections (top to bottom per [WEBSITE_PLAN.md §5](./WEBSITE_PLAN.md#5-hom
 - [x] `/products/hydraulic/heat-exchangers`
 - [x] Type-level pages where taxonomy has subtypes (e.g. `pumps/piston-pump`, `pumps/gear-pump/internal-gear-pump`)
 
-### D.4 Pneumatic catalogue — deferred
+### D.4 Pneumatic catalogue ✅
 
-Client will provide the full pneumatic taxonomy later. Do not invent categories or pages. When received: document in [WEBSITE_PLAN.md §6.3](./WEBSITE_PLAN.md#63-pneumatic-products--deferred), then add routes, nav, filters, and seed data.
+- [x] Taxonomy documented in [WEBSITE_PLAN.md §6.3](./WEBSITE_PLAN.md#63-pneumatic-products--confirmed)
+- [x] `pneumaticTaxonomy` + seed products + brands/filters/search
+- [x] `/products/pneumatic` + `/products/pneumatic/[...slug]` SSG routes
+- [x] Nav, footer, homepage CTA, sitemap
 
 ---
 
@@ -380,7 +383,7 @@ Client will provide the full pneumatic taxonomy later. Do not invent categories 
 - [ ] Blog / application notes for long-tail SEO
 - [ ] Customer testimonials section on homepage
 - [ ] Live chat integration
-- [ ] **Pneumatic catalogue** — after client delivers taxonomy (plan §6.3)
+- [x] **Pneumatic catalogue** — client taxonomy wired (plan §6.3)
 
 ---
 

@@ -4,14 +4,14 @@ import { ArrowRightIcon } from "lucide-react";
 
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { CatalogueInquiryCTA } from "@/components/products/CatalogueInquiryCTA";
-import { getBrandsForDivision, getCategoriesForBrand } from "@/lib/data/brands";
+import { getAllBrands, getCategoriesForBrand } from "@/lib/data/brands";
 import { inquiryHref } from "@/lib/inquiry";
 import type { Brand } from "@/lib/types/product.types";
 
 export const metadata: Metadata = {
   title: "Brands",
   description:
-    "Hydraulic makes we deal in: Yuken, Rexroth, Parker, Vickers, Daikin, and more. Browse by brand and request a quote.",
+    "Hydraulic and pneumatic makes we deal in: Yuken, Rexroth, Festo, SMC, Parker, and more. Browse by brand and request a quote.",
   alternates: { canonical: "/brands" },
 };
 
@@ -30,7 +30,7 @@ function groupByLetter(brands: Brand[]): [string, Brand[]][] {
 }
 
 export default function BrandsPage() {
-  const brands = getBrandsForDivision("hydraulic");
+  const brands = getAllBrands();
   const letterGroups = groupByLetter(brands);
 
   return (
@@ -45,9 +45,8 @@ export default function BrandsPage() {
             Brands We Deal In
           </h1>
           <p className="mt-3 max-w-prose type-lead text-pretty text-muted-foreground tabular-nums">
-            {brands.length} hydraulic makes across pumps, valves, hoses,
-            cylinders, and more. Open a brand to see its categories and
-            request a quote.
+            {brands.length} makes across hydraulic and pneumatic categories.
+            Open a brand to see its categories and request a quote.
           </p>
         </div>
       </div>
@@ -103,7 +102,7 @@ export default function BrandsPage() {
           description:
             "Tell us the make, model number, and specs. We will reply with pricing and availability.",
           primaryLabel: "Get Best Price",
-          href: inquiryHref({ division: "hydraulic" }),
+          href: inquiryHref(),
         }}
       />
     </div>

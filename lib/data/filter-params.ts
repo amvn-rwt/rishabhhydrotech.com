@@ -148,7 +148,11 @@ function productMatchesTypeFilter(
   if (!product.type) return false;
 
   for (const typeValue of typeValues) {
-    const matchingSlugs = expandTypeFilterSlugs(product.category, typeValue);
+    const matchingSlugs = expandTypeFilterSlugs(
+      product.category,
+      typeValue,
+      product.division,
+    );
     if (matchingSlugs.includes(product.type)) return true;
   }
 

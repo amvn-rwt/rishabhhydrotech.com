@@ -3,8 +3,11 @@ import {
   getProductById,
 } from "@/lib/data/products";
 import {
+  getCategoryForDivision,
   getHydraulicCategory,
+  getPneumaticCategory,
   hydraulicTaxonomy,
+  pneumaticTaxonomy,
 } from "@/lib/data/taxonomy";
 import type { ProductDivision } from "@/lib/types/product.types";
 
@@ -94,23 +97,54 @@ export function inquiryDefaultsFromHref(href: string): InquiryFormDefaults {
   }
 }
 
-export function getInquiryCategoryOptions(): { value: string; label: string }[] {
-  return hydraulicTaxonomy.map((category) => ({
-    value: category.slug,
-    label: category.name,
-  }));
+/** Encode division + category slug for the inquiry select (avoids slug collisions). */
+export function inquiryCategoryValue(
+  division: ProductDivision,
+  categorySlug: string,
+): string {
+  return `${division}:${categorySlug}`;
 }
 
-export function getInquiryBrandOptions(categorySlug?: string): string[] {
-  if (categorySlug) {
-    const category = getHydraulicCategory(categorySlug);
+export function parseInquiryCategoryValue(value: string): {
+  division?: ProductDivision;
+  slug: string;
+} {
+  const match = /^(hydraulic|pneumatic):(.+)$/.exec(value);
+  if (match) {
+    return {
+      division: match[1] as ProductDivision,
+      slug: match[2],
+    };
+  }
+  return { slug: value };
+}
+
+export function getInquiryCategoryOptions(): { value: string; label: string }[] {
+  return [
+    ...hydraulicTaxonomy.map((category) => ({
+      value: inquiryCategoryValue("hydraulic", category.slug),
+      label: `Hydraulic: ${category.name}`,
+    })),
+    ...pneumaticTaxonomy.map((category) => ({
+      value: inquiryCategoryValue("pneumatic", category.slug),
+      label: `Pneumatic: ${category.name}`,
+    })),
+  ];
+}
+
+export function getInquiryBrandOptions(categoryValue?: string): string[] {
+  if (categoryValue) {
+    const { division, slug } = parseInquiryCategoryValue(categoryValue);
+    const category = division
+      ? getCategoryForDivision(division, slug)
+      : (getHydraulicCategory(slug) ?? getPneumaticCategory(slug));
     if (category?.makes.length) {
       return [...category.makes].toSorted((a, b) => a.localeCompare(b));
     }
   }
 
   const names = new Set<string>();
-  for (const category of hydraulicTaxonomy) {
+  for (const category of [...hydraulicTaxonomy, ...pneumaticTaxonomy]) {
     for (const make of category.makes) {
       names.add(make);
     }
@@ -123,15 +157,52 @@ export function resolveInquiryProductLabel(productId?: string): string | undefin
   return getProductById(productId)?.name;
 }
 
-export function resolveInquiryCategoryLabel(categorySlug?: string): string | undefined {
-  if (!categorySlug) return undefined;
-  return formatCategoryLabel(categorySlug);
+export function resolveInquiryCategoryLabel(categoryValue?: string): string | undefined {
+  if (!categoryValue) return undefined;
+  const { division, slug } = parseInquiryCategoryValue(categoryValue);
+  const category = division
+    ? getCategoryForDivision(division, slug)
+    : (getHydraulicCategory(slug) ?? getPneumaticCategory(slug));
+  if (category) {
+    return division
+      ? `${division === "pneumatic" ? "Pneumatic" : "Hydraulic"}: ${category.name}`
+      : category.name;
+  }
+  return formatCategoryLabel(slug);
+}
+
+function resolveDefaultCategoryValue(
+  defaults?: InquiryFormDefaults,
+): string {
+  if (!defaults?.category) return "";
+
+  const parsed = parseInquiryCategoryValue(defaults.category);
+  if (parsed.division) {
+    return inquiryCategoryValue(parsed.division, parsed.slug);
+  }
+
+  if (
+    defaults.division === "hydraulic" ||
+    defaults.division === "pneumatic"
+  ) {
+    return inquiryCategoryValue(defaults.division, parsed.slug);
+  }
+
+  if (getHydraulicCategory(parsed.slug)) {
+    return inquiryCategoryValue("hydraulic", parsed.slug);
+  }
+  if (getPneumaticCategory(parsed.slug)) {
+    return inquiryCategoryValue("pneumatic", parsed.slug);
+  }
+
+  return parsed.slug;
 }
 
 export function emptyInquiryFormValues(
   defaults?: InquiryFormDefaults,
 ): InquiryFormValues {
-  const brandOptions = getInquiryBrandOptions(defaults?.category);
+  const category = resolveDefaultCategoryValue(defaults);
+  const brandOptions = getInquiryBrandOptions(category || undefined);
   const brand =
     defaults?.brand && brandOptions.includes(defaults.brand)
       ? defaults.brand
@@ -142,7 +213,7 @@ export function emptyInquiryFormValues(
     phone: "",
     email: "",
     company: "",
-    category: defaults?.category ?? "",
+    category,
     brand,
     quantity: "",
     message: "",
